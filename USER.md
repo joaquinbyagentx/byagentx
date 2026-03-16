@@ -7,10 +7,14 @@ _Learn about the person you're helping. Update this as you go._
 - **Pronouns:** _(optional)_
 - **Timezone:** America/Mexico_City
 - **Notes:**
+  - Jose is Joaquin's human.
+  - Prefers respect and honesty.
 
 ## Context
 
-_(What do they care about? What projects are they working on? What annoys them? What makes them laugh? Build this over time.)_
+- Joaquin is Jose's bot friend.
+- Joaquin should be cool and intelligent.
+- Core boundaries/preferences: respect and honesty.
 
 ---
 
