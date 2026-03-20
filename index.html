@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgentX - AI Automation for Businesses</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+        
+        nav a:hover {
+            opacity: 0.8;
+        }
+        
+        .lang-selector {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid white;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .lang-selector:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-button {
+            background: #ff6b6b;
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .cta-button:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.3);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .feature-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+        
+        .feature-card h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .pricing {
+            background: #f8f9fa;
+            padding: 3rem 2rem;
+        }
+        
+        .pricing-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .pricing h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+        
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .pricing-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+        
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+        
+        .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #764ba2;
+            margin: 1rem 0;
+        }
+        
+        .price-currency {
+            font-size: 1rem;
+            font-weight: normal;
+        }
+        
+        .pricing-card ul {
+            list-style: none;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+        
+        .pricing-card li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .pricing-card li:before {
+            content: "✓ ";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">AgentX</div>
+        <nav>
+            <a href="#features" data-i18n="nav.features">Features</a>
+            <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
+            <a href="#contact" data-i18n="nav.contact">Contact</a>
+            <select class="lang-selector" id="langSelector" onchange="changeLanguage(this.value)">
+                <option value="en">EN</option>
+                <option value="es">ES</option>
+            </select>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1 data-i18n="hero.title">AI Automation for Your Business</h1>
+        <p data-i18n="hero.subtitle">WhatsApp bots, smart websites, and custom AI workflows that save time and increase revenue</p>
+        <button class="cta-button" data-i18n="hero.cta">Start Free Trial</button>
+    </section>
+
+    <section class="features" id="features">
+        <div class="feature-card">
+            <h3 data-i18n="features.whatsapp.title">WhatsApp Bot</h3>
+            <p data-i18n="features.whatsapp.desc">Automate customer support, orders, and bookings 24/7</p>
+        </div>
+        <div class="feature-card">
+            <h3 data-i18n="features.website.title">Smart Website</h3>
+            <p data-i18n="features.website.desc">AI-powered landing pages that convert visitors to customers</p>
+        </div>
+        <div class="feature-card">
+            <h3 data-i18n="features.custom.title">Custom AI Workflows</h3>
+            <p data-i18n="features.custom.desc">Tailored automation for your unique business needs</p>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="pricing-container">
+            <h2 data-i18n="pricing.title">Simple, Transparent Pricing</h2>
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <h3 data-i18n="pricing.basic.name">Basic</h3>
+                    <div class="price">
+                        <span class="price-currency" id="currency1">$</span><span id="price1">99</span><span data-i18n="pricing.period">/month</span>
+                    </div>
+                    <ul>
+                        <li data-i18n="pricing.basic.feature1">WhatsApp Bot</li>
+                        <li data-i18n="pricing.basic.feature2">Up to 1,000 messages/month</li>
+                        <li data-i18n="pricing.basic.feature3">Basic Analytics</li>
+                    </ul>
+                    <button class="cta-button" data-i18n="pricing.basic.cta">Get Started</button>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3 data-i18n="pricing.pro.name">Pro</h3>
+                    <div class="price">
+                        <span class="price-currency" id="currency2">$</span><span id="price2">299</span><span data-i18n="pricing.period">/month</span>
+                    </div>
+                    <ul>
+                        <li data-i18n="pricing.pro.feature1">Everything in Basic</li>
+                        <li data-i18n="pricing.pro.feature2">Up to 10,000 messages/month</li>
+                        <li data-i18n="pricing.pro.feature3">Advanced Analytics</li>
+                        <li data-i18n="pricing.pro.feature4">Priority Support</li>
+                    </ul>
+                    <button class="cta-button" data-i18n="pricing.pro.cta">Get Started</button>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3 data-i18n="pricing.enterprise.name">Enterprise</h3>
+                    <div class="price">
+                        <span class="price-currency" id="currency3">$</span><span id="price3">999</span><span data-i18n="pricing.period">/month</span>
+                    </div>
+                    <ul>
+                        <li data-i18n="pricing.enterprise.feature1">Everything in Pro</li>
+                        <li data-i18n="pricing.enterprise.feature2">Unlimited Messages</li>
+                        <li data-i18n="pricing.enterprise.feature3">Custom Workflows</li>
+                        <li data-i18n="pricing.enterprise.feature4">24/7 Dedicated Support</li>
+                    </ul>
+                    <button class="cta-button" data-i18n="pricing.enterprise.cta">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <p data-i18n="footer.contact">Contact: info@byagentx.com</p>
+        <p data-i18n="footer.copyright">&copy; 2026 AgentX. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const translations = {
+            en: {
+                "nav.features": "Features",
+                "nav.pricing": "Pricing",
+                "nav.contact": "Contact",
+                "hero.title": "AI Automation for Your Business",
+                "hero.subtitle": "WhatsApp bots, smart websites, and custom AI workflows that save time and increase revenue",
+                "hero.cta": "Start Free Trial",
+                "features.whatsapp.title": "WhatsApp Bot",
+                "features.whatsapp.desc": "Automate customer support, orders, and bookings 24/7",
+                "features.website.title": "Smart Website",
+                "features.website.desc": "AI-powered landing pages that convert visitors to customers",
+                "features.custom.title": "Custom AI Workflows",
+                "features.custom.desc": "Tailored automation for your unique business needs",
+                "pricing.title": "Simple, Transparent Pricing",
+                "pricing.period": "/month",
+                "pricing.basic.name": "Basic",
+                "pricing.basic.feature1": "WhatsApp Bot",
+                "pricing.basic.feature2": "Up to 1,000 messages/month",
+                "pricing.basic.feature3": "Basic Analytics",
+                "pricing.basic.cta": "Get Started",
+                "pricing.pro.name": "Pro",
+                "pricing.pro.feature1": "Everything in Basic",
+                "pricing.pro.feature2": "Up to 10,000 messages/month",
+                "pricing.pro.feature3": "Advanced Analytics",
+                "pricing.pro.feature4": "Priority Support",
+                "pricing.pro.cta": "Get Started",
+                "pricing.enterprise.name": "Enterprise",
+                "pricing.enterprise.feature1": "Everything in Pro",
+                "pricing.enterprise.feature2": "Unlimited Messages",
+                "pricing.enterprise.feature3": "Custom Workflows",
+                "pricing.enterprise.feature4": "24/7 Dedicated Support",
+                "pricing.enterprise.cta": "Contact Sales",
+                "footer.contact": "Contact: info@byagentx.com",
+                "footer.copyright": "© 2026 AgentX. All rights reserved."
+            },
+            es: {
+                "nav.features": "Características",
+                "nav.pricing": "Precios",
+                "nav.contact": "Contacto",
+                "hero.title": "Automatización AI para tu Negocio",
+                "hero.subtitle": "Bots de WhatsApp, sitios inteligentes y flujos AI personalizados que ahorran tiempo e incrementan ingresos",
+                "hero.cta": "Comienza Prueba Gratis",
+                "features.whatsapp.title": "Bot de WhatsApp",
+                "features.whatsapp.desc": "Automatiza soporte al cliente, pedidos y reservas 24/7",
+                "features.website.title": "Sitio Inteligente",
+                "features.website.desc": "Páginas de destino impulsadas por AI que convierten visitantes en clientes",
+                "features.custom.title": "Flujos AI Personalizados",
+                "features.custom.desc": "Automatización adaptada a las necesidades únicas de tu negocio",
+                "pricing.title": "Precios Simples y Transparentes",
+                "pricing.period": "/mes",
+                "pricing.basic.name": "Básico",
+                "pricing.basic.feature1": "Bot de WhatsApp",
+                "pricing.basic.feature2": "Hasta 1,000 mensajes/mes",
+                "pricing.basic.feature3": "Análisis Básico",
+                "pricing.basic.cta": "Comenzar",
+                "pricing.pro.name": "Pro",
+                "pricing.pro.feature1": "Todo incluido en Básico",
+                "pricing.pro.feature2": "Hasta 10,000 mensajes/mes",
+                "pricing.pro.feature3": "Análisis Avanzado",
+                "pricing.pro.feature4": "Soporte Prioritario",
+                "pricing.pro.cta": "Comenzar",
+                "pricing.enterprise.name": "Empresa",
+                "pricing.enterprise.feature1": "Todo incluido en Pro",
+                "pricing.enterprise.feature2": "Mensajes Ilimitados",
+                "pricing.enterprise.feature3": "Flujos Personalizados",
+                "pricing.enterprise.feature4": "Soporte Dedicado 24/7",
+                "pricing.enterprise.cta": "Contactar Ventas",
+                "footer.contact": "Contacto: info@byagentx.com",
+                "footer.copyright": "© 2026 AgentX. Todos los derechos reservados."
+            }
+        };
+
+        const exchangeRate = 17; // 1 USD = 17 MXN
+        const prices = {
+            basic: 99,
+            pro: 299,
+            enterprise: 999
+        };
+
+        function changeLanguage(lang) {
+            localStorage.setItem('selectedLanguage', lang);
+            updatePageLanguage(lang);
+        }
+
+        function updatePageLanguage(lang) {
+            // Update all data-i18n elements
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            // Update prices and currency
+            if (lang === 'es') {
+                document.getElementById('currency1').textContent = '$';
+                document.getElementById('currency2').textContent = '$';
+                document.getElementById('currency3').textContent = '$';
+                document.getElementById('price1').textContent = (prices.basic * exchangeRate).toLocaleString('es-MX');
+                document.getElementById('price2').textContent = (prices.pro * exchangeRate).toLocaleString('es-MX');
+                document.getElementById('price3').textContent = (prices.enterprise * exchangeRate).toLocaleString('es-MX');
+            } else {
+                document.getElementById('currency1').textContent = '$';
+                document.getElementById('currency2').textContent = '$';
+                document.getElementById('currency3').textContent = '$';
+                document.getElementById('price1').textContent = prices.basic;
+                document.getElementById('price2').textContent = prices.pro;
+                document.getElementById('price3').textContent = prices.enterprise;
+            }
+        }
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('selectedLanguage') || 'en';
+            document.getElementById('langSelector').value = savedLang;
+            updatePageLanguage(savedLang);
+        });
+    </script>
+</body>
+</html>
