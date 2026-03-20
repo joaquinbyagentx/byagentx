@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <defs>
+    <style>
+      .badge-background {
+        fill: #FFFFFF;
+        stroke: #E5E5E5;
+        stroke-width: 1;
+      }
+      
+      .badge-accent {
+        fill: #0052CC;
+      }
+      
+      .badge-text {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        fill: #1a1a1a;
+        font-size: 12px;
+        font-weight: 700;
+        text-anchor: start;
+        letter-spacing: -0.3px;
+      }
+      
+      .badge-subtext {
+        fill: #666;
+        font-size: 9px;
+        text-anchor: start;
+        letter-spacing: -0.2px;
+      }
+      
+      .stripe-text {
+        font-family: 'Stripe', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        fill: #0052CC;
+        font-size: 8px;
+        font-weight: 600;
+        text-anchor: end;
+      }
+      
+      .lock-icon {
+        fill: #0052CC;
+      }
+    </style>
+  </defs>
+  
+  <!-- Main Badge Background -->
+  <rect x="0" y="0" width="200" height="60" rx="6" class="badge-background"/>
+  
+  <!-- Left Divider -->
+  <line x1="45" y1="8" x2="45" y2="52" stroke="#E5E5E5" stroke-width="1"/>
+  
+  <!-- Lock Icon -->
+  <g transform="translate(15, 18)">
+    <!-- Lock body -->
+    <rect x="3" y="8" width="14" height="10" rx="1" class="lock-icon"/>
+    <!-- Lock shackle -->
+    <path d="M5 8 Q5 2 12 2 Q19 2 19 8" fill="none" stroke="#0052CC" stroke-width="2" stroke-linecap="round"/>
+    <!-- Keyhole -->
+    <circle cx="12" cy="13" r="2" fill="white"/>
+  </g>
+  
+  <!-- Badge Text -->
+  <text x="58" y="18" class="badge-text">Secure Checkout</text>
+  <text x="58" y="32" class="badge-subtext">Powered by</text>
+  
+  <!-- Stripe Logo Text -->
+  <text x="58" y="42" class="stripe-text">STRIPE</text>
+  
+  <!-- Trust indicators (right side) -->
+  <g transform="translate(165, 20)">
+    <!-- Checkmark -->
+    <circle cx="8" cy="8" r="7" fill="#0052CC" opacity="0.1"/>
+    <path d="M5 8 L7 10 L11 6" fill="none" stroke="#0052CC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  
+  <!-- SSL/TLS indicator badge -->
+  <g transform="translate(160, 32)">
+    <rect x="0" y="0" width="32" height="18" rx="2" fill="#f0f4ff"/>
+    <text x="16" y="12" class="badge-subtext" text-anchor="middle">SSL</text>
+  </g>
+</svg>

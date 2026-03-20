@@ -1,0 +1,273 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <style>
+      .button-base {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: none;
+        border-radius: 8px;
+      }
+      
+      /* WHATSAPP BOT BUTTON */
+      .btn-whatsapp-default {
+        fill: #0052CC;
+        filter: drop-shadow(0 2px 8px rgba(0, 82, 204, 0.15));
+      }
+      .btn-whatsapp-hover {
+        fill: #003BA3;
+        filter: drop-shadow(0 4px 12px rgba(0, 82, 204, 0.25));
+      }
+      .btn-whatsapp-active {
+        fill: #0047A3;
+        filter: drop-shadow(0 1px 4px rgba(0, 82, 204, 0.2));
+      }
+      
+      /* WEBSITE BUTTON */
+      .btn-website-default {
+        fill: #0052CC;
+        filter: drop-shadow(0 2px 8px rgba(0, 82, 204, 0.15));
+      }
+      .btn-website-hover {
+        fill: #003BA3;
+        filter: drop-shadow(0 4px 12px rgba(0, 82, 204, 0.25));
+      }
+      .btn-website-active {
+        fill: #0047A3;
+        filter: drop-shadow(0 1px 4px rgba(0, 82, 204, 0.2));
+      }
+      
+      /* SOCIAL MEDIA BUTTON */
+      .btn-social-default {
+        fill: #0052CC;
+        filter: drop-shadow(0 2px 8px rgba(0, 82, 204, 0.15));
+      }
+      .btn-social-hover {
+        fill: #003BA3;
+        filter: drop-shadow(0 4px 12px rgba(0, 82, 204, 0.25));
+      }
+      .btn-social-active {
+        fill: #0047A3;
+        filter: drop-shadow(0 1px 4px rgba(0, 82, 204, 0.2));
+      }
+      
+      /* SEO BUTTON */
+      .btn-seo-default {
+        fill: #0052CC;
+        filter: drop-shadow(0 2px 8px rgba(0, 82, 204, 0.15));
+      }
+      .btn-seo-hover {
+        fill: #003BA3;
+        filter: drop-shadow(0 4px 12px rgba(0, 82, 204, 0.25));
+      }
+      .btn-seo-active {
+        fill: #0047A3;
+        filter: drop-shadow(0 1px 4px rgba(0, 82, 204, 0.2));
+      }
+      
+      /* AUTOMATION BUTTON */
+      .btn-automation-default {
+        fill: #0052CC;
+        filter: drop-shadow(0 2px 8px rgba(0, 82, 204, 0.15));
+      }
+      .btn-automation-hover {
+        fill: #003BA3;
+        filter: drop-shadow(0 4px 12px rgba(0, 82, 204, 0.25));
+      }
+      .btn-automation-active {
+        fill: #0047A3;
+        filter: drop-shadow(0 1px 4px rgba(0, 82, 204, 0.2));
+      }
+      
+      /* FULL PACKAGE BUTTON (Premium) */
+      .btn-premium-default {
+        fill: url(#gradient-premium);
+        filter: drop-shadow(0 2px 8px rgba(0, 82, 204, 0.15));
+      }
+      .btn-premium-hover {
+        filter: drop-shadow(0 4px 12px rgba(0, 82, 204, 0.3)) brightness(1.1);
+      }
+      .btn-premium-active {
+        filter: drop-shadow(0 1px 4px rgba(0, 82, 204, 0.2)) brightness(0.95);
+      }
+      
+      .button-text {
+        fill: white;
+        font-size: 16px;
+        font-weight: 600;
+        text-anchor: middle;
+        dominant-baseline: middle;
+      }
+      
+      .button-text-small {
+        fill: white;
+        font-size: 14px;
+        font-weight: 600;
+        text-anchor: middle;
+        dominant-baseline: middle;
+      }
+      
+      .section-label {
+        fill: #1a1a1a;
+        font-size: 14px;
+        font-weight: 700;
+        text-anchor: middle;
+      }
+      
+      .state-label {
+        fill: #666;
+        font-size: 12px;
+        text-anchor: middle;
+      }
+    </style>
+    
+    <linearGradient id="gradient-premium" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0052CC;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#003BA3;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- BACKGROUND -->
+  <rect width="1200" height="800" fill="#f8f9fa"/>
+  
+  <!-- WHATSAPP BOT PLAN -->
+  <text x="100" y="30" class="section-label">WhatsApp Bot</text>
+  
+  <!-- Default State -->
+  <rect x="20" y="60" width="140" height="50" rx="8" class="btn-whatsapp-default"/>
+  <text x="90" y="88" class="button-text">Get Started</text>
+  <text x="90" y="125" class="state-label">Default</text>
+  
+  <!-- Hover State -->
+  <rect x="180" y="60" width="140" height="50" rx="8" class="btn-whatsapp-hover"/>
+  <text x="250" y="88" class="button-text">Get Started</text>
+  <text x="250" y="125" class="state-label">Hover</text>
+  
+  <!-- Active State -->
+  <rect x="340" y="60" width="140" height="50" rx="8" class="btn-whatsapp-active"/>
+  <text x="410" y="88" class="button-text">Get Started</text>
+  <text x="410" y="125" class="state-label">Active</text>
+  
+  <!-- Mobile Size -->
+  <rect x="520" y="60" width="100" height="44" rx="6" class="btn-whatsapp-default"/>
+  <text x="570" y="85" class="button-text-small">Get Started</text>
+  <text x="570" y="125" class="state-label">Mobile</text>
+  
+  <!-- WEBSITE PLAN -->
+  <text x="100" y="200" class="section-label">Website Builder</text>
+  
+  <!-- Default State -->
+  <rect x="20" y="230" width="140" height="50" rx="8" class="btn-website-default"/>
+  <text x="90" y="258" class="button-text">Get Started</text>
+  <text x="90" y="295" class="state-label">Default</text>
+  
+  <!-- Hover State -->
+  <rect x="180" y="230" width="140" height="50" rx="8" class="btn-website-hover"/>
+  <text x="250" y="258" class="button-text">Get Started</text>
+  <text x="250" y="295" class="state-label">Hover</text>
+  
+  <!-- Active State -->
+  <rect x="340" y="230" width="140" height="50" rx="8" class="btn-website-active"/>
+  <text x="410" y="258" class="button-text">Get Started</text>
+  <text x="410" y="295" class="state-label">Active</text>
+  
+  <!-- Mobile Size -->
+  <rect x="520" y="230" width="100" height="44" rx="6" class="btn-website-default"/>
+  <text x="570" y="255" class="button-text-small">Get Started</text>
+  <text x="570" y="295" class="state-label">Mobile</text>
+  
+  <!-- SOCIAL MEDIA PLAN -->
+  <text x="100" y="370" class="section-label">Social Media Manager</text>
+  
+  <!-- Default State -->
+  <rect x="20" y="400" width="140" height="50" rx="8" class="btn-social-default"/>
+  <text x="90" y="428" class="button-text">Get Started</text>
+  <text x="90" y="465" class="state-label">Default</text>
+  
+  <!-- Hover State -->
+  <rect x="180" y="400" width="140" height="50" rx="8" class="btn-social-hover"/>
+  <text x="250" y="428" class="button-text">Get Started</text>
+  <text x="250" y="465" class="state-label">Hover</text>
+  
+  <!-- Active State -->
+  <rect x="340" y="400" width="140" height="50" rx="8" class="btn-social-active"/>
+  <text x="410" y="428" class="button-text">Get Started</text>
+  <text x="410" y="465" class="state-label">Active</text>
+  
+  <!-- Mobile Size -->
+  <rect x="520" y="400" width="100" height="44" rx="6" class="btn-social-default"/>
+  <text x="570" y="425" class="button-text-small">Get Started</text>
+  <text x="570" y="465" class="state-label">Mobile</text>
+  
+  <!-- SEO PLAN -->
+  <text x="100" y="540" class="section-label">SEO Suite</text>
+  
+  <!-- Default State -->
+  <rect x="20" y="570" width="140" height="50" rx="8" class="btn-seo-default"/>
+  <text x="90" y="598" class="button-text">Get Started</text>
+  <text x="90" y="635" class="state-label">Default</text>
+  
+  <!-- Hover State -->
+  <rect x="180" y="570" width="140" height="50" rx="8" class="btn-seo-hover"/>
+  <text x="250" y="598" class="button-text">Get Started</text>
+  <text x="250" y="635" class="state-label">Hover</text>
+  
+  <!-- Active State -->
+  <rect x="340" y="570" width="140" height="50" rx="8" class="btn-seo-active"/>
+  <text x="410" y="598" class="button-text">Get Started</text>
+  <text x="410" y="635" class="state-label">Active</text>
+  
+  <!-- Mobile Size -->
+  <rect x="520" y="570" width="100" height="44" rx="6" class="btn-seo-default"/>
+  <text x="570" y="595" class="button-text-small">Get Started</text>
+  <text x="570" y="635" class="state-label">Mobile</text>
+  
+  <!-- AUTOMATION PLAN -->
+  <text x="100" y="710" class="section-label">Automation</text>
+  
+  <!-- Default State -->
+  <rect x="20" y="740" width="140" height="50" rx="8" class="btn-automation-default"/>
+  <text x="90" y="768" class="button-text">Get Started</text>
+  
+  <!-- Hover State -->
+  <rect x="180" y="740" width="140" height="50" rx="8" class="btn-automation-hover"/>
+  <text x="250" y="768" class="button-text">Get Started</text>
+  
+  <!-- Active State -->
+  <rect x="340" y="740" width="140" height="50" rx="8" class="btn-automation-active"/>
+  <text x="410" y="768" class="button-text">Get Started</text>
+  
+  <!-- Mobile Size -->
+  <rect x="520" y="740" width="100" height="44" rx="6" class="btn-automation-default"/>
+  <text x="570" y="765" class="button-text-small">Get Started</text>
+  
+  <!-- FULL PACKAGE PLAN (Right Side) -->
+  <text x="900" y="30" class="section-label">✨ Full Package (Premium)</text>
+  
+  <!-- Default State -->
+  <rect x="800" y="60" width="160" height="50" rx="8" class="btn-premium-default"/>
+  <text x="880" y="88" class="button-text">Start Now</text>
+  <text x="880" y="125" class="state-label">Default</text>
+  
+  <!-- Hover State -->
+  <rect x="1000" y="60" width="160" height="50" rx="8" class="btn-premium-default btn-premium-hover"/>
+  <text x="1080" y="88" class="button-text">Start Now</text>
+  <text x="1080" y="125" class="state-label">Hover</text>
+  
+  <!-- Active State -->
+  <rect x="800" y="150" width="160" height="50" rx="8" class="btn-premium-default btn-premium-active"/>
+  <text x="880" y="178" class="button-text">Start Now</text>
+  <text x="880" y="215" class="state-label">Active</text>
+  
+  <!-- Mobile Size -->
+  <rect x="1000" y="150" width="120" height="44" rx="6" class="btn-premium-default"/>
+  <text x="1060" y="175" class="button-text-small">Start Now</text>
+  <text x="1060" y="215" class="state-label">Mobile</text>
+  
+  <!-- LEGEND / REFERENCE INFO -->
+  <text x="800" y="280" class="section-label">Desktop: 140x50 | Mobile: 100x44</text>
+  <text x="800" y="310" class="section-label">Border Radius: 8px Desktop | 6px Mobile</text>
+  <text x="800" y="340" class="section-label">Color: #0052CC (Primary)</text>
+  <text x="800" y="370" class="section-label">Hover: #003BA3 | Active: #0047A3</text>
+</svg>

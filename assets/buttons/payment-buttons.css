@@ -1,0 +1,357 @@
+/* ============================================
+   BYAGENTX PAYMENT BUTTONS
+   Corporate Blue/White Design System
+   Pure CSS - No Dependencies
+   ============================================ */
+
+:root {
+  --primary-blue: #0052CC;
+  --primary-blue-dark: #003BA3;
+  --primary-blue-active: #0047A3;
+  --white: #FFFFFF;
+  --shadow-light: 0 2px 8px rgba(0, 82, 204, 0.15);
+  --shadow-medium: 0 4px 12px rgba(0, 82, 204, 0.25);
+  --shadow-active: 0 1px 4px rgba(0, 82, 204, 0.2);
+  --border-radius-lg: 8px;
+  --border-radius-sm: 6px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================
+   BASE BUTTON STYLES
+   ============================================ */
+
+.payment-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.3px;
+  color: var(--white);
+  background-color: var(--primary-blue);
+  border: none;
+  border-radius: var(--border-radius-lg);
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-light);
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   BUTTON STATES
+   ============================================ */
+
+.payment-button:hover {
+  background-color: var(--primary-blue-dark);
+  box-shadow: var(--shadow-medium);
+  transform: translateY(-2px);
+}
+
+.payment-button:active,
+.payment-button.active {
+  background-color: var(--primary-blue-active);
+  box-shadow: var(--shadow-active);
+  transform: translateY(0);
+}
+
+.payment-button:focus {
+  outline: 2px solid var(--primary-blue);
+  outline-offset: 2px;
+}
+
+.payment-button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.payment-button:focus-visible {
+  outline: 2px solid var(--primary-blue);
+  outline-offset: 2px;
+}
+
+/* Disabled state */
+.payment-button:disabled,
+.payment-button[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.payment-button:disabled:hover,
+.payment-button[aria-disabled="true"]:hover {
+  background-color: var(--primary-blue);
+  transform: none;
+}
+
+/* Loading state */
+.payment-button.loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* ============================================
+   PREMIUM VARIANT (Full Package)
+   ============================================ */
+
+.payment-button.premium {
+  background: linear-gradient(135deg, #0052CC 0%, #003BA3 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.payment-button.premium::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 70%
+  );
+  transform: rotate(45deg);
+  animation: shimmer 3s infinite;
+}
+
+.payment-button.premium:hover {
+  background: linear-gradient(135deg, #003BA3 0%, #002880 100%);
+  box-shadow: var(--shadow-medium);
+  filter: brightness(1.05);
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
+/* ============================================
+   SIZE VARIANTS
+   ============================================ */
+
+/* Desktop Large (Default) */
+.payment-button.size-lg {
+  padding: 14px 28px;
+  font-size: 16px;
+  height: 50px;
+  min-width: 140px;
+}
+
+/* Desktop Medium */
+.payment-button.size-md {
+  padding: 10px 20px;
+  font-size: 14px;
+  height: 40px;
+  min-width: 120px;
+}
+
+/* Mobile Small */
+.payment-button.size-sm {
+  padding: 10px 16px;
+  font-size: 14px;
+  height: 44px;
+  min-width: 100px;
+  border-radius: var(--border-radius-sm);
+}
+
+/* Extra Small (for tight spaces) */
+.payment-button.size-xs {
+  padding: 8px 12px;
+  font-size: 12px;
+  height: 36px;
+  min-width: 80px;
+  border-radius: var(--border-radius-sm);
+}
+
+/* Full Width */
+.payment-button.width-full {
+  width: 100%;
+  min-width: unset;
+}
+
+/* ============================================
+   ICON SUPPORT
+   ============================================ */
+
+.payment-button-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.payment-button.size-sm .payment-button-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.payment-button.size-xs .payment-button-icon {
+  width: 14px;
+  height: 14px;
+}
+
+/* ============================================
+   PLAN-SPECIFIC STYLING
+   ============================================ */
+
+.btn-whatsapp { background-color: var(--primary-blue); }
+.btn-website { background-color: var(--primary-blue); }
+.btn-social { background-color: var(--primary-blue); }
+.btn-seo { background-color: var(--primary-blue); }
+.btn-automation { background-color: var(--primary-blue); }
+
+/* All use same color scheme, premium gets gradient */
+
+/* ============================================
+   BUTTON GROUP
+   ============================================ */
+
+.payment-buttons-group {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.payment-buttons-group.vertical {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.payment-buttons-group.vertical .payment-button {
+  width: 100%;
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+/* High contrast mode support */
+@media (prefers-contrast: more) {
+  .payment-button {
+    border: 2px solid var(--primary-blue);
+  }
+  
+  .payment-button:hover {
+    border-color: var(--primary-blue-dark);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .payment-button {
+    transition: none;
+    animation: none;
+  }
+  
+  .payment-button:hover {
+    transform: none;
+  }
+  
+  .payment-button.premium::before {
+    animation: none;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .payment-button {
+    box-shadow: var(--shadow-light);
+  }
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+  .payment-button {
+    padding: 10px 20px;
+    font-size: 14px;
+    height: 44px;
+    border-radius: var(--border-radius-sm);
+  }
+  
+  .payment-buttons-group {
+    gap: 10px;
+  }
+  
+  .payment-button.size-lg {
+    padding: 10px 20px;
+    font-size: 14px;
+    height: 44px;
+    min-width: 100px;
+    border-radius: var(--border-radius-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .payment-button {
+    padding: 10px 16px;
+    font-size: 13px;
+    height: 40px;
+    width: 100%;
+  }
+  
+  .payment-buttons-group {
+    gap: 8px;
+  }
+}
+
+/* ============================================
+   FOCUS VISIBLE OUTLINE (WCAG 2.1 AA)
+   ============================================ */
+
+.payment-button:focus-visible {
+  outline: 3px solid var(--primary-blue);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+.payment-button.stretch {
+  flex: 1;
+}
+
+.payment-button.hide-mobile {
+  display: none;
+}
+
+@media (min-width: 769px) {
+  .payment-button.show-mobile {
+    display: none;
+  }
+  
+  .payment-button.hide-mobile {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 768px) {
+  .payment-button.show-mobile {
+    display: inline-flex;
+  }
+}

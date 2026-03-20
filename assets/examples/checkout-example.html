@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ByAgentX - Professional Payment Checkout">
+  <title>Choose Your Plan - ByAgentX</title>
+  <link rel="stylesheet" href="../buttons/payment-buttons.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+      background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+      color: #1a1a1a;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    
+    .header h1 {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #1a1a1a;
+    }
+    
+    .header p {
+      font-size: 18px;
+      color: #666;
+      margin-bottom: 0;
+    }
+    
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    
+    .plan-card {
+      background: white;
+      border-radius: 12px;
+      padding: 40px 30px;
+      border: 1px solid #E5E5E5;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .plan-card:hover {
+      box-shadow: 0 15px 40px rgba(0, 82, 204, 0.12);
+      transform: translateY(-4px);
+    }
+    
+    .plan-card.premium {
+      border-color: #0052CC;
+      background: linear-gradient(135deg, rgba(0, 82, 204, 0.02) 0%, rgba(0, 82, 204, 0.05) 100%);
+    }
+    
+    .plan-card.premium::before {
+      content: '✨ Most Popular';
+      position: absolute;
+      top: 15px;
+      right: -35px;
+      transform: rotate(45deg);
+      background: #0052CC;
+      color: white;
+      padding: 4px 50px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    
+    .plan-icon {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 20px;
+      opacity: 0.8;
+    }
+    
+    .plan-name {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #1a1a1a;
+    }
+    
+    .plan-description {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+    
+    .plan-price {
+      font-size: 32px;
+      font-weight: 700;
+      color: #0052CC;
+      margin-bottom: 8px;
+    }
+    
+    .plan-price span {
+      font-size: 16px;
+      color: #999;
+      font-weight: 600;
+    }
+    
+    .plan-features {
+      list-style: none;
+      margin: 30px 0;
+      padding: 30px 0;
+      border-top: 1px solid #E5E5E5;
+      border-bottom: 1px solid #E5E5E5;
+    }
+    
+    .plan-features li {
+      font-size: 14px;
+      color: #666;
+      padding: 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .plan-features li::before {
+      content: '✓';
+      color: #10B981;
+      font-weight: 700;
+      font-size: 16px;
+    }
+    
+    .plan-cta {
+      margin-top: 30px;
+    }
+    
+    .payment-button {
+      width: 100%;
+      height: 50px;
+    }
+    
+    .security-section {
+      text-align: center;
+      margin-top: 50px;
+      padding-top: 40px;
+      border-top: 1px solid #E5E5E5;
+    }
+    
+    .security-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    
+    .security-badge img {
+      height: 60px;
+    }
+    
+    .faq-section {
+      background: white;
+      border-radius: 12px;
+      padding: 40px;
+      margin-top: 60px;
+      border: 1px solid #E5E5E5;
+    }
+    
+    .faq-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 30px;
+      color: #1a1a1a;
+    }
+    
+    .faq-item {
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #E5E5E5;
+    }
+    
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+    
+    .faq-question {
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+    
+    .faq-answer {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.6;
+    }
+    
+    @media (max-width: 768px) {
+      .plans-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .header h1 {
+        font-size: 28px;
+      }
+      
+      .plan-card {
+        padding: 30px 20px;
+      }
+      
+      .faq-section {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>Choose Your Plan</h1>
+      <p>Start automating your business today with ByAgentX</p>
+    </div>
+    
+    <!-- Plans Grid -->
+    <div class="plans-grid">
+      <!-- Plan 1: WhatsApp Bot -->
+      <div class="plan-card">
+        <svg class="plan-icon" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="60" cy="60" r="50" fill="#f0f4ff"/>
+          <path d="M30 35 L90 35 C95 35 100 40 100 45 L100 75 C100 80 95 85 90 85 L50 85 L40 100 L45 85 L45 85 C40 85 30 80 30 75 L30 45 C30 40 35 35 40 35 Z" fill="#0052CC"/>
+          <circle cx="65" cy="60" r="6" fill="white"/>
+        </svg>
+        <h3 class="plan-name">WhatsApp Bot</h3>
+        <p class="plan-description">Automate customer conversations on WhatsApp</p>
+        <div class="plan-price">$29<span>/month</span></div>
+        <ul class="plan-features">
+          <li>Chatbot automation</li>
+          <li>Message templates</li>
+          <li>Response time tracking</li>
+          <li>Basic analytics</li>
+        </ul>
+        <div class="plan-cta">
+          <button class="payment-button size-lg" data-plan="whatsapp">Get Started</button>
+        </div>
+      </div>
+      
+      <!-- Plan 2: Website Builder -->
+      <div class="plan-card">
+        <svg class="plan-icon" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="60" cy="60" r="50" fill="#f0f4ff"/>
+          <rect x="25" y="25" width="70" height="70" rx="4" fill="#0052CC" opacity="0.15"/>
+          <rect x="25" y="25" width="70" height="15" rx="4" fill="#0052CC"/>
+          <line x1="30" y1="35" x2="85" y2="35" stroke="#0052CC" stroke-width="2" stroke-linecap="round"/>
+          <line x1="30" y1="50" x2="85" y2="50" stroke="#0052CC" stroke-width="2" stroke-linecap="round"/>
+          <line x1="30" y1="60" x2="75" y2="60" stroke="#0052CC" stroke-width="2" stroke-linecap="round"/>
+          <line x1="30" y1="70" x2="85" y2="70" stroke="#0052CC" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <h3 class="plan-name">Website Builder</h3>
+        <p class="plan-description">Create stunning websites without coding</p>
+        <div class="plan-price">$49<span>/month</span></div>
+        <ul class="plan-features">
+          <li>Drag & drop builder</li>
+          <li>Mobile responsive</li>
+          <li>Custom domain</li>
+          <li>SSL certificate</li>
+          <li>SEO tools</li>
+        </ul>
+        <div class="plan-cta">
+          <button class="payment-button size-lg" data-plan="website">Get Started</button>
+        </div>
+      </div>
+      
+      <!-- Plan 3: Social Media Manager -->
+      <div class="plan-card">
+        <svg class="plan-icon" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="60" cy="60" r="50" fill="#f0f4ff"/>
+          <rect x="35" y="30" width="50" height="60" rx="6" fill="none" stroke="#0052CC" stroke-width="2"/>
+          <rect x="40" y="35" width="40" height="45" rx="2" fill="#0052CC" opacity="0.1"/>
+          <circle cx="45" cy="45" r="2" fill="#0052CC"/>
+          <circle cx="60" cy="45" r="2" fill="#0052CC"/>
+          <circle cx="75" cy="45" r="2" fill="#0052CC"/>
+          <line x1="45" y1="55" x2="75" y2="55" stroke="#0052CC" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="45" y1="63" x2="70" y2="63" stroke="#0052CC" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <h3 class="plan-name">Social Media Manager</h3>
+        <p class="plan-description">Schedule and manage all social channels</p>
+        <div class="plan-price">$59<span>/month</span></div>
+        <ul class="plan-features">
+          <li>Multi-platform scheduling</li>
+          <li>Content calendar</li>
+          <li>Engagement tracking</li>
+          <li>AI content suggestions</li>
+          <li>Team collaboration</li>
+        </ul>
+        <div class="plan-cta">
+          <button class="payment-button size-lg" data-plan="social">Get Started</button>
+        </div>
+      </div>
+      
+      <!-- Plan 4: SEO Suite -->
+      <div class="plan-card">
+        <svg class="plan-icon" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="60" cy="60" r="50" fill="#f0f4ff"/>
+          <circle cx="50" cy="50" r="20" fill="none" stroke="#0052CC" stroke-width="2"/>
+          <line x1="65" y1="65" x2="75" y2="75" stroke="#0052CC" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="45" cy="45" r="2" fill="#0052CC"/>
+        </svg>
+        <h3 class="plan-name">SEO Suite</h3>
+        <p class="plan-description">Dominate search results with advanced SEO</p>
+        <div class="plan-price">$69<span>/month</span></div>
+        <ul class="plan-features">
+          <li>Keyword research</li>
+          <li>Backlink analysis</li>
+          <li>Rank tracking</li>
+          <li>Competitor analysis</li>
+          <li>Technical SEO audit</li>
+        </ul>
+        <div class="plan-cta">
+          <button class="payment-button size-lg" data-plan="seo">Get Started</button>
+        </div>
+      </div>
+      
+      <!-- Plan 5: Automation -->
+      <div class="plan-card">
+        <svg class="plan-icon" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="60" cy="60" r="50" fill="#f0f4ff"/>
+          <circle cx="50" cy="50" r="12" fill="#0052CC" opacity="0.2"/>
+          <circle cx="50" cy="50" r="8" fill="white"/>
+          <circle cx="50" cy="50" r="4" fill="#0052CC"/>
+          <circle cx="75" cy="75" r="12" fill="#0052CC" opacity="0.2"/>
+          <circle cx="75" cy="75" r="8" fill="white"/>
+          <circle cx="75" cy="75" r="4" fill="#0052CC"/>
+          <line x1="58" y1="58" x2="67" y2="67" stroke="#0052CC" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="70" cy="40" r="10" fill="#0052CC" opacity="0.15"/>
+        </svg>
+        <h3 class="plan-name">Automation</h3>
+        <p class="plan-description">Automate workflows and save hours daily</p>
+        <div class="plan-price">$79<span>/month</span></div>
+        <ul class="plan-features">
+          <li>Workflow automation</li>
+          <li>API integrations</li>
+          <li>Custom triggers</li>
+          <li>Advanced analytics</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="plan-cta">
+          <button class="payment-button size-lg" data-plan="automation">Get Started</button>
+        </div>
+      </div>
+      
+      <!-- Plan 6: Full Package (Premium) -->
+      <div class="plan-card premium">
+        <svg class="plan-icon" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="grad-premium" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#0052CC;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#003BA3;stop-opacity:1" />
+            </linearGradient>
+          </defs>
+          <circle cx="60" cy="60" r="50" fill="url(#grad-premium)"/>
+          <rect x="30" y="45" width="60" height="40" rx="2" fill="none" stroke="white" stroke-width="2"/>
+          <line x1="30" y1="60" x2="90" y2="60" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <line x1="50" y1="45" x2="50" y2="85" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="40" cy="55" r="3" fill="white"/>
+          <circle cx="60" cy="55" r="3" fill="white"/>
+          <path d="M60 30 L62 38 L70 38 L64 43 L66 51 L60 47 L54 51 L56 43 L50 38 L58 38 Z" fill="#FFD700" opacity="0.9"/>
+        </svg>
+        <h3 class="plan-name">Full Package</h3>
+        <p class="plan-description">Everything you need to scale your business</p>
+        <div class="plan-price">$99<span>/month</span></div>
+        <ul class="plan-features">
+          <li>All features included</li>
+          <li>Unlimited projects</li>
+          <li>Premium support 24/7</li>
+          <li>Custom integrations</li>
+          <li>White-label options</li>
+          <li>Advanced analytics</li>
+        </ul>
+        <div class="plan-cta">
+          <button class="payment-button premium size-lg" data-plan="full-package">Start Now</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Security Section -->
+    <div class="security-section">
+      <div class="security-badge">
+        <img src="../badges/secure-checkout-badge.svg" alt="Secure Checkout - Stripe">
+      </div>
+      <p style="color: #666; font-size: 13px;">Your payment is secured with industry-leading encryption. We never store your full card information.</p>
+    </div>
+    
+    <!-- FAQ Section -->
+    <div class="faq-section">
+      <h2 class="faq-title">Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <div class="faq-question">❓ Can I change my plan later?</div>
+        <div class="faq-answer">Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately for upgrades, or at the end of your billing cycle for downgrades.</div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">❓ What payment methods do you accept?</div>
+        <div class="faq-answer">We accept all major credit and debit cards (Visa, Mastercard, American Express) through our secure Stripe payment processing.</div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">❓ Is there a money-back guarantee?</div>
+        <div class="faq-answer">Yes! We offer a 30-day money-back guarantee. If you're not satisfied, we'll refund your payment in full.</div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">❓ Do you offer discounts for annual billing?</div>
+        <div class="faq-answer">Yes, save 20% when you choose annual billing instead of monthly. Select the annual option during checkout.</div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">❓ What happens after I purchase?</div>
+        <div class="faq-answer">You'll get instant access to all plan features. A confirmation email will be sent with your account details and next steps to get started.</div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Handle payment button clicks
+    document.querySelectorAll('.payment-button').forEach(button => {
+      button.addEventListener('click', function() {
+        const plan = this.dataset.plan;
+        console.log('Payment initiated for plan:', plan);
+        // Stripe integration would go here
+        alert(`Payment flow for ${plan} would be triggered here.\n\nIntegrate with Stripe redirect or modal.`);
+      });
+    });
+  </script>
+</body>
+</html>
