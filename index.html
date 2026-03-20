@@ -1637,14 +1637,14 @@
       }
     };
 
-    /* Prices USD */
+    /* Prices USD (in cents for Stripe) */
     const USD = {
-      p1_setup: 1999, p1_monthly: 499,
-      p2_setup: 1499, p2_monthly: 299,
-      p3_monthly: 799,
-      p4_monthly: 999,
-      p5_setup: 2499, p5_monthly: 699,
-      p6_setup: 4999, p6_monthly: 1299
+      p1_setup: 199900, p1_monthly: 49900,
+      p2_setup: 149900, p2_monthly: 29900,
+      p3_monthly: 79900,
+      p4_monthly: 99900,
+      p5_setup: 249900, p5_monthly: 69900,
+      p6_setup: 499900, p6_monthly: 129900
     };
     const MXN_RATE = 17;
 
@@ -1685,22 +1685,22 @@
         document.getElementById('price6a').textContent = (USD.p6_setup * MXN_RATE).toLocaleString('es-MX');
         document.getElementById('price6b').textContent = (USD.p6_monthly * MXN_RATE).toLocaleString('es-MX');
       } else {
-        // Plan 1
-        document.getElementById('price1a').textContent = '$' + USD.p1_setup.toLocaleString();
-        document.getElementById('price1b').textContent = USD.p1_monthly;
+        // Plan 1 (convert cents to dollars with 2 decimals)
+        document.getElementById('price1a').textContent = '$' + (USD.p1_setup / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('price1b').textContent = (USD.p1_monthly / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
         // Plan 2
-        document.getElementById('price2a').textContent = '$' + USD.p2_setup.toLocaleString();
-        document.getElementById('price2b').textContent = USD.p2_monthly;
+        document.getElementById('price2a').textContent = '$' + (USD.p2_setup / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('price2b').textContent = (USD.p2_monthly / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
         // Plan 3
-        document.getElementById('price3').textContent = USD.p3_monthly;
+        document.getElementById('price3').textContent = (USD.p3_monthly / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
         // Plan 4
-        document.getElementById('price4').textContent = USD.p4_monthly;
+        document.getElementById('price4').textContent = (USD.p4_monthly / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
         // Plan 5
-        document.getElementById('price5a').textContent = '$' + USD.p5_setup.toLocaleString();
-        document.getElementById('price5b').textContent = USD.p5_monthly;
+        document.getElementById('price5a').textContent = '$' + (USD.p5_setup / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('price5b').textContent = (USD.p5_monthly / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
         // Plan 6
-        document.getElementById('price6a').textContent = '$' + USD.p6_setup.toLocaleString();
-        document.getElementById('price6b').textContent = USD.p6_monthly;
+        document.getElementById('price6a').textContent = '$' + (USD.p6_setup / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('price6b').textContent = (USD.p6_monthly / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
       }
 
       // toggle button label

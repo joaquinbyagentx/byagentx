@@ -1675,12 +1675,12 @@
 <script>
   const MXN_RATE = 17;
   const prices = {
-    p1: { setup: 1999, monthly: 499 },
-    p2: { setup: 1499, monthly: 299 },
-    p3: { monthly: 799 },
-    p4: { monthly: 999 },
-    p5: { setup: 2499, monthly: 699 },
-    p6: { setup: 4999, monthly: 1299 }
+    p1: { setup: 199900, monthly: 49900 },
+    p2: { setup: 149900, monthly: 29900 },
+    p3: { monthly: 79900 },
+    p4: { monthly: 99900 },
+    p5: { setup: 249900, monthly: 69900 },
+    p6: { setup: 499900, monthly: 129900 }
   };
 
   function updatePrices(lang) {
@@ -1691,8 +1691,8 @@
         const el = document.getElementById(setupId);
         if (el) {
           el.textContent = lang === 'es' 
-            ? '$' + (p.setup * MXN_RATE).toLocaleString('es-MX')
-            : '$' + p.setup.toLocaleString();
+            ? '$' + (p.setup * MXN_RATE / 100).toLocaleString('es-MX', {minimumFractionDigits: 2, maximumFractionDigits: 2})
+            : '$' + (p.setup / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
         }
       }
       if (p.monthly) {
@@ -1700,8 +1700,8 @@
         const el = document.getElementById(monthlyId);
         if (el) {
           el.textContent = lang === 'es'
-            ? '$' + (p.monthly * MXN_RATE).toLocaleString('es-MX')
-            : '$' + p.monthly.toLocaleString();
+            ? '$' + (p.monthly * MXN_RATE / 100).toLocaleString('es-MX', {minimumFractionDigits: 2, maximumFractionDigits: 2})
+            : '$' + (p.monthly / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
         }
       }
     });

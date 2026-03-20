@@ -1,0 +1,181 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <style>
+      .confirmation-bg {
+        fill: #f8f9fa;
+      }
+      
+      .card-bg {
+        fill: white;
+        stroke: #E5E5E5;
+        stroke-width: 1;
+      }
+      
+      .success-icon {
+        fill: #10B981;
+      }
+      
+      .text-title {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        fill: #1a1a1a;
+        font-size: 28px;
+        font-weight: 700;
+        text-anchor: middle;
+        letter-spacing: -0.5px;
+      }
+      
+      .text-subtitle {
+        fill: #666;
+        font-size: 14px;
+        text-anchor: middle;
+        letter-spacing: -0.2px;
+      }
+      
+      .text-label {
+        fill: #999;
+        font-size: 12px;
+        font-weight: 600;
+        text-anchor: start;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      
+      .text-value {
+        fill: #1a1a1a;
+        font-size: 16px;
+        font-weight: 600;
+        text-anchor: start;
+      }
+      
+      .badge-text {
+        fill: white;
+        font-size: 12px;
+        font-weight: 700;
+        text-anchor: middle;
+      }
+      
+      .divider {
+        stroke: #E5E5E5;
+        stroke-width: 1;
+      }
+      
+      .button-bg {
+        fill: #0052CC;
+      }
+      
+      .button-text {
+        fill: white;
+        font-size: 16px;
+        font-weight: 600;
+        text-anchor: middle;
+      }
+    </style>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" class="confirmation-bg"/>
+  
+  <!-- Main Confirmation Card -->
+  <rect x="50" y="40" width="700" height="520" rx="12" class="card-bg"/>
+  
+  <!-- Success Circle with Checkmark (Animated effect shown) -->
+  <circle cx="400" cy="100" r="50" class="success-icon" opacity="0.1"/>
+  <circle cx="400" cy="100" r="50" fill="none" stroke="#10B981" stroke-width="3" stroke-dasharray="314" stroke-dashoffset="0" opacity="0.2"/>
+  
+  <!-- Checkmark -->
+  <g transform="translate(400, 100)">
+    <path d="M-15 0 L-5 10 L15 -10" 
+          fill="none" 
+          stroke="#10B981" 
+          stroke-width="4" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"
+          style="animation: checkmark 0.6s ease-in-out forwards;"/>
+  </g>
+  
+  <!-- Title -->
+  <text x="400" y="175" class="text-title">Payment Successful!</text>
+  
+  <!-- Subtitle -->
+  <text x="400" y="205" class="text-subtitle">Your plan is now active. Access starts immediately.</text>
+  
+  <!-- Divider -->
+  <line x1="100" y1="230" x2="700" y2="230" class="divider"/>
+  
+  <!-- Order Details Section -->
+  <text x="100" y="270" class="text-label">Order ID</text>
+  <text x="100" y="290" class="text-value">#INV-20260320-001</text>
+  
+  <text x="450" y="270" class="text-label">Amount Paid</text>
+  <text x="450" y="290" class="text-value">$99.00</text>
+  
+  <!-- Plan Details -->
+  <text x="100" y="330" class="text-label">Plan Selected</text>
+  <text x="100" y="350" class="text-value">Full Package (Premium)</text>
+  
+  <text x="450" y="330" class="text-label">Billing Cycle</text>
+  <text x="450" y="350" class="text-value">Monthly</text>
+  
+  <!-- Email Confirmation -->
+  <text x="100" y="390" class="text-label">Confirmation Email</text>
+  <text x="100" y="410" class="text-value">sent to your inbox</text>
+  
+  <!-- Second Divider -->
+  <line x1="100" y1="435" x2="700" y2="435" class="divider"/>
+  
+  <!-- What's Next Section -->
+  <text x="100" y="470" class="text-label">Next Steps</text>
+  
+  <g>
+    <!-- Step 1: Access Features -->
+    <circle cx="115" cy="495" r="4" fill="#0052CC"/>
+    <text x="130" y="500" class="text-value">Access all plan features immediately</text>
+    
+    <!-- Step 2: Check Dashboard -->
+    <circle cx="115" cy="525" r="4" fill="#0052CC"/>
+    <text x="130" y="530" class="text-value">Go to your dashboard to get started</text>
+  </g>
+  
+  <!-- Badge: Secure Transaction -->
+  <rect x="580" y="455" width="120" height="30" rx="4" fill="#f0f4ff"/>
+  <circle cx="592" cy="470" r="6" fill="#0052CC"/>
+  <path d="M589 470 L591 472 L595 468" 
+        fill="none" 
+        stroke="white" 
+        stroke-width="1.5" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
+  <text x="605" y="475" class="text-value" text-anchor="start" font-size="12">Secure</text>
+  
+  <!-- Continue Button -->
+  <rect x="200" y="540" width="400" height="50" rx="8" class="button-bg"/>
+  <text x="400" y="571" class="button-text">Go to Dashboard</text>
+  
+  <!-- Subtle footer message -->
+  <text x="400" y="595" class="text-subtitle" opacity="0.7">Need help? Contact support@byagentx.com</text>
+  
+  <!-- Decorative elements (top right) -->
+  <g opacity="0.05">
+    <circle cx="750" cy="60" r="30" fill="#0052CC"/>
+    <circle cx="720" cy="90" r="20" fill="#0052CC"/>
+  </g>
+  
+  <!-- Decorative elements (bottom left) -->
+  <g opacity="0.05">
+    <circle cx="60" cy="550" r="35" fill="#10B981"/>
+    <circle cx="100" cy="580" r="25" fill="#10B981"/>
+  </g>
+  
+  <style>
+    @keyframes checkmark {
+      0% {
+        stroke-dashoffset: 314;
+        opacity: 0;
+      }
+      100% {
+        stroke-dashoffset: 0;
+        opacity: 1;
+      }
+    }
+  </style>
+</svg>
