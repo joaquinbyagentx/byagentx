@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout — AgentX (Payment Intent)</title>
+  <meta name="description" content="Complete your AgentX subscription securely with Stripe." />
+  <script src="https://js.stripe.com/v3/"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+      --bg:          #0a0a0f;
+      --bg-2:        #101018;
+      --bg-3:        #16161f;
+      --border:      rgba(255,255,255,0.07);
+      --border-mid:  rgba(255,255,255,0.12);
+      --text-1:      #f0f0ff;
+      --text-2:      #a0a0b8;
+      --text-3:      #606078;
+      --accent:      #7c5cfc;
+      --accent-2:    #5b8af5;
+      --accent-glow: rgba(124,92,252,0.35);
+      --accent-light: rgba(124,92,252,0.12);
+      --r-md: 16px;
+      --r-lg: 24px;
+      --t-mid: 300ms cubic-bezier(0.4,0,0.2,1);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text-1);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 24px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .header h1 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #7c5cfc 0%, #5b8af5 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header p {
+      color: var(--text-2);
+      font-size: 16px;
+    }
+
+    .checkout-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .checkout-wrapper {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+    }
+
+    .plan-summary {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 32px;
+      height: fit-content;
+      position: sticky;
+      top: 40px;
+    }
+
+    .plan-summary h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .plan-summary .description {
+      color: var(--text-2);
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .pricing-breakdown {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 20px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+
+    .pricing-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+    }
+
+    .pricing-row.total {
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--accent);
+      margin-top: 8px;
+    }
+
+    .form-section {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 32px;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: var(--text-1);
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-1);
+      font-family: var(--font);
+      font-size: 14px;
+      transition: border-color var(--t-mid);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-light);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    /* Stripe Elements styling */
+    .StripeElement {
+      padding: 12px 16px;
+      background: var(--bg-3) !important;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: var(--font);
+      color: var(--text-1);
+    }
+
+    .StripeElement--focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-light);
+    }
+
+    .StripeElement--invalid {
+      border-color: #ef4444;
+    }
+
+    #card-errors {
+      color: #ef4444;
+      font-size: 12px;
+      margin-top: 8px;
+      min-height: 20px;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 14px 24px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--t-mid);
+      margin-top: 24px;
+    }
+
+    .btn-submit:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px var(--accent-glow);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .spinner {
+      color: white;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .spinner::before {
+      content: '';
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .error-message {
+      background: rgba(239,68,68,0.1);
+      border: 1px solid #ef4444;
+      color: #fecaca;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      margin-bottom: 24px;
+      display: none;
+    }
+
+    .success-message {
+      background: rgba(34,197,94,0.1);
+      border: 1px solid #22c55e;
+      color: #86efac;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      margin-bottom: 24px;
+      display: none;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-2);
+      text-decoration: none;
+      font-size: 14px;
+      margin-bottom: 32px;
+      transition: color var(--t-mid);
+    }
+
+    .back-link:hover {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html#pricing" class="back-link">← Back to pricing</a>
+
+    <div class="header">
+      <h1>Complete your purchase</h1>
+      <p>Secure checkout powered by Stripe (Payment Intent)</p>
+    </div>
+
+    <div class="checkout-wrapper">
+      <!-- Plan Summary -->
+      <div class="plan-summary">
+        <h3 id="planName">AgentX Plan</h3>
+        <p class="description" id="planDesc">Plan description</p>
+
+        <div class="pricing-breakdown">
+          <div class="pricing-row" id="setupRow" style="display: none;">
+            <span>Setup Fee</span>
+            <span id="setupPrice">—</span>
+          </div>
+          <div class="pricing-row" id="monthlyRow" style="display: none;">
+            <span>Monthly Fee</span>
+            <span id="monthlyPrice">—</span>
+          </div>
+          <div class="pricing-row total">
+            <span id="totalLabel">Total (first month)</span>
+            <span id="totalPrice">$0.00</span>
+          </div>
+        </div>
+
+        <div style="font-size: 12px; color: var(--text-3); line-height: 1.6;">
+          <p style="margin-bottom: 12px;">✓ Payment Intent for enhanced security</p>
+          <p style="margin-bottom: 12px;">✓ 3D Secure support built-in</p>
+          <p>✓ Instant access after payment confirmation</p>
+        </div>
+      </div>
+
+      <!-- Payment Form -->
+      <div class="form-section">
+        <div class="error-message" id="errorMessage"></div>
+        <div class="success-message" id="successMessage">
+          Payment successful! Redirecting...
+        </div>
+
+        <form id="paymentForm">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="fullName" placeholder="John Doe" required />
+          </div>
+
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="email" placeholder="john@example.com" required />
+          </div>
+
+          <div class="form-group">
+            <label>Company (optional)</label>
+            <input type="text" id="company" placeholder="Your company name" />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Country/Region</label>
+              <select id="country" required>
+                <option value="">Select country</option>
+                <option value="MX">Mexico</option>
+                <option value="US">United States</option>
+                <option value="CA">Canada</option>
+                <option value="ES">Spain</option>
+                <option value="AR">Argentina</option>
+                <option value="BR">Brazil</option>
+                <option value="CL">Chile</option>
+                <option value="CO">Colombia</option>
+                <option value="PE">Peru</option>
+                <option value="GB">United Kingdom</option>
+                <option value="DE">Germany</option>
+                <option value="FR">France</option>
+                <option value="IT">Italy</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Postal Code</label>
+              <input type="text" id="postalCode" placeholder="12345" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Card Information</label>
+            <div id="payment-element"></div>
+            <div id="card-errors"></div>
+          </div>
+
+          <button type="submit" class="btn-submit" id="submitBtn">
+            Pay <span id="submitAmount">$0.00</span>
+          </button>
+
+          <p style="font-size: 12px; color: var(--text-3); text-align: center; margin-top: 16px;">
+            By clicking "Pay", you agree to our Terms of Service and Privacy Policy
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // STRIPE INITIALIZATION (Payment Intent Flow)
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    const stripe = Stripe('pk_live_51TChi9CR3pnIAx9AoLeR94Cn7q4vnpEiksZuFefI0hye8TcQ52WerlyqmglKtccrjqF34dCLjPjPDefTHhCLUrC000V2E0Yr2H');
+    const elements = stripe.elements();
+
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // PRICING DATA
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    const plans = {
+      'whatsapp-bot': {
+        name: 'WhatsApp Order Bot',
+        description: 'Automate orders, payments, and customer support 24/7 via WhatsApp.',
+        setupFee: 1999,
+        monthlyFee: 499,
+        stripeProductId: 'prod_whatsapp_bot'
+      },
+      'business-website': {
+        name: 'Business Website + AI Chat',
+        description: 'Beautiful AI-powered website with intelligent chatbot.',
+        setupFee: 1499,
+        monthlyFee: 299,
+        stripeProductId: 'prod_business_website'
+      },
+      'social-media': {
+        name: 'Social Media Automation',
+        description: 'AI-powered content creation and scheduling across platforms.',
+        setupFee: 0,
+        monthlyFee: 799,
+        stripeProductId: 'prod_social_media'
+      },
+      'seo-content': {
+        name: 'SEO + AI Content',
+        description: 'Search engine optimization + AI blog content strategy.',
+        setupFee: 0,
+        monthlyFee: 999,
+        stripeProductId: 'prod_seo_content'
+      },
+      'business-automation': {
+        name: 'Business Automation',
+        description: 'Custom AI workflows for your unique business processes.',
+        setupFee: 2499,
+        monthlyFee: 699,
+        stripeProductId: 'prod_business_automation'
+      },
+      'full-package': {
+        name: 'Full AI Package',
+        description: 'Complete AI transformation: all tools, all features, white-glove service.',
+        setupFee: 4999,
+        monthlyFee: 1299,
+        stripeProductId: 'prod_full_package'
+      }
+    };
+
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // LOAD PLAN FROM URL PARAMETER
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedPlan = urlParams.get('plan') || 'whatsapp-bot';
+    const plan = plans[selectedPlan];
+    let paymentElement;
+    let clientSecret;
+
+    if (!plan) {
+      document.getElementById('errorMessage').style.display = 'block';
+      document.getElementById('errorMessage').textContent = 'Invalid plan selected. Please go back and try again.';
+      document.getElementById('paymentForm').style.display = 'none';
+    } else {
+      // Update UI with plan details
+      document.getElementById('planName').textContent = plan.name;
+      document.getElementById('planDesc').textContent = plan.description;
+
+      // Update pricing
+      const setupRow = document.getElementById('setupRow');
+      const monthlyRow = document.getElementById('monthlyRow');
+
+      if (plan.setupFee > 0) {
+        setupRow.style.display = 'flex';
+        document.getElementById('setupPrice').textContent = '$' + (plan.setupFee / 100).toFixed(2);
+      }
+
+      if (plan.monthlyFee > 0) {
+        monthlyRow.style.display = 'flex';
+        document.getElementById('monthlyPrice').textContent = '$' + (plan.monthlyFee / 100).toFixed(2) + ' billed monthly';
+      }
+
+      const totalAmount = plan.setupFee + plan.monthlyFee;
+      document.getElementById('totalPrice').textContent = '$' + (totalAmount / 100).toFixed(2);
+      document.getElementById('submitAmount').textContent = '$' + (totalAmount / 100).toFixed(2);
+
+      if (plan.setupFee === 0) {
+        document.getElementById('totalLabel').textContent = 'Monthly Cost';
+      }
+
+      // Initialize Payment Element when page loads
+      initPaymentElement();
+    }
+
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // PAYMENT ELEMENT INITIALIZATION
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    async function initPaymentElement() {
+      try {
+        const email = document.getElementById('email').value || '';
+        const fullName = document.getElementById('fullName').value || '';
+
+        // Create payment intent on server
+        const response = await fetch('/api/create-payment-intent', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: email,
+            fullName: fullName,
+            plan: selectedPlan
+          })
+        });
+
+        const data = await response.json();
+
+        if (!data.success) {
+          throw new Error(data.message || 'Failed to initialize payment');
+        }
+
+        clientSecret = data.clientSecret;
+
+        // Create and mount Payment Element
+        if (paymentElement) {
+          paymentElement.unmount();
+        }
+
+        paymentElement = elements.create('payment', {
+          clientSecret: clientSecret
+        });
+
+        paymentElement.mount('#payment-element');
+
+      } catch (error) {
+        console.error('Payment element error:', error);
+        document.getElementById('errorMessage').textContent = 
+          'Failed to initialize payment form. Please refresh the page.';
+        document.getElementById('errorMessage').style.display = 'block';
+      }
+    }
+
+    // Re-initialize on email change
+    document.getElementById('email').addEventListener('change', initPaymentElement);
+    document.getElementById('fullName').addEventListener('change', initPaymentElement);
+
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // FORM SUBMISSION
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    document.getElementById('paymentForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const submitBtn = document.getElementById('submitBtn');
+      const errorDiv = document.getElementById('errorMessage');
+
+      errorDiv.style.display = 'none';
+      submitBtn.disabled = true;
+
+      try {
+        // Confirm payment with Stripe
+        const { error, paymentIntent } = await stripe.confirmPayment({
+          elements,
+          clientSecret: clientSecret,
+          confirmParams: {
+            return_url: window.location.origin + '/index.html?success=true&plan=' + selectedPlan
+          }
+        });
+
+        if (error) {
+          throw new Error(error.message);
+        }
+
+        // Payment succeeded
+        if (paymentIntent.status === 'succeeded') {
+          document.getElementById('successMessage').style.display = 'block';
+          document.getElementById('paymentForm').style.display = 'none';
+          setTimeout(() => {
+            window.location.href = '/index.html?success=true&plan=' + selectedPlan;
+          }, 2000);
+        }
+
+      } catch (error) {
+        errorDiv.textContent = error.message || 'Payment failed. Please try again.';
+        errorDiv.style.display = 'block';
+        submitBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
