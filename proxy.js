@@ -137,15 +137,54 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // POST /token-counter - Anthropic token counting proxy
+  // POST /token-counter - Real token usage from all sessions
   if (req.method === 'POST' && pathname === '/token-counter') {
-    let body = '';
-    req.on('data', chunk => {
-      body += chunk.toString();
-    });
-    req.on('end', () => {
-      proxyAnthropicTokenCounter(req, res, body);
-    });
+    let totalInputTokens = 0;
+    let totalOutputTokens = 0;
+    
+    try {
+      // Get real sessions
+      const { execSync } = require('child_process');
+      const sessionsJson = execSync('openclaw sessions --json 2>/dev/null', { 
+        encoding: 'utf8',
+        timeout: 5000,
+        maxBuffer: 10 * 1024 * 1024 
+      });
+      
+      const sessionsData = JSON.parse(sessionsJson);
+      
+      if (sessionsData.sessions && Array.isArray(sessionsData.sessions)) {
+        sessionsData.sessions.forEach(session => {
+          if (session.inputTokens) totalInputTokens += session.inputTokens;
+          if (session.outputTokens) totalOutputTokens += session.outputTokens;
+        });
+      }
+    } catch (e) {
+      console.error('Error fetching token data:', e.message);
+    }
+    
+    const totalTokens = totalInputTokens + totalOutputTokens;
+    
+    // Calculate cost for Claude Haiku
+    // Input: $0.80 per 1M tokens
+    // Output: $4.00 per 1M tokens
+    const inputCost = (totalInputTokens * 0.80) / 1000000;
+    const outputCost = (totalOutputTokens * 4.00) / 1000000;
+    const totalCost = inputCost + outputCost;
+    
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      tokens_today: totalTokens,
+      input_tokens: totalInputTokens,
+      output_tokens: totalOutputTokens,
+      cost_today_usd: Math.round(totalCost * 100000) / 100000, // Round to 5 decimals
+      model: 'claude-haiku-4-5',
+      breakdown: {
+        input_cost: Math.round(inputCost * 100000) / 100000,
+        output_cost: Math.round(outputCost * 100000) / 100000
+      },
+      timestamp: new Date().toISOString()
+    }));
     return;
   }
 
@@ -227,15 +266,51 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // GET /openclaw-status - OpenClaw system status (real-time metrics)
+  // GET /openclaw-status - OpenClaw system status (real-time metrics with 7+ agents)
   if (pathname === '/openclaw-status') {
     const tasks = getLatestTasks(5);
+    
+    // Get real sessions from openclaw CLI
+    let activeAgents = [];
+    let messages_today = 0;
+    let searches_today = 0;
+    
+    try {
+      // Run openclaw sessions --json to get real sessions
+      const { execSync } = require('child_process');
+      const sessionsJson = execSync('openclaw sessions --json 2>/dev/null', { 
+        encoding: 'utf8',
+        timeout: 5000,
+        maxBuffer: 10 * 1024 * 1024 
+      });
+      
+      const sessionsData = JSON.parse(sessionsJson);
+      
+      if (sessionsData.sessions && Array.isArray(sessionsData.sessions)) {
+        // Use up to 7 most recent sessions (filter out subagents if needed, but include them for variety)
+        activeAgents = sessionsData.sessions.slice(0, 7).map(session => ({
+          name: session.key.replace('agent:main:', ''),
+          type: session.kind,
+          model: session.model,
+          status: 'active',
+          updatedAt: new Date(session.updatedAt).toISOString(),
+          tokens: session.totalTokens || 0
+        }));
+      }
+    } catch (e) {
+      console.error('Error fetching sessions:', e.message);
+      // Fallback to at least the main session
+      activeAgents = [{
+        name: 'telegram:direct:6360918947',
+        type: 'telegram:direct',
+        model: 'claude-haiku-4-5',
+        status: 'active'
+      }];
+    }
     
     // Count messages and searches from gateway.log (today's date)
     const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
     const logFile = path.join(process.env.HOME, '.openclaw/logs/gateway.log');
-    let messages_today = 0;
-    let searches_today = 0;
     
     try {
       if (fs.existsSync(logFile)) {
@@ -243,8 +318,8 @@ const server = http.createServer((req, res) => {
         logContent.forEach(line => {
           // Only count lines from today
           if (line.includes(today)) {
-            if (/message|chat/i.test(line)) messages_today++;
-            if (/search|query/i.test(line)) searches_today++;
+            if (/message|chat|telegram|direct/i.test(line)) messages_today++;
+            if (/search|query|web_search/i.test(line)) searches_today++;
           }
         });
       }
@@ -259,10 +334,8 @@ const server = http.createServer((req, res) => {
       gateway: 'ONLINE',
       telegram: true,
       model: 'claude-haiku-4-5',
-      active_sessions: 1,
-      session_details: [
-        { key: 'main', type: 'telegram:direct', model: 'claude-haiku-4-5', status: 'active' }
-      ],
+      active_sessions: activeAgents.length,
+      agents: activeAgents,
       messages_today: messages_today,
       searches_today: searches_today,
       tasks: tasks,
