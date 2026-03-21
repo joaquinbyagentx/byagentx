@@ -242,6 +242,7 @@
   /* Hide PDF button on mobile */
   @media (max-width: 768px) {
     #pdf-btn { display: none !important; }
+    html, body { overflow-x: hidden; overflow-y: auto; scroll-snap-type: none !important; }
   }
 
   @media (max-width: 768px) {
@@ -258,12 +259,12 @@
 
     /* ── Slides: allow natural height on mobile ── */
     .slide {
-      height: auto;
-      min-height: 100svh;          /* small viewport height (mobile browsers) */
-      min-height: 100vh;           /* fallback */
-      overflow: visible;
-      padding: 56px 1rem 2rem;
+      height: auto !important;
+      min-height: 0 !important;
+      overflow: visible !important;
+      padding: 60px 1rem 2.5rem;
       justify-content: flex-start;
+      scroll-snap-align: none !important;
     }
 
     /* ── Typography scale-down ── */
@@ -339,6 +340,31 @@
 
     /* ── Slide num ── */
     .slide-num { font-size: 0.62rem; bottom: 0.75rem; right: 1rem; }
+
+    /* ── Slide 4: Compact report preview ── */
+    .report-preview {
+      padding: 0.75rem 0.875rem;
+      margin-top: 0.75rem;
+    }
+    .report-title { font-size: 0.72rem; margin-bottom: 0.5rem; }
+    .report-line { font-size: 0.73rem; padding: 3px 0; }
+    .report-val { font-size: 0.73rem !important; }
+
+    /* ── Slide 4: label above report ── */
+    .slide4-layout > div:last-child > div:first-child {
+      font-size: 0.68rem !important;
+    }
+
+    /* ── Slide 5: CTA block spacing ── */
+    .cta-block { margin-top: 1.25rem; }
+    .close-grid { margin-top: 0.75rem; }
+    .why-list { gap: 0.6rem; }
+    .timeline-compact { gap: 0.5rem; }
+    .tl-item { gap: 8px; }
+
+    /* ── Fix position absolute elements ── */
+    .slide-num { position: relative !important; text-align: right; margin-top: 0.75rem; bottom: auto; right: auto; }
+    .grid-bg { display: none; }
   }
 
   /* ── Extra small screens (< 390px) ── */
@@ -686,42 +712,43 @@
   }, { threshold: 0.5 });
   slides.forEach(s => io.observe(s));
 
-  // ── Touch/swipe for mobile slide navigation ──
-  (function() {
-    let touchStartY = 0;
-    let touchStartX = 0;
-    let isSwiping = false;
+  // ── Touch/swipe: desktop-only snap nav (mobile uses native scroll) ──
+  if (window.innerWidth > 768) {
+    (function() {
+      let touchStartY = 0;
+      let touchStartX = 0;
+      let isSwiping = false;
 
-    document.addEventListener('touchstart', e => {
-      touchStartY = e.touches[0].clientY;
-      touchStartX = e.touches[0].clientX;
-      isSwiping = false;
-    }, { passive: true });
+      document.addEventListener('touchstart', e => {
+        touchStartY = e.touches[0].clientY;
+        touchStartX = e.touches[0].clientX;
+        isSwiping = false;
+      }, { passive: true });
 
-    document.addEventListener('touchmove', e => {
-      const dy = Math.abs(e.touches[0].clientY - touchStartY);
-      const dx = Math.abs(e.touches[0].clientX - touchStartX);
-      if (dy > dx && dy > 10) isSwiping = true;
-    }, { passive: true });
+      document.addEventListener('touchmove', e => {
+        const dy = Math.abs(e.touches[0].clientY - touchStartY);
+        const dx = Math.abs(e.touches[0].clientX - touchStartX);
+        if (dy > dx && dy > 10) isSwiping = true;
+      }, { passive: true });
 
-    document.addEventListener('touchend', e => {
-      if (!isSwiping) return;
-      const dy = e.changedTouches[0].clientY - touchStartY;
-      const slideEls = Array.from(document.querySelectorAll('.slide'));
-      // Find current visible slide
-      const mid = window.innerHeight / 2;
-      let curIdx = slideEls.findIndex(s => {
-        const r = s.getBoundingClientRect();
-        return r.top <= mid && r.bottom > mid;
+      document.addEventListener('touchend', e => {
+        if (!isSwiping) return;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+        const slideEls = Array.from(document.querySelectorAll('.slide'));
+        const mid = window.innerHeight / 2;
+        let curIdx = slideEls.findIndex(s => {
+          const r = s.getBoundingClientRect();
+          return r.top <= mid && r.bottom > mid;
+        });
+        if (curIdx === -1) return;
+        if (dy < -60 && curIdx < slideEls.length - 1) {
+          slideEls[curIdx + 1].scrollIntoView({ behavior: 'smooth' });
+        } else if (dy > 60 && curIdx > 0) {
+          slideEls[curIdx - 1].scrollIntoView({ behavior: 'smooth' });
+        }
       });
-      if (curIdx === -1) return;
-      if (dy < -60 && curIdx < slideEls.length - 1) {
-        slideEls[curIdx + 1].scrollIntoView({ behavior: 'smooth' });
-      } else if (dy > 60 && curIdx > 0) {
-        slideEls[curIdx - 1].scrollIntoView({ behavior: 'smooth' });
-      }
-    });
-  })();
+    })();
+  }
 
 </script>
 </body>
