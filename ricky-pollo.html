@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Sistema de Automatización Inteligente — Ricky Pollo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -365,6 +365,31 @@
     /* ── Fix position absolute elements ── */
     .slide-num { position: relative !important; text-align: right; margin-top: 0.75rem; bottom: auto; right: auto; }
     .grid-bg { display: none; }
+
+    /* ── Safe area insets (notch / home indicator bar) ── */
+    body {
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    /* ── Slide 5: CTA text must not overflow ── */
+    .cta-url {
+      word-break: break-all;
+      font-size: 1.4rem;
+    }
+    .cta-email {
+      word-break: break-all;
+      font-size: 0.82rem;
+    }
+    /* CTA right column: full width, no overflow */
+    .close-grid > div:last-child {
+      width: 100%;
+      align-items: center;
+    }
+    .close-grid > div:last-child > div {
+      max-width: 100% !important;
+      width: 100%;
+    }
   }
 
   /* ── Extra small screens (< 390px) ── */
