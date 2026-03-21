@@ -1669,21 +1669,21 @@
       // prices
       if (lang === 'es') {
         // Plan 1
-        document.getElementById('price1a').textContent = (USD.p1_setup * MXN_RATE).toLocaleString('es-MX');
-        document.getElementById('price1b').textContent = (USD.p1_monthly * MXN_RATE).toLocaleString('es-MX');
+        document.getElementById('price1a').textContent = (USD.p1_setup / 100 * MXN_RATE).toLocaleString('es-MX');
+        document.getElementById('price1b').textContent = (USD.p1_monthly / 100 * MXN_RATE).toLocaleString('es-MX');
         // Plan 2
-        document.getElementById('price2a').textContent = (USD.p2_setup * MXN_RATE).toLocaleString('es-MX');
-        document.getElementById('price2b').textContent = (USD.p2_monthly * MXN_RATE).toLocaleString('es-MX');
+        document.getElementById('price2a').textContent = (USD.p2_setup / 100 * MXN_RATE).toLocaleString('es-MX');
+        document.getElementById('price2b').textContent = (USD.p2_monthly / 100 * MXN_RATE).toLocaleString('es-MX');
         // Plan 3
-        document.getElementById('price3').textContent = (USD.p3_monthly * MXN_RATE).toLocaleString('es-MX');
+        document.getElementById('price3').textContent = (USD.p3_monthly / 100 * MXN_RATE).toLocaleString('es-MX');
         // Plan 4
-        document.getElementById('price4').textContent = (USD.p4_monthly * MXN_RATE).toLocaleString('es-MX');
+        document.getElementById('price4').textContent = (USD.p4_monthly / 100 * MXN_RATE).toLocaleString('es-MX');
         // Plan 5
-        document.getElementById('price5a').textContent = (USD.p5_setup * MXN_RATE).toLocaleString('es-MX');
-        document.getElementById('price5b').textContent = (USD.p5_monthly * MXN_RATE).toLocaleString('es-MX');
+        document.getElementById('price5a').textContent = (USD.p5_setup / 100 * MXN_RATE).toLocaleString('es-MX');
+        document.getElementById('price5b').textContent = (USD.p5_monthly / 100 * MXN_RATE).toLocaleString('es-MX');
         // Plan 6
-        document.getElementById('price6a').textContent = (USD.p6_setup * MXN_RATE).toLocaleString('es-MX');
-        document.getElementById('price6b').textContent = (USD.p6_monthly * MXN_RATE).toLocaleString('es-MX');
+        document.getElementById('price6a').textContent = (USD.p6_setup / 100 * MXN_RATE).toLocaleString('es-MX');
+        document.getElementById('price6b').textContent = (USD.p6_monthly / 100 * MXN_RATE).toLocaleString('es-MX');
       } else {
         // Plan 1 (convert cents to dollars with 2 decimals)
         document.getElementById('price1a').textContent = '$' + (USD.p1_setup / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
