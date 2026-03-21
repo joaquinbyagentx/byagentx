@@ -702,7 +702,7 @@
       gap: 4px;
     }
     .plan-price-symbol { font-size: 22px; margin-top: 10px; font-weight: 600; }
-    .plan-price-period { font-size: 14px; color: var(--text-3); font-weight: 400; align-self: flex-end; margin-bottom: 8px; }
+    .plan-price-period { font-size: 16px; color: #aaa; font-weight: 500; align-self: flex-end; margin-bottom: 8px; }
     .price-mxn { font-size: 12px; color: #888; margin-top: 2px; }
     .pricing-disclaimer { text-align: center; color: #666; font-size: 12px; margin-top: 24px; padding: 0 20px; max-width: 600px; margin-left: auto; margin-right: auto; }
     .plan-desc { font-size: 14px; color: var(--text-2); }
@@ -1060,16 +1060,16 @@
   <div class="stats-strip">
     <div class="stats-inner">
       <div class="stat-item reveal">
-        <div class="stat-number">500+</div>
-        <div class="stat-label" data-i18n="stats.businesses">businesses automated</div>
+        <div class="stat-number" style="font-size:1.5rem; line-height:1.2;" data-i18n="stats.businesses.num">Automate your</div>
+        <div class="stat-label" data-i18n="stats.businesses">business</div>
       </div>
       <div class="stat-item reveal reveal-delay-1">
-        <div class="stat-number">98%</div>
-        <div class="stat-label" data-i18n="stats.satisfaction">customer satisfaction</div>
+        <div class="stat-number" data-i18n="stats.satisfaction.num">Results</div>
+        <div class="stat-label" data-i18n="stats.satisfaction">from day one</div>
       </div>
       <div class="stat-item reveal reveal-delay-2">
         <div class="stat-number">40h</div>
-        <div class="stat-label" data-i18n="stats.saved">saved per week avg.</div>
+        <div class="stat-label" data-i18n="stats.saved">saved per week on average</div>
       </div>
       <div class="stat-item reveal reveal-delay-3">
         <div class="stat-number">24/7</div>
@@ -1212,6 +1212,10 @@
         <div>
           <div class="plan-name" data-i18n="pricing.p3.name">Social Media Automation</div>
           <div class="plan-price-block">
+            <div style="display: flex; gap: 16px; align-items: baseline; margin-bottom: 8px;">
+              <div><span class="plan-price-symbol" id="sym3a">$</span><span id="price3a">499</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
+              <div class="price-mxn" id="price3a-mxn"></div>
+            </div>
             <div class="plan-price">
               <span class="plan-price-symbol" id="sym3">$</span>
               <span id="price3">799</span>
@@ -1238,6 +1242,10 @@
         <div>
           <div class="plan-name" data-i18n="pricing.p4.name">SEO + AI Content</div>
           <div class="plan-price-block">
+            <div style="display: flex; gap: 16px; align-items: baseline; margin-bottom: 8px;">
+              <div><span class="plan-price-symbol" id="sym4a">$</span><span id="price4a">499</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
+              <div class="price-mxn" id="price4a-mxn"></div>
+            </div>
             <div class="plan-price">
               <span class="plan-price-symbol" id="sym4">$</span>
               <span id="price4">999</span>
@@ -1375,7 +1383,7 @@
         <span data-i18n="cta.title1">Your business,</span><br/>
         <span class="gradient-text" data-i18n="cta.title2">on autopilot</span>
       </h2>
-      <p data-i18n="cta.subtitle">Join 500+ businesses already running on AgentX. Setup in 72 hours, results from day one.</p>
+      <p data-i18n="cta.subtitle">Be among the first businesses to run on AgentX. Setup in 72 hours, results from day one.</p>
       <div class="hero-actions">
         <a href="mailto:joaquin@byagentx.com" class="btn-primary">
           <span data-i18n="cta.email">Email us</span>
@@ -1399,10 +1407,14 @@
       </div>
       <div class="footer-links">
         <a href="#features" data-i18n="nav.features">Features</a>
+        <a href="#how" data-i18n="nav.how">How it works</a>
         <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
+        <a href="case-study.html" data-i18n="footer.casestudy">Case Study</a>
         <a href="mailto:joaquin@byagentx.com" data-i18n="nav.contact">Contact</a>
+        <a href="privacy.html" data-i18n="footer.privacy">Privacy Policy</a>
+        <a href="terms.html" data-i18n="footer.terms">Terms of Service</a>
       </div>
-      <div class="footer-copy" data-i18n="footer.copyright">© 2026 AgentX. All rights reserved.</div>
+      <div class="footer-copy">© <span id="copyright-year"></span> AgentX. <span data-i18n="footer.rights">All rights reserved.</span></div>
     </div>
   </footer>
 
@@ -1428,9 +1440,11 @@
         "mock.rate":     "website visitors",
         "mock.saved":    "Time Saved",
         "mock.week":     "this week",
-        "stats.businesses": "businesses automated",
-        "stats.satisfaction":"customer satisfaction",
-        "stats.saved":   "saved per week avg.",
+        "stats.businesses.num": "Automate your",
+        "stats.businesses": "business",
+        "stats.satisfaction.num": "Results",
+        "stats.satisfaction":"from day one",
+        "stats.saved":   "saved per week on average",
         "stats.uptime":  "always-on automation",
         "features.label":"What we do",
         "features.title":"Everything your business needs to run on autopilot",
@@ -1523,11 +1537,14 @@
         "cta.label":     "Ready to start?",
         "cta.title1":    "Your business,",
         "cta.title2":    "on autopilot",
-        "cta.subtitle":  "Join 500+ businesses already running on AgentX. Setup in 72 hours, results from day one.",
+        "cta.subtitle":  "Be among the first businesses to run on AgentX. Setup in 72 hours, results from day one.",
         "cta.email":     "Email us",
         "cta.see_pricing":"See pricing",
         "footer.tagline":"AI Automation for Businesses",
-        "footer.copyright":"© 2026 AgentX. All rights reserved.",
+        "footer.rights":"All rights reserved.",
+        "footer.casestudy":"Case Study",
+        "footer.privacy":"Privacy Policy",
+        "footer.terms":"Terms of Service",
       },
       es: {
         "nav.features":  "Características",
@@ -1547,9 +1564,11 @@
         "mock.rate":     "visitantes al sitio",
         "mock.saved":    "Tiempo Ahorrado",
         "mock.week":     "esta semana",
-        "stats.businesses": "negocios automatizados",
-        "stats.satisfaction":"satisfacción del cliente",
-        "stats.saved":   "ahorradas por semana en prom.",
+        "stats.businesses.num": "Automatiza tu",
+        "stats.businesses": "negocio",
+        "stats.satisfaction.num": "Resultados",
+        "stats.satisfaction":"desde el primer día",
+        "stats.saved":   "ahorradas por semana en promedio",
         "stats.uptime":  "automatización 24/7",
         "features.label":"Lo que hacemos",
         "features.title":"Todo lo que tu negocio necesita para funcionar en piloto automático",
@@ -1642,11 +1661,14 @@
         "cta.label":     "¿Listo para empezar?",
         "cta.title1":    "Tu negocio,",
         "cta.title2":    "en piloto automático",
-        "cta.subtitle":  "Únete a más de 500 negocios que ya funcionan con AgentX. Configuración en 72 horas, resultados desde el primer día.",
+        "cta.subtitle":  "Sé de los primeros negocios en funcionar con AgentX. Configuración en 72 horas, resultados desde el primer día.",
         "cta.email":     "Escríbenos",
         "cta.see_pricing":"Ver precios",
         "footer.tagline":"Automatización AI para Negocios",
-        "footer.copyright":"© 2026 AgentX. Todos los derechos reservados.",
+        "footer.rights":"Todos los derechos reservados.",
+        "footer.casestudy":"Caso de Estudio",
+        "footer.privacy":"Política de Privacidad",
+        "footer.terms":"Términos de Servicio",
         "pricing.disclaimer":"*Precios aproximados en pesos mexicanos. Los pagos se procesan en USD mediante Stripe. El cargo final en MXN depende del tipo de cambio de tu banco al momento del pago.",
       }
     };
@@ -1655,8 +1677,8 @@
     const USD = {
       p1_setup: 199900, p1_monthly: 49900,
       p2_setup: 149900, p2_monthly: 29900,
-      p3_monthly: 79900,
-      p4_monthly: 99900,
+      p3_setup: 49900,  p3_monthly: 79900,
+      p4_setup: 49900,  p4_monthly: 99900,
       p5_setup: 249900, p5_monthly: 69900,
       p6_setup: 499900, p6_monthly: 129900
     };
@@ -1693,9 +1715,13 @@
         document.getElementById('price2a-mxn').textContent = '~$' + (USD.p2_setup / 100).toLocaleString('en-US') + ' USD';
         document.getElementById('price2b-mxn').textContent = '~$' + (USD.p2_monthly / 100).toLocaleString('en-US') + ' USD';
         // Plan 3
+        document.getElementById('price3a').textContent = (USD.p3_setup / 100 * MXN_RATE).toLocaleString('es-MX');
+        document.getElementById('price3a-mxn').textContent = '~$' + (USD.p3_setup / 100).toLocaleString('en-US') + ' USD';
         document.getElementById('price3').textContent = (USD.p3_monthly / 100 * MXN_RATE).toLocaleString('es-MX');
         document.getElementById('price3-mxn').textContent = '~$' + (USD.p3_monthly / 100).toLocaleString('en-US') + ' USD';
         // Plan 4
+        document.getElementById('price4a').textContent = (USD.p4_setup / 100 * MXN_RATE).toLocaleString('es-MX');
+        document.getElementById('price4a-mxn').textContent = '~$' + (USD.p4_setup / 100).toLocaleString('en-US') + ' USD';
         document.getElementById('price4').textContent = (USD.p4_monthly / 100 * MXN_RATE).toLocaleString('es-MX');
         document.getElementById('price4-mxn').textContent = '~$' + (USD.p4_monthly / 100).toLocaleString('en-US') + ' USD';
         // Plan 5
@@ -1716,8 +1742,10 @@
         document.getElementById('price2a').textContent = (USD.p2_setup / 100).toLocaleString('en-US') + ' USD';
         document.getElementById('price2b').textContent = (USD.p2_monthly / 100).toLocaleString('en-US') + ' USD';
         // Plan 3
+        document.getElementById('price3a').textContent = (USD.p3_setup / 100).toLocaleString('en-US') + ' USD';
         document.getElementById('price3').textContent = (USD.p3_monthly / 100).toLocaleString('en-US') + ' USD';
         // Plan 4
+        document.getElementById('price4a').textContent = (USD.p4_setup / 100).toLocaleString('en-US') + ' USD';
         document.getElementById('price4').textContent = (USD.p4_monthly / 100).toLocaleString('en-US') + ' USD';
         // Plan 5
         document.getElementById('price5a').textContent = (USD.p5_setup / 100).toLocaleString('en-US') + ' USD';
@@ -1726,7 +1754,7 @@
         document.getElementById('price6a').textContent = (USD.p6_setup / 100).toLocaleString('en-US') + ' USD';
         document.getElementById('price6b').textContent = (USD.p6_monthly / 100).toLocaleString('en-US') + ' USD';
         // Clear MXN reference divs
-        ['price1a-mxn','price1b-mxn','price2a-mxn','price2b-mxn','price3-mxn','price4-mxn','price5a-mxn','price5b-mxn','price6a-mxn','price6b-mxn'].forEach(function(id) {
+        ['price1a-mxn','price1b-mxn','price2a-mxn','price2b-mxn','price3a-mxn','price3-mxn','price4a-mxn','price4-mxn','price5a-mxn','price5b-mxn','price6a-mxn','price6b-mxn'].forEach(function(id) {
           var el = document.getElementById(id); if (el) el.textContent = '';
         });
       }
@@ -1778,6 +1806,7 @@
     /* ── Init ──────────────────────────────────────────────────── */
     document.addEventListener('DOMContentLoaded', () => {
       applyLang(currentLang);
+      document.getElementById('copyright-year').textContent = new Date().getFullYear();
 
       /* stagger mock-card entrance */
       document.querySelectorAll('.mock-card').forEach((card, i) => {

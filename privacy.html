@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — AgentX</title>
+  <meta name="description" content="Privacy Policy for AgentX AI Automation Services." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+      --bg:          #0a0a0f;
+      --bg-2:        #101018;
+      --bg-3:        #16161f;
+      --border:      rgba(255,255,255,0.07);
+      --border-mid:  rgba(255,255,255,0.12);
+      --text-1:      #f0f0ff;
+      --text-2:      #a0a0b8;
+      --text-3:      #606078;
+      --accent:      #7c5cfc;
+      --accent-light: rgba(124,92,252,0.12);
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text-1);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Nav */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 32px;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 8px;
+      font-weight: 700; font-size: 16px; color: var(--text-1);
+      text-decoration: none;
+    }
+    .nav-logo-mark {
+      width: 28px; height: 28px; border-radius: 8px;
+      background: linear-gradient(135deg, #7c5cfc 0%, #5b8af5 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+    }
+    .nav-back {
+      font-size: 14px; color: var(--text-2);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .nav-back:hover { color: var(--text-1); text-decoration: none; }
+
+    /* Content */
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 64px 24px 96px;
+    }
+    .page-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-light);
+      border: 1px solid rgba(124,92,252,0.25);
+      padding: 5px 14px;
+      border-radius: 99px;
+      margin-bottom: 24px;
+    }
+    h1 {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+    .effective-date {
+      font-size: 14px; color: var(--text-3); margin-bottom: 48px;
+    }
+    h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-top: 40px;
+      margin-bottom: 12px;
+      color: var(--text-1);
+    }
+    p { color: var(--text-2); margin-bottom: 16px; font-size: 15px; }
+    ul { color: var(--text-2); margin-bottom: 16px; padding-left: 20px; font-size: 15px; }
+    ul li { margin-bottom: 8px; }
+
+    .card {
+      background: var(--bg-2);
+      border: 1px solid var(--border-mid);
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-top: 48px;
+    }
+    .card p { margin: 0; }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 32px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-3);
+    }
+    footer a { color: var(--text-3); }
+    footer a:hover { color: var(--text-1); text-decoration: none; }
+    .footer-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 8px; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-mark">⚡</div>
+      AgentX
+    </a>
+    <a href="index.html" class="nav-back">← Back to site</a>
+  </nav>
+
+  <div class="container">
+    <div class="page-label">Legal</div>
+    <h1>Privacy Policy</h1>
+    <p class="effective-date">Effective date: March 2026</p>
+
+    <p>At AgentX, we take your privacy seriously. This Privacy Policy explains what information we collect, how we use it, and how we protect it when you use our AI automation services at <a href="https://byagentx.com">byagentx.com</a>.</p>
+
+    <h2>1. Information We Collect</h2>
+    <p>We collect minimal information necessary to provide our services:</p>
+    <ul>
+      <li><strong>Name and email address</strong> — when you sign up or purchase a plan.</li>
+      <li><strong>Payment information</strong> — handled entirely by Stripe. We never see or store your full card details.</li>
+      <li><strong>Business details</strong> — any context you share during onboarding to help us configure your automation.</li>
+      <li><strong>Usage data</strong> — basic analytics about how our website is used (page views, traffic sources), collected anonymously.</li>
+    </ul>
+
+    <h2>2. How We Use Your Information</h2>
+    <ul>
+      <li>To process your payment and activate your subscription.</li>
+      <li>To contact you for onboarding, setup, and support.</li>
+      <li>To send important account and service updates.</li>
+      <li>To improve our services and website experience.</li>
+    </ul>
+    <p>We do not sell, rent, or trade your personal information to third parties.</p>
+
+    <h2>3. Payment Processing</h2>
+    <p>All payments are processed securely through <strong>Stripe</strong>, a PCI-compliant payment processor. When you complete a purchase, your payment details are transmitted directly to Stripe and are never stored on our servers. Stripe's privacy policy applies to all payment transactions: <a href="https://stripe.com/privacy" target="_blank" rel="noopener">stripe.com/privacy</a>.</p>
+
+    <h2>4. Data Sharing</h2>
+    <p>We share your information only with the service providers necessary to operate our business:</p>
+    <ul>
+      <li><strong>Stripe</strong> — payment processing.</li>
+      <li><strong>Email service providers</strong> — to deliver transactional and onboarding emails.</li>
+    </ul>
+    <p>All third-party providers are contractually bound to protect your data.</p>
+
+    <h2>5. Data Retention</h2>
+    <p>We retain your personal information for as long as your account is active and for a reasonable period after cancellation, as required for legal and accounting purposes. You may request deletion of your data at any time by contacting us.</p>
+
+    <h2>6. Your Rights</h2>
+    <p>You have the right to:</p>
+    <ul>
+      <li>Access the personal data we hold about you.</li>
+      <li>Request correction of inaccurate data.</li>
+      <li>Request deletion of your data.</li>
+      <li>Opt out of marketing communications at any time.</li>
+    </ul>
+
+    <h2>7. Security</h2>
+    <p>We use industry-standard security measures to protect your information, including encrypted connections (HTTPS) and access controls. However, no method of transmission over the internet is 100% secure.</p>
+
+    <h2>8. Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. We will notify you of significant changes by email or by posting a notice on our website. Continued use of our services after changes constitutes acceptance of the updated policy.</p>
+
+    <div class="card">
+      <p>Questions about your privacy? Contact us at <a href="mailto:joaquin@byagentx.com">joaquin@byagentx.com</a></p>
+    </div>
+  </div>
+
+  <footer>
+    <div>© <span id="yr"></span> AgentX. All rights reserved.</div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </div>
+  </footer>
+
+  <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+</body>
+</html>
