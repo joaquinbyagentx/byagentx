@@ -703,6 +703,8 @@
     }
     .plan-price-symbol { font-size: 22px; margin-top: 10px; font-weight: 600; }
     .plan-price-period { font-size: 14px; color: var(--text-3); font-weight: 400; align-self: flex-end; margin-bottom: 8px; }
+    .price-mxn { font-size: 12px; color: #888; margin-top: 2px; }
+    .pricing-disclaimer { text-align: center; color: #666; font-size: 12px; margin-top: 24px; padding: 0 20px; max-width: 600px; margin-left: auto; margin-right: auto; }
     .plan-desc { font-size: 14px; color: var(--text-2); }
     .plan-features { list-style: none; display: flex; flex-direction: column; gap: 12px; flex: 1; }
     .plan-features li {
@@ -1152,12 +1154,14 @@
           <div class="plan-price-block">
             <div style="display: flex; gap: 16px; align-items: baseline; margin-bottom: 8px;">
               <div><span class="plan-price-symbol" id="sym1">$</span><span id="price1a">1,999</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
+              <div class="price-mxn" id="price1a-mxn"></div>
             </div>
             <div class="plan-price">
               <span class="plan-price-symbol" id="sym1b">$</span>
               <span id="price1b">499</span>
               <span class="plan-price-period" data-i18n="pricing.period">/mo</span>
             </div>
+            <div class="price-mxn" id="price1b-mxn"></div>
           </div>
           <div class="plan-desc" data-i18n="pricing.p1.desc">Automate orders, payments, and customer support 24/7 via WhatsApp.</div>
         </div>
@@ -1180,12 +1184,14 @@
           <div class="plan-price-block">
             <div style="display: flex; gap: 16px; align-items: baseline; margin-bottom: 8px;">
               <div><span class="plan-price-symbol" id="sym2">$</span><span id="price2a">1,499</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
+              <div class="price-mxn" id="price2a-mxn"></div>
             </div>
             <div class="plan-price">
               <span class="plan-price-symbol" id="sym2b">$</span>
               <span id="price2b">299</span>
               <span class="plan-price-period" data-i18n="pricing.period">/mo</span>
             </div>
+            <div class="price-mxn" id="price2b-mxn"></div>
           </div>
           <div class="plan-desc" data-i18n="pricing.p2.desc">Beautiful AI-powered website with intelligent chatbot.</div>
         </div>
@@ -1211,6 +1217,7 @@
               <span id="price3">799</span>
               <span class="plan-price-period" data-i18n="pricing.period">/mo</span>
             </div>
+            <div class="price-mxn" id="price3-mxn"></div>
           </div>
           <div class="plan-desc" data-i18n="pricing.p3.desc">AI-powered content creation and scheduling across platforms.</div>
         </div>
@@ -1236,6 +1243,7 @@
               <span id="price4">999</span>
               <span class="plan-price-period" data-i18n="pricing.period">/mo</span>
             </div>
+            <div class="price-mxn" id="price4-mxn"></div>
           </div>
           <div class="plan-desc" data-i18n="pricing.p4.desc">Search engine optimization + AI blog content strategy.</div>
         </div>
@@ -1258,12 +1266,14 @@
           <div class="plan-price-block">
             <div style="display: flex; gap: 16px; align-items: baseline; margin-bottom: 8px;">
               <div><span class="plan-price-symbol" id="sym5">$</span><span id="price5a">2,499</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
+              <div class="price-mxn" id="price5a-mxn"></div>
             </div>
             <div class="plan-price">
               <span class="plan-price-symbol" id="sym5b">$</span>
               <span id="price5b">699</span>
               <span class="plan-price-period" data-i18n="pricing.period">/mo</span>
             </div>
+            <div class="price-mxn" id="price5b-mxn"></div>
           </div>
           <div class="plan-desc" data-i18n="pricing.p5.desc">Custom AI workflows for your unique business processes.</div>
         </div>
@@ -1287,12 +1297,14 @@
           <div class="plan-price-block">
             <div style="display: flex; gap: 16px; align-items: baseline; margin-bottom: 8px;">
               <div><span class="plan-price-symbol" id="sym6">$</span><span id="price6a">4,999</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
+              <div class="price-mxn" id="price6a-mxn"></div>
             </div>
             <div class="plan-price">
               <span class="plan-price-symbol" id="sym6b">$</span>
               <span id="price6b">1,299</span>
               <span class="plan-price-period" data-i18n="pricing.period">/mo</span>
             </div>
+            <div class="price-mxn" id="price6b-mxn"></div>
           </div>
           <div class="plan-desc" data-i18n="pricing.p6.desc">Complete AI transformation: all tools, all features, white-glove service.</div>
         </div>
@@ -1308,6 +1320,7 @@
         <a href="https://buy.stripe.com/test_28E4gydNnbwk2Vw74NdQQ05" class="btn-plan accent" target="_blank">Buy Now →</a>
       </div>
     </div>
+    <p class="pricing-disclaimer" data-i18n="pricing.disclaimer">*Approximate prices in Mexican pesos. Payments are processed in USD via Stripe. The final MXN charge depends on your bank's exchange rate at the time of payment.</p>
   </section>
 
   <!-- ─── Trust / Testimonials ──────────────────────────────────── -->
@@ -1634,6 +1647,7 @@
         "cta.see_pricing":"Ver precios",
         "footer.tagline":"Automatización AI para Negocios",
         "footer.copyright":"© 2026 AgentX. Todos los derechos reservados.",
+        "pricing.disclaimer":"*Precios aproximados en pesos mexicanos. Los pagos se procesan en USD mediante Stripe. El cargo final en MXN depende del tipo de cambio de tu banco al momento del pago.",
       }
     };
 
@@ -1646,7 +1660,7 @@
       p5_setup: 249900, p5_monthly: 69900,
       p6_setup: 499900, p6_monthly: 129900
     };
-    const MXN_RATE = 18;
+    const MXN_RATE = 20;
 
     let currentLang = localStorage.getItem('agentx-lang') || 'en';
 
@@ -1671,36 +1685,50 @@
         // Plan 1
         document.getElementById('price1a').textContent = (USD.p1_setup / 100 * MXN_RATE).toLocaleString('es-MX');
         document.getElementById('price1b').textContent = (USD.p1_monthly / 100 * MXN_RATE).toLocaleString('es-MX');
+        document.getElementById('price1a-mxn').textContent = '~$' + (USD.p1_setup / 100).toLocaleString('en-US') + ' USD';
+        document.getElementById('price1b-mxn').textContent = '~$' + (USD.p1_monthly / 100).toLocaleString('en-US') + ' USD';
         // Plan 2
         document.getElementById('price2a').textContent = (USD.p2_setup / 100 * MXN_RATE).toLocaleString('es-MX');
         document.getElementById('price2b').textContent = (USD.p2_monthly / 100 * MXN_RATE).toLocaleString('es-MX');
+        document.getElementById('price2a-mxn').textContent = '~$' + (USD.p2_setup / 100).toLocaleString('en-US') + ' USD';
+        document.getElementById('price2b-mxn').textContent = '~$' + (USD.p2_monthly / 100).toLocaleString('en-US') + ' USD';
         // Plan 3
         document.getElementById('price3').textContent = (USD.p3_monthly / 100 * MXN_RATE).toLocaleString('es-MX');
+        document.getElementById('price3-mxn').textContent = '~$' + (USD.p3_monthly / 100).toLocaleString('en-US') + ' USD';
         // Plan 4
         document.getElementById('price4').textContent = (USD.p4_monthly / 100 * MXN_RATE).toLocaleString('es-MX');
+        document.getElementById('price4-mxn').textContent = '~$' + (USD.p4_monthly / 100).toLocaleString('en-US') + ' USD';
         // Plan 5
         document.getElementById('price5a').textContent = (USD.p5_setup / 100 * MXN_RATE).toLocaleString('es-MX');
         document.getElementById('price5b').textContent = (USD.p5_monthly / 100 * MXN_RATE).toLocaleString('es-MX');
+        document.getElementById('price5a-mxn').textContent = '~$' + (USD.p5_setup / 100).toLocaleString('en-US') + ' USD';
+        document.getElementById('price5b-mxn').textContent = '~$' + (USD.p5_monthly / 100).toLocaleString('en-US') + ' USD';
         // Plan 6
         document.getElementById('price6a').textContent = (USD.p6_setup / 100 * MXN_RATE).toLocaleString('es-MX');
         document.getElementById('price6b').textContent = (USD.p6_monthly / 100 * MXN_RATE).toLocaleString('es-MX');
+        document.getElementById('price6a-mxn').textContent = '~$' + (USD.p6_setup / 100).toLocaleString('en-US') + ' USD';
+        document.getElementById('price6b-mxn').textContent = '~$' + (USD.p6_monthly / 100).toLocaleString('en-US') + ' USD';
       } else {
-        // Plan 1 (convert cents to dollars with 2 decimals)
-        document.getElementById('price1a').textContent = '$' + (USD.p1_setup / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-        document.getElementById('price1b').textContent = (USD.p1_monthly / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        // Plan 1 (convert cents to dollars with USD label)
+        document.getElementById('price1a').textContent = (USD.p1_setup / 100).toLocaleString('en-US') + ' USD';
+        document.getElementById('price1b').textContent = (USD.p1_monthly / 100).toLocaleString('en-US') + ' USD';
         // Plan 2
-        document.getElementById('price2a').textContent = '$' + (USD.p2_setup / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-        document.getElementById('price2b').textContent = (USD.p2_monthly / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('price2a').textContent = (USD.p2_setup / 100).toLocaleString('en-US') + ' USD';
+        document.getElementById('price2b').textContent = (USD.p2_monthly / 100).toLocaleString('en-US') + ' USD';
         // Plan 3
-        document.getElementById('price3').textContent = (USD.p3_monthly / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('price3').textContent = (USD.p3_monthly / 100).toLocaleString('en-US') + ' USD';
         // Plan 4
-        document.getElementById('price4').textContent = (USD.p4_monthly / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('price4').textContent = (USD.p4_monthly / 100).toLocaleString('en-US') + ' USD';
         // Plan 5
-        document.getElementById('price5a').textContent = '$' + (USD.p5_setup / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-        document.getElementById('price5b').textContent = (USD.p5_monthly / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('price5a').textContent = (USD.p5_setup / 100).toLocaleString('en-US') + ' USD';
+        document.getElementById('price5b').textContent = (USD.p5_monthly / 100).toLocaleString('en-US') + ' USD';
         // Plan 6
-        document.getElementById('price6a').textContent = '$' + (USD.p6_setup / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-        document.getElementById('price6b').textContent = (USD.p6_monthly / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('price6a').textContent = (USD.p6_setup / 100).toLocaleString('en-US') + ' USD';
+        document.getElementById('price6b').textContent = (USD.p6_monthly / 100).toLocaleString('en-US') + ' USD';
+        // Clear MXN reference divs
+        ['price1a-mxn','price1b-mxn','price2a-mxn','price2b-mxn','price3-mxn','price4-mxn','price5a-mxn','price5b-mxn','price6a-mxn','price6b-mxn'].forEach(function(id) {
+          var el = document.getElementById(id); if (el) el.textContent = '';
+        });
       }
 
       // toggle button label
