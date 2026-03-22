@@ -1,858 +1,352 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sushi Seven — Menú a Domicilio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Sushi Seven — Menú a Domicilio</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#fff;color:#000;min-height:100vh;padding-bottom:120px}
 
-    :root {
-      --bg: #0a0a0f;
-      --bg2: #12121a;
-      --bg3: #1a1a26;
-      --gold: #c9a84c;
-      --gold-light: #e8c97a;
-      --red: #e63946;
-      --text: #f0ede8;
-      --text-muted: #8a8599;
-      --border: #2a2a3a;
-      --card-bg: #13131e;
-      --radius: 12px;
-    }
+/* HEADER */
+#header{background:#242323;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+#header .brand{display:flex;align-items:center;gap:10px}
+#header .logo{height:44px;width:44px;object-fit:contain;border-radius:4px}
+#header .brand-text .name{color:#fff;font-size:18px;font-weight:700;letter-spacing:1px}
+#header .brand-text .sub{color:#8cbb23;font-size:12px;font-weight:600;letter-spacing:0.5px}
+#cart-btn{background:none;border:none;cursor:pointer;position:relative;padding:4px}
+#cart-btn .icon{font-size:26px}
+#cart-count{position:absolute;top:-2px;right:-2px;background:#8cbb23;color:#fff;border-radius:50%;width:18px;height:18px;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;display:none}
 
-    html { scroll-behavior: smooth; }
+/* CATEGORY TABS */
+#cat-tabs{background:#fff;border-bottom:2px solid #f0f0f0;overflow-x:auto;white-space:nowrap;padding:8px 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch;position:sticky;top:68px;z-index:99}
+#cat-tabs::-webkit-scrollbar{display:none}
+.tab{display:inline-block;padding:7px 14px;margin-right:6px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;background:#f5f5f5;color:#242323;border:none;transition:all 0.2s;white-space:nowrap}
+.tab.active{background:#8cbb23;color:#fff}
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+/* MENU SECTIONS */
+#menu-content{padding:0 12px}
+.cat-section{padding:16px 0 8px}
+.cat-title{font-size:20px;font-weight:700;color:#242323;padding:8px 0 12px;border-bottom:3px solid #8cbb23;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px}
 
-    /* ── HEADER ── */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(10,10,15,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
-      transition: box-shadow 0.3s;
-    }
-    header.scrolled { box-shadow: 0 4px 24px rgba(0,0,0,0.5); }
+/* CARDS GRID */
+.items-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+@media(min-width:600px){.items-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}}
+@media(min-width:900px){.items-grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}}
 
-    .logo-wrap {
-      display: flex;
-      flex-direction: column;
-      line-height: 1;
-    }
-    .logo {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 1.4rem;
-      letter-spacing: 0.12em;
-      color: var(--gold);
-      text-transform: uppercase;
-    }
-    .logo span { color: var(--red); }
-    .tagline {
-      font-size: 0.62rem;
-      letter-spacing: 0.18em;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      margin-top: 2px;
-    }
+.card{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.09);display:flex;flex-direction:column;position:relative}
+.card-img{width:100%;height:130px;object-fit:cover;display:block;background:#f5f5f5}
+.card-img-placeholder{width:100%;height:130px;background:linear-gradient(135deg,#f5f5f5,#e0e0e0);display:flex;align-items:center;justify-content:center;font-size:32px}
+.card-body{padding:8px 10px 10px;flex:1;display:flex;flex-direction:column}
+.card-name{font-size:12px;font-weight:700;color:#242323;text-transform:uppercase;margin-bottom:3px;line-height:1.3}
+.card-desc{font-size:11px;color:#888;line-height:1.3;flex:1;margin-bottom:6px}
+.labels{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:6px}
+.label{font-size:9px;font-weight:700;padding:2px 6px;border-radius:10px;text-transform:uppercase;letter-spacing:0.3px}
+.label-suave{background:#e8f5e9;color:#388e3c}
+.label-picante{background:#fce4ec;color:#c62828}
+.label-fish{background:#e3f2fd;color:#1565c0}
+.label-new{background:#fff8e1;color:#f57f17}
+.label-dulce{background:#fce4ec;color:#ad1457}
+.label-especialidad{background:#f3e5f5;color:#6a1b9a}
+.label-default{background:#f5f5f5;color:#666}
 
-    .cart-btn {
-      position: relative;
-      background: none;
-      border: 1.5px solid var(--gold);
-      color: var(--gold);
-      border-radius: 50px;
-      padding: 8px 18px;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
-      font-size: 0.85rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: background 0.2s, color 0.2s;
-    }
-    .cart-btn:hover { background: var(--gold); color: #000; }
-    .cart-count {
-      background: var(--red);
-      color: #fff;
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: none;
-      transition: transform 0.2s;
-    }
-    .cart-count.bounce { animation: bounce 0.4s ease; }
-    @keyframes bounce {
-      0%   { transform: scale(1); }
-      30%  { transform: scale(1.5); }
-      60%  { transform: scale(0.9); }
-      100% { transform: scale(1); }
-    }
+.card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+.card-price{font-size:14px;font-weight:700;color:#8cbb23}
+.add-btn{background:#8cbb23;color:#fff;border:none;border-radius:50%;width:28px;height:28px;font-size:20px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:transform 0.1s}
+.add-btn:active{transform:scale(0.9)}
 
-    /* ── HERO ── */
-    .hero {
-      position: relative;
-      height: 200px;
-      overflow: hidden;
-      display: flex;
-      align-items: flex-end;
-      padding: 24px 20px;
-    }
-    .hero-img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0.35;
-    }
-    .hero-fallback {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, #1a0a2e 0%, #0d1a2e 50%, #1a0d0d 100%);
-    }
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, var(--bg) 0%, transparent 60%);
-    }
-    .hero-text { position: relative; z-index: 1; }
-    .hero-text h2 {
-      font-size: 1.6rem;
-      font-weight: 900;
-      color: var(--text);
-    }
-    .hero-text h2 em {
-      font-style: normal;
-      color: var(--gold);
-    }
-    .hero-text p {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-top: 4px;
-      letter-spacing: 0.06em;
-    }
+/* CART DRAWER */
+#cart-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200}
+#cart-overlay.open{display:block}
+#cart-drawer{position:fixed;bottom:0;left:0;right:0;background:#fff;border-radius:20px 20px 0 0;max-height:80vh;display:flex;flex-direction:column;z-index:201;transform:translateY(100%);transition:transform 0.3s ease}
+#cart-drawer.open{transform:translateY(0)}
+#cart-header{padding:16px 20px 12px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;justify-content:space-between}
+#cart-header h2{font-size:18px;font-weight:700;color:#242323}
+#cart-close{background:none;border:none;font-size:24px;cursor:pointer;color:#666;padding:4px}
+#cart-items{overflow-y:auto;flex:1;padding:12px 16px}
+.cart-empty{text-align:center;padding:40px 20px;color:#aaa;font-size:15px}
+.cart-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #f5f5f5}
+.ci-name{flex:1;font-size:13px;font-weight:600;color:#242323}
+.ci-price{font-size:12px;color:#888;margin-top:2px}
+.qty-ctrl{display:flex;align-items:center;gap:6px}
+.qty-btn{background:#f5f5f5;border:none;border-radius:50%;width:26px;height:26px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700;color:#242323}
+.qty-btn:hover{background:#8cbb23;color:#fff}
+.qty-num{min-width:20px;text-align:center;font-size:14px;font-weight:700}
+.ci-subtotal{font-size:14px;font-weight:700;color:#8cbb23;min-width:52px;text-align:right}
+#cart-footer{padding:16px 20px;border-top:2px solid #f0f0f0}
+#cart-total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+#cart-total-row span{font-size:16px;font-weight:700;color:#242323}
+#cart-total{font-size:22px;font-weight:700;color:#8cbb23}
+#wa-btn{display:block;width:100%;background:#25d366;color:#fff;border:none;border-radius:12px;padding:14px;font-size:16px;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;letter-spacing:0.3px}
+#wa-btn:hover{background:#1ebe5a}
 
-    /* ── CATEGORY BAR ── */
-    .cat-bar-wrap {
-      position: sticky;
-      top: 64px;
-      z-index: 90;
-      background: rgba(10,10,15,0.96);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border);
-    }
-    .cat-bar {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      padding: 12px 16px;
-      scrollbar-width: none;
-    }
-    .cat-bar::-webkit-scrollbar { display: none; }
-    .cat-btn {
-      background: none;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      border-radius: 50px;
-      padding: 6px 16px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 600;
-      white-space: nowrap;
-      cursor: pointer;
-      transition: all 0.2s;
-      letter-spacing: 0.03em;
-    }
-    .cat-btn:hover { border-color: var(--gold); color: var(--gold); }
-    .cat-btn.active {
-      background: var(--gold);
-      border-color: var(--gold);
-      color: #000;
-    }
+/* FLOATING WA BUTTON */
+#wa-float{position:fixed;bottom:24px;right:16px;background:#25d366;color:#fff;border:none;border-radius:50%;width:56px;height:56px;font-size:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(37,211,102,0.5);z-index:150;text-decoration:none}
+#wa-float:hover{background:#1ebe5a;transform:scale(1.05)}
 
-    /* ── MAIN CONTENT ── */
-    main { padding: 24px 16px 120px; max-width: 900px; margin: 0 auto; }
-
-    .section { margin-bottom: 48px; opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
-    .section.visible { opacity: 1; transform: translateY(0); }
-
-    .section-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--gold);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .section-title::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(to right, var(--gold), transparent);
-      opacity: 0.4;
-    }
-
-    .products-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-    @media (min-width: 480px) { .products-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (min-width: 768px) { .products-grid { grid-template-columns: repeat(3, 1fr); } }
-
-    .product-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
-      position: relative;
-      overflow: hidden;
-    }
-    .product-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(to right, var(--gold), var(--red));
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-    .product-card:hover {
-      border-color: var(--gold);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(201,168,76,0.1);
-    }
-    .product-card:hover::before { opacity: 1; }
-
-    .product-name {
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: var(--text);
-      line-height: 1.3;
-    }
-    .product-desc {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      font-family: 'Noto Sans JP', sans-serif;
-      font-weight: 300;
-      line-height: 1.5;
-      flex: 1;
-    }
-    .product-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 4px;
-    }
-    .product-price {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--gold-light);
-    }
-    .product-price span { font-size: 0.7rem; opacity: 0.7; }
-
-    .add-btn {
-      background: var(--red);
-      color: #fff;
-      border: none;
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      font-size: 1.2rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s, transform 0.15s;
-      flex-shrink: 0;
-    }
-    .add-btn:hover { background: #ff5563; transform: scale(1.1); }
-    .add-btn:active { transform: scale(0.95); }
-
-    /* ── CART OVERLAY ── */
-    .cart-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.6);
-      z-index: 200;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s;
-    }
-    .cart-overlay.open { opacity: 1; pointer-events: all; }
-
-    .cart-drawer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: var(--bg2);
-      border-top: 1px solid var(--border);
-      border-radius: 24px 24px 0 0;
-      z-index: 210;
-      max-height: 85vh;
-      display: flex;
-      flex-direction: column;
-      transform: translateY(100%);
-      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
-    }
-    @media (min-width: 640px) {
-      .cart-drawer {
-        left: auto;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        width: 400px;
-        border-radius: 0;
-        border-left: 1px solid var(--border);
-        border-top: none;
-        max-height: 100vh;
-        transform: translateX(100%);
-        transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
-      }
-    }
-    .cart-drawer.open {
-      transform: translateY(0);
-    }
-    @media (min-width: 640px) {
-      .cart-drawer.open { transform: translateX(0); }
-    }
-
-    .cart-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 20px 16px;
-      border-bottom: 1px solid var(--border);
-    }
-    .cart-title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--gold);
-      letter-spacing: 0.05em;
-    }
-    .cart-close {
-      background: none;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      cursor: pointer;
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-    }
-    .cart-close:hover { border-color: var(--red); color: var(--red); }
-
-    .cart-items {
-      flex: 1;
-      overflow-y: auto;
-      padding: 16px 20px;
-      scrollbar-width: thin;
-      scrollbar-color: var(--border) transparent;
-    }
-    .cart-empty {
-      text-align: center;
-      color: var(--text-muted);
-      padding: 40px 0;
-      font-size: 0.85rem;
-    }
-    .cart-empty .emoji { font-size: 2.5rem; display: block; margin-bottom: 12px; }
-
-    .cart-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .cart-item:last-child { border-bottom: none; }
-    .cart-item-info { flex: 1; min-width: 0; }
-    .cart-item-name { font-size: 0.82rem; font-weight: 600; color: var(--text); }
-    .cart-item-price { font-size: 0.78rem; color: var(--gold); margin-top: 2px; }
-
-    .qty-ctrl {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--bg3);
-      border-radius: 50px;
-      padding: 4px 4px;
-    }
-    .qty-btn {
-      background: none;
-      border: none;
-      color: var(--text);
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.15s;
-    }
-    .qty-btn:hover { background: var(--border); }
-    .qty-num { font-size: 0.85rem; font-weight: 700; min-width: 20px; text-align: center; }
-
-    .cart-footer {
-      padding: 16px 20px 24px;
-      border-top: 1px solid var(--border);
-      background: var(--bg2);
-    }
-    .cart-total {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-    .cart-total-label { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
-    .cart-total-amount { font-size: 1.4rem; font-weight: 900; color: var(--gold); }
-
-    .whatsapp-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
-      padding: 16px;
-      background: linear-gradient(135deg, #25d366, #128c7e);
-      color: #fff;
-      border: none;
-      border-radius: var(--radius);
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 700;
-      cursor: pointer;
-      text-decoration: none;
-      transition: opacity 0.2s, transform 0.15s;
-      letter-spacing: 0.03em;
-    }
-    .whatsapp-btn:hover { opacity: 0.9; transform: translateY(-1px); }
-    .whatsapp-btn:active { transform: translateY(0); }
-    .whatsapp-btn svg { width: 22px; height: 22px; fill: #fff; }
-    .whatsapp-btn.disabled {
-      background: var(--bg3);
-      color: var(--text-muted);
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    /* ── TOAST ── */
-    .toast {
-      position: fixed;
-      bottom: 100px;
-      left: 50%;
-      transform: translateX(-50%) translateY(20px);
-      background: var(--bg3);
-      border: 1px solid var(--gold);
-      color: var(--text);
-      padding: 10px 20px;
-      border-radius: 50px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      z-index: 300;
-      opacity: 0;
-      transition: opacity 0.25s, transform 0.25s;
-      white-space: nowrap;
-      pointer-events: none;
-    }
-    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-    /* ── SCROLLBAR ── */
-    ::-webkit-scrollbar { width: 6px; height: 4px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-
-    /* ── FADE IN GLOBAL ── */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .fade-in { animation: fadeIn 0.6s ease forwards; }
-  </style>
+/* SCROLL TO TOP */
+.scroll-top{display:none}
+</style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header id="mainHeader">
-    <div class="logo-wrap">
-      <div class="logo">Sushi <span>Seven</span></div>
-      <div class="tagline">Menú a Domicilio</div>
-    </div>
-    <button class="cart-btn" id="cartToggle" aria-label="Ver carrito">
-      🛒
-      <span class="cart-count" id="cartCount">0</span>
-    </button>
-  </header>
-
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-fallback"></div>
-    <img class="hero-img" src="img/hero.jpg" alt="Sushi Seven" onerror="this.style.display='none'" />
-    <div class="hero-overlay"></div>
-    <div class="hero-text fade-in">
-      <h2>Bienvenido a <em>Sushi Seven</em></h2>
-      <p>Orden directo — sin intermediarios — fresco para ti 🍣</p>
+<div id="header">
+  <div class="brand">
+    <img class="logo" src="img/logo-original.png" alt="Sushi Seven" onerror="this.style.display='none'">
+    <div class="brand-text">
+      <div class="name">SUSHI SEVEN</div>
+      <div class="sub">Menú a Domicilio</div>
     </div>
   </div>
+  <button id="cart-btn" onclick="toggleCart()">
+    <span class="icon">🛒</span>
+    <span id="cart-count">0</span>
+  </button>
+</div>
 
-  <!-- CATEGORY BAR -->
-  <div class="cat-bar-wrap">
-    <div class="cat-bar" id="catBar"></div>
+<div id="cat-tabs"></div>
+<div id="menu-content"></div>
+
+<!-- Cart Overlay -->
+<div id="cart-overlay" onclick="toggleCart()"></div>
+
+<!-- Cart Drawer -->
+<div id="cart-drawer">
+  <div id="cart-header">
+    <h2>🛒 Tu Pedido</h2>
+    <button id="cart-close" onclick="toggleCart()">✕</button>
   </div>
-
-  <!-- MAIN MENU -->
-  <main id="menuMain"></main>
-
-  <!-- CART OVERLAY -->
-  <div class="cart-overlay" id="cartOverlay"></div>
-
-  <!-- CART DRAWER -->
-  <div class="cart-drawer" id="cartDrawer" role="dialog" aria-label="Carrito">
-    <div class="cart-header">
-      <div class="cart-title">🛒 Tu Pedido</div>
-      <button class="cart-close" id="cartClose" aria-label="Cerrar carrito">✕</button>
+  <div id="cart-items"></div>
+  <div id="cart-footer">
+    <div id="cart-total-row">
+      <span>Total</span>
+      <span id="cart-total">$0</span>
     </div>
-    <div class="cart-items" id="cartItems"></div>
-    <div class="cart-footer">
-      <div class="cart-total">
-        <span class="cart-total-label">TOTAL</span>
-        <span class="cart-total-amount" id="cartTotal">$0</span>
+    <a id="wa-btn" href="#" target="_blank">🟢 Ordenar por WhatsApp</a>
+  </div>
+</div>
+
+<!-- Floating WhatsApp Button -->
+<a id="wa-float" href="https://wa.me/5212271132851" target="_blank" title="WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+const MENU_DATA = {"scrapedAt": "2026-03-22T14:36:23.884Z", "url": "https://www.sushiseven.com.mx/menu-domicilio", "source": "Menú a Domicilio — Sushi Seven", "logo": {"downloaded": true, "path": "/Users/josecortes/.openclaw/workspace/sushi-seven-menu/img/logo-original.png", "originalUrl": "https://static.wixstatic.com/media/ad4cfd_27d48e71efa843358f333418ef36f98a~mv2.png/v1/fill/w_176,h_100,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Logo%20Sushi%20Seven-01.png"}, "styles": {"backgroundColor": "#ffffff", "textColor": "#000000", "accentColor": "#8cbb23", "darkColor": "#242323", "primaryFont": "Arial, Helvetica, sans-serif", "palette": {"white": "#ffffff", "green": "#8cbb23", "dark": "#242323", "lightGray": "#c7c7c7"}, "notes": "Verde #8cbb23 = acento. Negro #242323 = headers. Blanco = fondo."}, "categories": ["ENTRADAS", "HAND ROLLS", "TEMAKIS", "NIGIRIS", "SASHIMIS", "AWESOME ROLLS", "ROLLOS LIGEROS", "EMPANIZADOS Y CAPEADOS", "BOWLS", "YAKIMESHI", "POSTRES", "BEBIDAS", "EXTRAS"], "totalItems": 160, "menu": {"ENTRADAS": {"items": [{"id": "c0985a7f-a66d-4ea8-8e33-e14d77a8d66f", "name": "EDAMAMES SALT", "description": "Servidos con sal Maldon. 150 g", "price": "$157.00", "priceNum": 157, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_e9faa32a6d1b43a8a6c6a55da2127094~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$164"}, {"id": "ab434f2f-d3d8-4b7e-b590-f786b1e6f1f9", "name": "EDAMAMES SPICY", "description": "Servidos con salsa picante. 150 g", "price": "$163.00", "priceNum": 163, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_29884d3609624bfdb65add39e7a0f5af~mv2.jpg", "featured": false, "labels": ["Suave"], "displayPrice": "$171"}, {"id": "569ffad5-cfb1-45b3-a848-1f00a5b79bbd", "name": "TEMARIS DE CAMARÓN", "description": "Esferas de camarón tempurizadas; rellenas de cangrejo, queso crema, mayonesa picante y salsa de anguila. 4 piezas", "price": "$251.00", "priceNum": 251, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_e41772cf4dff4fa58c89c0d6d65536c5~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$263"}, {"id": "da1eb3fd-d8ef-4633-afd6-afb97cfc17aa", "name": "JALAPEÑOS ESPECIALES", "description": "Rellenos de queso crema con cangrejo, mayo roca, salsa de anguila y tempura crunch.\n9 piezas", "price": "$163.00", "priceNum": 163, "imageUrl": "https://static.wixstatic.com/media/add3fe_294779feb596470c981fabe885d7adf5~mv2.png", "featured": false, "labels": ["Suave"], "displayPrice": "$171"}, {"id": "62c654df-1c5f-48d2-baea-eea6946e6823", "name": "CAMARONES ROCA", "description": "Camarones tempura, acompañados de aderezo ligeramente picante. 170 g", "price": "$314.00", "priceNum": 314, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_85acc01f2d5c4e698d052d91850728bf~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$329"}, {"id": "05404962-cbfc-4471-8b1f-cc327744b9b8", "name": "GYOZAS", "description": "Rellenas de carne de cerdo con vegetales, cocinadas al wok con salsa especial. 5 piezas", "price": "$189.00", "priceNum": 189, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_53a6576de54249b4a5bdd13fd79dc616~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$198"}, {"id": "c3176457-efa0-4a17-9132-1162ed26bf34", "name": "TEMPURA DE VEGETALES", "description": "Zanahoria, calabaza, champiñón, plátano macho, cebolla, camote, pimiento morrón capeado y con salsa tempura. 425 g de vegetales", "price": "$188.00", "priceNum": 188, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_7ceb935ae0ec45f88e94ff5d2614b897~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$197"}, {"id": "e6976166-3b77-44cc-9c22-ff9be6e81bc8", "name": "TACOS DE JÍCAMA", "description": "Camarón empanizado, pico de gallo con mango, chipotle mayo y brotes frescos. 3 piezas", "price": "$253.00", "priceNum": 253, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_ea88f4f0837d46dca110ad9d9ee78223~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$265"}, {"id": "52b20642-907c-48ef-83b9-93d42d7f340d", "name": "TAMBORCITOS DE ATÚN", "description": "Finas láminas, rellenas de arroz Shari y rib eye, con salsa teriyaki. 160 g", "price": "$256.00", "priceNum": 256, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_cb1c3cac498440b4aeb5f7ccc8c3662e~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$268"}, {"id": "a66b4bf1-8e29-4f71-ba5a-60fc93b6eae9", "name": "KUSHIAGES DE QUESO", "description": "Queso gouda empanizado. 3 piezas", "price": "$146.00", "priceNum": 146, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_43f239b090614862aef5e0b73cc8512e~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$153"}, {"id": "e420104c-ec68-4fa0-974c-8a2bce8a161f", "name": "KUSHIAGES DE CAMARÓN Y QUESO", "description": "Camarón envuelto con queso crema empanizado. 2 piezas", "price": "$167.00", "priceNum": 167, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_49a2b8a9a0c74c4285fe9780b1505b7a~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$175"}, {"id": "4309be38-b45c-4796-9185-8db69729adc2", "name": "TEMPURA DE CAMARÓN", "description": "Piezas de camarón capeados, acompañados de salsa tempura. 6 piezas", "price": "$250.00", "priceNum": 250, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_8690554de7d9498988985073360fbefe~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$262"}, {"id": "d2565eba-3890-490a-b8db-4791eb253c6b", "name": "CRISPY RICE", "description": "Atún o salmón (a elegir) spicy, sobre cubos de arroz crujiente, bañado en salsa de anguila y Las Vegas, con una rodaja de serranito. 5 piezas", "price": "$260.00", "priceNum": 260, "imageUrl": "https://static.wixstatic.com/media/add3fe_c0e21410590a4eb28021aec379d926c4~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$273"}, {"id": "40c64e80-65d8-4514-9d61-6af8aad5b180", "name": "LOTUS BUNS O CREPAS DE PATO PEKING", "description": "Al horno por 12 horas, salteado con salsa de ciruela, poro, pepino. 60 g (3 piezas)", "price": "$270.00", "priceNum": 270, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_19d7acc0e51747a99d359f391aedce84~mv2.jpg", "featured": false, "labels": ["Suave"], "displayPrice": "$283"}, {"id": "b24823e2-932b-4fbc-9300-afdf0ed8c389", "name": "LOTUS BUNS DE SHORT RIB", "description": "Costilla horneada 24 horas, mayonesa de trufa y perejil frito acompañado de gravy. 60 g (3 piezas)", "price": "$270.00", "priceNum": 270, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_15b9e2bbf5a3441f8c094c14d51b20e1~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$283"}, {"id": "93ba6028-6aa7-4e24-9558-146c3c4f9d25", "name": "TACO DE RIB EYE", "description": "Sazonados con salsa de ajonjolí, cebolla morada y mayo habanero.  Cortado en 10 piezas", "price": "$335.00", "priceNum": 335, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_819296030dc346c98df7e7244a48c17b~mv2.jpg", "featured": false, "labels": ["Suave"], "displayPrice": "$351"}, {"id": "8e11ddc0-4576-4f3c-902b-a4b06c7dd5cf", "name": "TOSTADAS DE ATÚN", "description": "Won ton crujiente, tartar de atún, salsa de jengibre, soya, shallot, aguacate y salsa Las Vegas. 4 piezas", "price": "$262.00", "priceNum": 262, "imageUrl": "https://static.wixstatic.com/media/add3fe_5c06a25226154fbaa8299527a7de5b92~mv2.png", "featured": false, "labels": [], "displayPrice": "$275"}, {"id": "b1a2cf81-8e78-4c04-874c-3573bda2c7fe", "name": "PEPINO SUNOMONO", "description": "Encurtido en vinagre dulce, wakame  y ajonjolí mix. 100 g", "price": "$104.00", "priceNum": 104, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_5db56d0dec514df5ac2157a3e089a394~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$109"}, {"id": "03cc57cb-d604-4071-9260-f9966b4fee0d", "name": "SEAWEED SALAD", "description": "Alga marina dulce con ajonjolí. 100 g", "price": "$104.00", "priceNum": 104, "imageUrl": "https://static.wixstatic.com/media/add3fe_486174753c3e4397aa85dae8fc8e2f90~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$109"}, {"id": "a2ce3607-6f3f-4fee-824e-2aa0c4fb2881", "name": "JAMES TOWER", "description": "Base de arroz o pepino sunomono con tampico y aguacate. Salmón, atún o cangrejo picante (a\nelegir). Bañada en salsa wasabi y espolvoreada con furikake y tobikos, acompañada de galletas salmas. 200 g", "price": "$240.00", "priceNum": 240, "imageUrl": "https://static.wixstatic.com/media/a2a27f_8367481cde194180ac5d47437940f529~mv2.jpg", "featured": false, "labels": ["Fish"], "displayPrice": "$252"}, {"id": "ae28d5b4-a932-42f4-9d09-caec4001f552", "name": "HAMACHI SERRANITO", "description": "Finos cortes de hamachi con vinagreta de yuzu y rodajas de chile serrano. 80 g de hamachi", "price": "$395.00", "priceNum": 395, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_e054a8c77e4c4235a62f9754570d213d~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$414"}, {"id": "ceb19325-2d49-4780-8bad-183f7e011441", "name": "BABY SQUID", "description": "Calamares rellenos de pasta de cangrejo bañados en salsa de anguila y ajonjolí. 240 g", "price": "$256.00", "priceNum": 256, "imageUrl": "https://static.wixstatic.com/media/add3fe_05e89d4509684432a293ef0e62692279~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$268"}, {"id": "64077394-5c14-40cf-a3fc-073ad33e4a27", "name": "EDAMAMES SALT O SPICY", "description": "Vaina de soya tierna al vapor. 150g.", "price": "$158.00", "priceNum": 158, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_e9faa32a6d1b43a8a6c6a55da2127094~mv2.jpg", "featured": false, "labels": ["Suave"], "displayPrice": "$165"}, {"id": "26949f8e-2b85-4a63-bbc9-040307fd8489", "name": "KUSHIAGES DE PLÁTANO", "description": "Empanizado, acompañado de salsa kushiage. 2 piezas", "price": "$68.00", "priceNum": 68, "imageUrl": "https://static.wixstatic.com/media/a2a27f_56ab6a3fc5494728805783695d95a651~mv2.jpg", "featured": false, "labels": ["New"], "displayPrice": "$71"}, {"id": "65efdbf3-633c-421e-a592-c6818f0482aa", "name": "TEMPURA DINNER", "description": "Camarón y vegetales tempura, acompañados con salsa de soya dulce. 200 g", "price": "$198.00", "priceNum": 198, "imageUrl": "https://static.wixstatic.com/media/a2a27f_136c77b646894095baa3379f997c7823~mv2.jpg", "featured": false, "labels": ["New"], "displayPrice": "$207"}, {"id": "a75a6103-0fcc-47a3-b590-4c702001ad90", "name": "SUNOMONO MIX", "description": "Ensalada seaweed, pepino sunomono y aceite de ajonjolí. 150 g", "price": "$93.00", "priceNum": 93, "imageUrl": "https://static.wixstatic.com/media/a2a27f_774833b0a7014550aa96068db009bcd7~mv2.jpg", "featured": false, "labels": ["Dulce", "New"], "displayPrice": "$97"}, {"id": "c0127a21-00a6-4364-ad0a-3db18f2969a3", "name": "TACOS DE LECHUGA CANTONES", "description": "Mix de vegetales asiáticos, pollo y salsa de soya dulce con un toque picante, sobre hojas de lechuga fresca acompañado de salsa de ciruela dulce. 120 g", "price": "$198.00", "priceNum": 198, "imageUrl": "https://static.wixstatic.com/media/a2a27f_4a2cccdccb5547debd31024f443e6aa6~mv2.jpg", "featured": false, "labels": ["Dulce"], "displayPrice": "$207"}], "categoryImage": "/Users/josecortes/.openclaw/workspace/sushi-seven-menu/img/cat-entradas.jpg"}, "HAND ROLLS": {"items": [{"id": "83b2cc57-bb09-46d0-b354-5fe97c615c8c", "name": "ATÚN", "description": "1 pieza", "price": "$104.00", "priceNum": 104, "imageUrl": "https://static.wixstatic.com/media/a2a27f_74c83b8170594fc59345210868184956~mv2.jpg", "featured": false, "labels": ["Fish"], "displayPrice": "$109"}, {"id": "08e12cff-0071-4e90-ace9-b4515741f1ba", "name": "SALMÓN", "description": "1 pieza", "price": "$104.00", "priceNum": 104, "imageUrl": "https://static.wixstatic.com/media/a2a27f_8d7b2d7c057c4cc1831759063586cbb5~mv2.jpg", "featured": false, "labels": ["Fish"], "displayPrice": "$109"}, {"id": "eae13fb1-b889-418f-bc6c-46be6df0dea4", "name": "ANGUILA", "description": "1 pieza", "price": "$104.00", "priceNum": 104, "imageUrl": "https://static.wixstatic.com/media/a2a27f_f9c0a8c006dc45bcb8245d9e8dad8835~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$109"}, {"id": "664c0dba-be42-46f8-ad81-870c78abe30d", "name": "HAMACHI ESPECIAL", "description": "1 pieza", "price": "$104.00", "priceNum": 104, "imageUrl": "https://static.wixstatic.com/media/a2a27f_1ab3c8708e9740aba42b57fd8c3d1ad5~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$109"}, {"id": "a5851ad5-bba3-4e71-a0ab-df2820bbe626", "name": "SPICY CRAB", "description": "1 pieza", "price": "$104.00", "priceNum": 104, "imageUrl": "https://static.wixstatic.com/media/a2a27f_65894ba067764a109ba6ada451d4d739~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$109"}, {"id": "649cd832-1065-4a5d-8c4a-a88e0215933c", "name": "SEVEN", "description": "1 pieza", "price": "$104.00", "priceNum": 104, "imageUrl": "https://static.wixstatic.com/media/a2a27f_cf95f590f1f84ff987b259b37a2b7135~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$109"}], "categoryImage": "/Users/josecortes/.openclaw/workspace/sushi-seven-menu/img/cat-hand-rolls.jpg"}, "TEMAKIS": {"items": [{"id": "ff7f5513-ec18-42c8-9b8e-6dededd668db", "name": "ATÚN", "description": "1 pieza", "price": "$177.00", "priceNum": 177, "imageUrl": "https://static.wixstatic.com/media/a2a27f_47933c830b9341029ed803b43943638e~mv2.jpg", "featured": false, "labels": ["Fish"], "displayPrice": "$185"}, {"id": "87f66d16-ea21-4b49-93d6-87ea12ef4645", "name": "SALMÓN", "description": "1 pieza", "price": "$177.00", "priceNum": 177, "imageUrl": "https://static.wixstatic.com/media/a2a27f_70e9956a227c4e7e860ac4a13e84a8b8~mv2.jpg", "featured": false, "labels": ["Fish"], "displayPrice": "$185"}, {"id": "709f5945-2b42-4acf-bf50-6dffde614b3b", "name": "ANGUILA", "description": "1 pieza", "price": "$177.00", "priceNum": 177, "imageUrl": "https://static.wixstatic.com/media/a2a27f_f011c1d693e242ba860dbe878d0469af~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$185"}, {"id": "231d6d18-4fe3-468a-bd28-713484c69cee", "name": "HAMACHI ESPECIAL", "description": "1 pieza", "price": "$177.00", "priceNum": 177, "imageUrl": "https://static.wixstatic.com/media/a2a27f_86cdb7c6cdd94155b0972714b67f4df9~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$185"}, {"id": "9c6672cd-be70-496f-abee-2919a3e7fe5e", "name": "SPICY CRAB", "description": "1 pieza", "price": "$177.00", "priceNum": 177, "imageUrl": "https://static.wixstatic.com/media/a2a27f_457f7869b7d042dca11ffab1dc3611e5~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$185"}, {"id": "0ff5803a-5e44-4424-83d5-7ed25e1dcbc2", "name": "SEVEN", "description": "1 pieza", "price": "$177.00", "priceNum": 177, "imageUrl": "https://static.wixstatic.com/media/a2a27f_5e575ebc18b64e08ab04a674892cc7f0~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$185"}], "categoryImage": "/Users/josecortes/.openclaw/workspace/sushi-seven-menu/img/cat-temakis.jpg"}, "NIGIRIS": {"items": [{"id": "b3eae655-6466-4887-8da7-ae0a3487f71f", "name": "ATÚN", "description": "", "price": "$58.00", "priceNum": 58, "imageUrl": "https://static.wixstatic.com/media/add3fe_93a6cd427f9d4155a8253594f3c7a545~mv2.jpg", "featured": false, "labels": ["Fish"], "displayPrice": "$60"}, {"id": "148f758f-affd-4434-b369-598b0de07569", "name": "SALMÓN", "description": "", "price": "$62.00", "priceNum": 62, "imageUrl": "https://static.wixstatic.com/media/add3fe_4305a8b05a504b38b428a695d67181cd~mv2.jpg", "featured": false, "labels": ["Fish"], "displayPrice": "$65"}, {"id": "d14e430d-7384-40b3-be59-2bca26398f54", "name": "CAMARÓN", "description": "", "price": "$47.00", "priceNum": 47, "imageUrl": "https://static.wixstatic.com/media/add3fe_c3e13d7aa52a4b0a9e2636b24b170627~mv2.jpg", "featured": false, "labels": ["Fish"], "displayPrice": "$49"}, {"id": "8fb8149b-1abc-4536-8b9e-cae0f0149c8c", "name": "IKURA", "description": "", "price": "$104.00", "priceNum": 104, "imageUrl": "https://static.wixstatic.com/media/add3fe_e5c91e97fada4298ba6b366432d21cb5~mv2.png", "featured": false, "labels": ["Fish"], "displayPrice": "$109"}, {"id": "1b406a82-4d11-4e74-af16-d2f140b6f3b1", "name": "ANGUILA", "description": "", "price": "$68.00", "priceNum": 68, "imageUrl": "https://static.wixstatic.com/media/add3fe_be12fc84bcd2446eaf066bf8481af8f2~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$71"}, {"id": "a70153b9-0d11-4ef4-8cd4-0382a8eb78e1", "name": "HAMACHI", "description": "", "price": "$72.00", "priceNum": 72, "imageUrl": "https://static.wixstatic.com/media/add3fe_1b43769f9f194ad59ad19ce56ae99c7c~mv2.jpg", "featured": false, "labels": ["Fish"], "displayPrice": "$75"}, {"id": "d69bf656-0d38-45c5-b8ad-fbb29dd98ff8", "name": "SAMPLER", "description": "Atún, salmón, camarón, anguila. 4 piezas", "price": "$221.00", "priceNum": 221, "imageUrl": "https://static.wixstatic.com/media/a2a27f_e009d47e3d05427fba400c387e0fec46~mv2.jpg", "featured": false, "labels": ["Fish", "New"], "displayPrice": "$232"}], "categoryImage": "/Users/josecortes/.openclaw/workspace/sushi-seven-menu/img/cat-nigiris.jpg"}, "SASHIMIS": {"items": [{"id": "21f4ef28-14da-42d9-9588-98c547d49f94", "name": "ATÚN", "description": "110 g.", "price": "$236.00", "priceNum": 236, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_9efcc760c90446d19a41e1571ca7d4a4~mv2.jpg", "featured": false, "labels": ["Fish"], "displayPrice": "$247"}, {"id": "7ce47626-029a-475d-9c7e-d91718ac4474", "name": "SALMÓN", "description": "110 g.", "price": "$314.00", "priceNum": 314, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_25d63358dd8046f48c04276dc7e9a621~mv2.jpg", "featured": false, "labels": ["Fish"], "displayPrice": "$329"}, {"id": "c9460b5b-c688-421c-b5b9-5b3a4759b58b", "name": "HAMACHI", "description": "Preparación serranito por $15 extra. 100 g.", "price": "$362.00", "priceNum": 362, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_4e83c65a5dbc419ea309678ea551eafd~mv2.jpg", "featured": false, "labels": ["Fish"], "displayPrice": "$380"}, {"id": "84e34c8e-5707-444a-8c4b-ca78879b221c", "name": "SAMPLER", "description": "Atún, Salmón, Hamachi, Ikura (150g)", "price": "$419.00", "priceNum": 419, "imageUrl": "https://static.wixstatic.com/media/add3fe_4f53a9a1b3054aa7865e4d4b7341a8c9~mv2.jpg", "featured": false, "labels": ["Fish"], "displayPrice": "$439"}], "categoryImage": "/Users/josecortes/.openclaw/workspace/sushi-seven-menu/img/cat-sashimis.jpg"}, "AWESOME ROLLS": {"items": [{"id": "3fb8cdbc-8da6-4fe2-adff-96593b0947fd", "name": "UNAGI ROLL", "description": "D. Aguacate, kanikama tempura, queso crema.\nF. Anguila horneada, ajonjolí. Salsa dulce.", "price": "$278.00", "priceNum": 278, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_7fe2d6f292784e97b7034606100f6c06~mv2.jpg", "featured": false, "labels": ["Dulce"], "displayPrice": "$291"}, {"id": "730fa932-22c7-4b7c-bb2d-76a17326cc71", "name": "KANIKAMA ROLL", "description": "D. Pescado tempura, aguacate, pepino, queso crema.\nF. Atún, kanikama spicy, cebolla crujiente.\nSalsa dulce.", "price": "$251.00", "priceNum": 251, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_0840c0b12bc240f0bf19e3643a1dff32~mv2.jpg", "featured": false, "labels": ["Fish"], "displayPrice": "$263"}, {"id": "9868d518-f64f-4e48-93dc-7305503416c4", "name": "OMATSURI ROLL", "description": "D. Camarón tempura, kanikama, pepino, queso crema. \nF. Aguacate. Salsa dulce y chipotle mayo.", "price": "$236.00", "priceNum": 236, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_86bd6b009e7f41e6a5123a2a62f0eb5c~mv2.jpg", "featured": false, "labels": ["Dulce", "Suave"], "displayPrice": "$247"}, {"id": "9ebfce20-0567-4f39-8666-a53204f63468", "name": "ROCK & ROLL", "description": "D. Aguacate,pepino y pasta de cangrejo.\nF.Masago, camarones roca.", "price": "$251.00", "priceNum": 251, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_efa6a9b7c11a4545a380b22aa5abb2e6~mv2.jpg", "featured": false, "labels": ["Suave"], "displayPrice": "$263"}, {"id": "09862346-891a-48d0-ac40-6b7c0182c3d9", "name": "SAN ANTONIO ROLL", "description": "D. Tempura de pescado, tempura de camarón y tampico. \nF. Ensalada de cangrejo, con tempura crunch,aguacate. Salsa Las Vegas y salsa de anguila.", "price": "$236.00", "priceNum": 236, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_a5e888eb9d0f45e39412199972296606~mv2.jpg", "featured": false, "labels": ["Suave", "Dulce"], "displayPrice": "$247"}, {"id": "947ac597-725a-4468-a159-679c67d46b45", "name": "FRIDAY ROLL", "description": "D. Salsa tampico y kushiage de camarón con queso crema. F. Aguacate, salsa de kushiage.", "price": "$226.00", "priceNum": 226, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_1f65918b9ddc4f63bbbaec567983dee6~mv2.jpg", "featured": false, "labels": ["Dulce"], "displayPrice": "$237"}, {"id": "45fe9b0e-d099-4241-be31-35a37946e9d3", "name": "BORA BORA ROLL", "description": "D. Aguacate,pepino y tempura de camarón. \nF. Cangrejo.Salsa de anguila y Las Vegas", "price": "$209.00", "priceNum": 209, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_7d2c90f046eb4f4da531c8f0545d1463~mv2.jpg", "featured": false, "labels": ["Suave", "Dulce"], "displayPrice": "$219"}, {"id": "71219059-781f-41dc-9a07-152e4c0c2b0a", "name": "CATERPILLAR ROLL", "description": "D. Anguila, pepino y queso crema.\nF. Aguacate. Salsa de anguila y ajonjolí.", "price": "$230.00", "priceNum": 230, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_37ff9274c9c14c83a4d466e989dee902~mv2.jpg", "featured": false, "labels": ["Dulce"], "displayPrice": "$241"}, {"id": "f7174dee-2bfe-435e-a8f9-e0201cbcbdaa", "name": "LUIS ROLL", "description": "D. Atún picante y aguacate. F. Salmón. Salsa lir.", "price": "$268.00", "priceNum": 268, "imageUrl": "https://static.wixstatic.com/media/add3fe_40bec746a6a74ab6bdb2bec0649a3bb0~mv2.jpg", "featured": true, "labels": ["Suave", "Fish", "Especialidad de la Casa"], "displayPrice": "$281"}, {"id": "5d4418ad-9de8-4f03-a2ce-cfc922ebf963", "name": "CHEF ESPECIAL", "description": "D. camarón, kanikama,aguacate, cebollín y cilantro. \nF. Salmón fresco e ikura,rodajas de limón. Salsa yuzu soy.", "price": "$299.00", "priceNum": 299, "imageUrl": "https://static.wixstatic.com/media/add3fe_c4edf0ae32384fdb891274df199c8124~mv2.jpg", "featured": true, "labels": ["Fish", "Especialidad de la Casa"], "displayPrice": "$313"}, {"id": "335c722d-ddbf-4e04-a99b-0112159fe93f", "name": "MONKEY ROLL", "description": "D. Queso crema,espárragos, aguacate\ny tempura de camarón F. Plátano frito.\nSalsa chipotle.", "price": "$184.00", "priceNum": 184, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_ad57c287141f4240b98b41a586f7720c~mv2.jpg", "featured": false, "labels": ["Suave"], "displayPrice": "$193"}, {"id": "172fb899-ddea-47c3-8f51-2cb66f320135", "name": "BAKED SALMON ROLL", "description": "D. camarón tempura,espárrago y aguacate.\nF. Pasta de cangrejo,salmón horneado, masago,cebollín. Salsa de anguila y sriracha.", "price": "$299.00", "priceNum": 299, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_fd8b4f35c9e54c26a55f2ee79702c683~mv2.jpg", "featured": true, "labels": ["Dulce", "Especialidad de la Casa"], "displayPrice": "$313"}, {"id": "42257eb9-f423-43e5-ad41-7c3c8d75feea", "name": "HABANERO ROLL", "description": "D. Camarón picante,cilantro, cebollín y aguacate. \nF. Masago y hamachi. Aderezo cítrico.", "price": "$303.00", "priceNum": 303, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_4e1cc1395ccf4d3caf623820dac5c39e~mv2.jpg", "featured": false, "labels": ["Suave"], "displayPrice": "$318"}, {"id": "2f6ecef8-e4e5-464b-827b-ddefd2451b99", "name": "LOMAS ROLL", "description": "D. Tempura de camarón, aguacate y coco.\nF. Pasta de cangrejo y mango. Aderezo de mango y tobiko.", "price": "$236.00", "priceNum": 236, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_bbbe60bace7d47238ad787a2fb228092~mv2.jpg", "featured": true, "labels": ["Dulce", "Especialidad de la Casa"], "displayPrice": "$247"}, {"id": "9d9df87e-1591-4d41-ba9a-a0e9de1f873f", "name": "HIMALAYAN ROLL", "description": "D. Kanikama, queso crema, zanahoria tempura, aguacate, chiles toreados.\nF. Salsa tampico.", "price": "$194.00", "priceNum": 194, "imageUrl": "https://static.wixstatic.com/media/a2a27f_91be29c6d7fb42f1a0c715ab38f96e32~mv2.jpg", "featured": false, "labels": ["Suave", "New"], "displayPrice": "$203"}, {"id": "cc630faa-8262-440e-bdcc-1bbeefbc73aa", "name": "SONTERREY ROLL", "description": "D. Kanikama, cebollín, aguacate.\nF. Queso manchego, chiles toreados, mayo chipotle.", "price": "$198.00", "priceNum": 198, "imageUrl": "https://static.wixstatic.com/media/a2a27f_512bd439f76f403e939d9272512a8889~mv2.jpg", "featured": true, "labels": ["Suave", "New", "Especialidad de la Casa"], "displayPrice": "$207"}, {"id": "472ee70d-5197-41cc-9e4d-7637367f5ee4", "name": "TROPICAL ROLL", "description": "D. Espárrago, atún, pepino.\nF. Salmón, mango, pimienta negra, salsa yuzu soy, salsa miso piña.", "price": "$237.00", "priceNum": 237, "imageUrl": "https://static.wixstatic.com/media/a2a27f_9cdfec95ee8c46c6a14816970b40df9e~mv2.jpeg", "featured": false, "labels": ["Fish", "Dulce", "New"], "displayPrice": "$248"}, {"id": "53cbb954-2ed5-4d2e-8765-68a95d7e41ff", "name": "QUINTANA ROLL", "description": "D. Tartar de atún, tempura crunch, camarón tempura.\nF. Aguacate, salsa de anguila, chile serrano, ajonjolí mix.", "price": "$221.00", "priceNum": 221, "imageUrl": "https://static.wixstatic.com/media/a2a27f_006213a4de1e493789a0e2d3d025869a~mv2.jpg", "featured": false, "labels": ["Suave", "Dulce", "New"], "displayPrice": "$232"}, {"id": "cd8b0757-fc3a-46f3-89e0-5bbc2dd0b91b", "name": "SOLESTA ROLL", "description": "D. Hoja de soya, mango, pasta de cangrejo, aguacate, nuez de macadamia.\nF. Salmón, salsa natsu, salsa de anguila.", "price": "$278.00", "priceNum": 278, "imageUrl": "https://static.wixstatic.com/media/a2a27f_5d1179627a4946ea84f102ede0f9e800~mv2.jpg", "featured": true, "labels": ["Fish", "Dulce", "Especialidad de la Casa", "New"], "displayPrice": "$291"}], "categoryImage": "/Users/josecortes/.openclaw/workspace/sushi-seven-menu/img/cat-awesome-rolls.jpg"}, "ROLLOS LIGEROS": {"items": [{"id": "2fe0a8cc-e35a-408b-be75-805ae9c3a6e7", "name": "PHILADELPHIA ROLL", "description": "D. Queso crema, salmón ahumado, aguacate, pepino.\nF. Ajonjolí.", "price": "$184.00", "priceNum": 184, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_5cb9056fae6d4d76b48f82e91eda835a~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$193"}, {"id": "c4c51392-a223-470c-942d-cd927b9c16ea", "name": "PHILADELPHIA ROLL ESPECIAL", "description": "D. Queso crema, salmón ahumado, aguacate y pepino.\nF. Masago.", "price": "$198.00", "priceNum": 198, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_7f80238cf0b34468b57cdac0e0478dc6~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$207"}, {"id": "50457d0e-b3f0-4df1-b45f-c227713901a0", "name": "CALIFORNIA ROLL", "description": "D. Aguacate, pepino, kanikama.\nF. Ajonjolí.", "price": "$184.00", "priceNum": 184, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_9b16e4ec76824dc99edcc0597deb8f32~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$193"}, {"id": "bf802bb0-8750-476e-91c5-e816c39e189e", "name": "CALIFORNIA ROLL ESPECIAL", "description": "D. Aguacate, pepino, kanikama.\nF. Masago.", "price": "$199.00", "priceNum": 199, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_47166ee3b1aa405e8699d0ad453a542f~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$208"}, {"id": "43003ff8-472f-4bb3-a9fd-8188ae2b314b", "name": "SPICY TUNA ROLL", "description": "D. Mezcla de atún, cebollín, aguacate, mayonesa picante.\nF. Envuelto en arroz, ajonjolí.", "price": "$205.00", "priceNum": 205, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_7d7e2eefc8c441e7b39efbf6741c6592~mv2.jpg", "featured": true, "labels": ["Suave", "Fish", "Especialidad de la Casa"], "displayPrice": "$215"}, {"id": "32615d9e-1561-43d4-a2e5-73d20a9f03f6", "name": "OCEAN ROLL", "description": "D. Pasta de cangrejo, cebollín, pepino.\nF. Salmón, atún, camarón, aguacate, salsa cítrica, suprema de limón real, cilantro.", "price": "$240.00", "priceNum": 240, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_c78e282b1335488a934b92159ffb79c4~mv2.jpg", "featured": false, "labels": ["Fish"], "displayPrice": "$252"}, {"id": "b6cdc5bf-ee78-49e8-aaa4-f474f09c7e17", "name": "QUERÉTARO ROLL", "description": "D. Pasta de cangrejo, aguacate.\nF. Salmón y atún, serranitos, masago, cebollín. Salsa serranito.", "price": "$261.00", "priceNum": 261, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_20c1132064c94cb98b317ba9f5b83a5f~mv2.jpg", "featured": false, "labels": ["Suave", "Fish"], "displayPrice": "$274"}, {"id": "acf46f63-0bfc-4010-80e8-93664340800f", "name": "DINAMITA ROLL", "description": "D. Kanikama, queso crema, aguacate, mayonesa picante.\nF. Alga.", "price": "$184.00", "priceNum": 184, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_7509f9ab660a439cabf0865c27bb1b2f~mv2.jpg", "featured": false, "labels": ["Suave"], "displayPrice": "$193"}, {"id": "b300f510-b5ce-4cc7-becf-bb3d9dc6e9d6", "name": "QUANZA ROLL", "description": "D. Mezcla de salmón, cebollín, mayonesa picante con aguacate.\nF. Envuelto en arroz, ajonjolí.", "price": "$209.00", "priceNum": 209, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_878fc90f9db14a29b9a12a95125c3771~mv2.jpg", "featured": true, "labels": ["Suave", "Fish", "Especialidad de la Casa"], "displayPrice": "$219"}, {"id": "6e8e2e89-dbf5-4ae7-b8c1-ef6b100a6aca", "name": "RAINBOW ROLL", "description": "D. Aguacate, kanikama, pepino.\nF. Salmón, camarón, atún, hamachi, aguacate.", "price": "$251.00", "priceNum": 251, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_47fe89ae187f4edcb893838a764a1a6d~mv2.jpg", "featured": false, "labels": ["Fish"], "displayPrice": "$263"}, {"id": "6b2c25f7-5e34-4316-a391-e012b8980d79", "name": "MANGO ROLL", "description": "D. Espárragos, aguacate, zanahoria, pepino, queso crema.\nF. Mango. Gotas de sriracha.", "price": "$194.00", "priceNum": 194, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_ed6d4e599e424000a94bc8de82b69986~mv2.jpg", "featured": false, "labels": ["Suave"], "displayPrice": "$203"}, {"id": "3569be4e-d1c0-411c-8d8f-19401bba5b08", "name": "HIKO ROLL", "description": "D. Kanikama picante, aguacate, cebollín.\nF. Envuelto en hoja de pepino, salmón.\n7 piezas", "price": "$299.00", "priceNum": 299, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_fdf5b89a0a184d079088fd984164390e~mv2.jpg", "featured": false, "labels": ["Suave", "Fish"], "displayPrice": "$313"}, {"id": "a93bc234-b1cc-4e92-80a1-b2a4c286257e", "name": "LA PAZ ROLL", "description": "D. Tilapia, queso crema, cilantro, aguacate.\nF. Salmón, puré de chipotle, salsa yuzu soy.", "price": "$221.00", "priceNum": 221, "imageUrl": "https://static.wixstatic.com/media/a2a27f_72cabf10b981499b89fe6c00ea4c6d43~mv2.jpeg", "featured": false, "labels": ["Suave", "Fish", "New"], "displayPrice": "$232"}], "categoryImage": "/Users/josecortes/.openclaw/workspace/sushi-seven-menu/img/cat-rollos-ligeros.jpg"}, "EMPANIZADOS Y CAPEADOS": {"items": [{"id": "9f1c60fc-cac2-49d5-a3d3-52a54af07ac3", "name": "CRISPY ROLL", "description": "D. Queso crema, aguacate, kanikama\nF. Tempurizado, salsa de anguila, mayo roca.", "price": "$173.00", "priceNum": 173, "imageUrl": "https://static.wixstatic.com/media/a2a27f_ebe4f0edbe124d77b45ab976ed033643~mv2.jpg", "featured": false, "labels": ["Suave"], "displayPrice": "$181"}, {"id": "35b61f27-4cb0-468f-a716-3211ead70c37", "name": "KUSHIAGE ROLL", "description": "D. Camarón empanizado, aguacate.\nF. Queso crema, tampico.", "price": "$221.00", "priceNum": 221, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_164c508018f847d19e9e10b59b638d7d~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$232"}, {"id": "003b33d5-6bc9-4861-bdbd-eb100d28d71b", "name": "TEXAN ROLL", "description": "D. Aguacate, espárragos, queso crema.\nF. Filete empanizado. Salsa de anguila.", "price": "$205.00", "priceNum": 205, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_545f359e2a784578b32a63442d13193b~mv2.jpg", "featured": false, "labels": ["Dulce"], "displayPrice": "$215"}, {"id": "dca581ea-b1e0-4325-8bb2-e95262d101bb", "name": "BLACK PANTHER ROLL", "description": "D. Pasta de cangrejo, queso crema, aguacate.\nF. Alga empanizada, con tobikos. Salsa de anguila, chipotle mayo.", "price": "$221.00", "priceNum": 221, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_9d77960f43074d6d81010d41748e5b74~mv2.jpg", "featured": false, "labels": ["Suave", "Dulce"], "displayPrice": "$232"}, {"id": "d7513756-2933-40c4-9ad4-048be5dfbfb9", "name": "SUSHI SEVEN ROLL", "description": "D. Queso crema, camarón empanizado.\nF. Tempura, aguacate, tampico, furikake. Salsa de anguila.", "price": "$236.00", "priceNum": 236, "imageUrl": "https://static.wixstatic.com/media/a2a27f_8c312238e78b4449864b555faef6bb62~mv2.jpeg", "featured": true, "labels": ["Dulce", "Especialidad de la Casa"], "displayPrice": "$247"}, {"id": "d4497c31-45f4-4654-b21f-aba4024660ae", "name": "JURIKY ROLL", "description": "D. Pescado tempura, queso manchego, aguacate.\nF. Nuez, almendra, pasta de cangrejo, salsa de anguila.", "price": "$205.00", "priceNum": 205, "imageUrl": "https://static.wixstatic.com/media/a2a27f_4280a20f0218441883c4102a174e10cc~mv2.jpg", "featured": true, "labels": ["Dulce", "Especialidad de la Casa", "New"], "displayPrice": "$215"}], "categoryImage": "/Users/josecortes/.openclaw/workspace/sushi-seven-menu/img/cat-empanizados-y-capeados.jpg"}, "BOWLS": {"items": [{"id": "148f9731-9139-4c05-b428-dd223a6a5626", "name": "RAINBOW SUSHI BOWL", "description": "Arroz sushi, seaweed salad, aguacate, mayo chipote, salsa de anguila, tampico, tempura crunch, ajonjolí mix. Atún, salmón, pasta tampico y hamachi. 110 g", "price": "$310.00", "priceNum": 310, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_5fa91d5e087045e9a331276d899a3395~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$325"}, {"id": "006d2235-568e-40fa-b8a3-12f8c726b9fd", "name": "BOWL DE SALMÓN", "description": "Parrillado con mantequilla especial, yakimeshi, vegetales y salsa teriyaki. 200 g", "price": "$278.00", "priceNum": 278, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_5d9f1951bf0a4f8e81955e2b4d7aa6e8~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$291"}, {"id": "796af4ea-1e3b-4319-91cf-cb89f56ee836", "name": "BOWL DE FILETE DE RES", "description": "Calidad nacional, sazonado con sal Maldon y especias, yakimeshi y mezcla de vegetales. 170 g", "price": "$310.00", "priceNum": 310, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_8c96249ec1934d18952e9fa002a93592~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$325"}, {"id": "d28e365d-1a1a-416b-9398-1a277899e711", "name": "TACOS DE LECHUGA CANTONES", "description": "Mix de vegetales asiáticos, pollo y salsa de soya dulce con un toque picante, sobre hojas de lechuga fresca acompañado de salsa de ciruela dulce. 180 g", "price": "$277.00", "priceNum": 277, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_58d1303b1182408e8346e736052e4f90~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$290"}, {"id": "b24b0edc-b01a-4264-b501-e96f396ffe38", "name": "BEIJING CHICKEN", "description": "Tradicional platillo mandarín, trozos de pollo tempurizado salteados al wok con salsa de naranja y cama de vegetales, servido con arroz gohan. 120 g.", "price": "$219.00", "priceNum": 219, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_c0e8704fd83c4fffbe9568efdcca3e80~mv2.jpg", "featured": false, "labels": ["Dulce"], "displayPrice": "$229"}, {"id": "9a7543bf-937e-4e03-b8f4-ec319f8b557c", "name": "KUNG PAO SHRIMP", "description": "Camarón salteado con vegetales, salsa oscura ligeramente dulce y un toque picante servido con arroz gohan. 180 g", "price": "$291.00", "priceNum": 291, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_5b3689b6075f4ee2bd069ee2cae49c44~mv2.jpg", "featured": false, "labels": ["Suave"], "displayPrice": "$305"}, {"id": "25d11f91-941e-4e5f-b842-61050bec597a", "name": "YAKI UDON MIXTO", "description": "Camarón, pollo y filete, mix de vegetales, salteado al wok con salsa tonkatsu. 250 g", "price": "$230.00", "priceNum": 230, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_36de19ceb79e46539e8cd97240403902~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$241"}, {"id": "7e063c74-1a76-452d-a22a-e36db23477c1", "name": "LO MEIN MIXTO", "description": "Tallarín ramen, camarón, pollo, \u001elete de res, mix de vegetales, salteado al wok con salsa de soya, con un toque picante. 250 g", "price": "$230.00", "priceNum": 230, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_6ee572e73ad847b69e4391d0c2b5093c~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$241"}, {"id": "5fafae42-f78f-4c51-ac95-5681843845d3", "name": "TEMPURA UDON", "description": "Servido con caldo de soya con cebollín, camarón, tempura, kamaboko y bonito tlakes. 330 g", "price": "$272.00", "priceNum": 272, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_0edda87f074e469ca20419989be2dec6~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$285"}, {"id": "75623cfb-e61c-4866-a8f8-8b2ac0a22e00", "name": "MISO SHIRO", "description": "Sopa de pasta de frijol de soya con tofu, cebollín y wakame. 180 ml.", "price": "$83.00", "priceNum": 83, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_2f19f666ac124a9c916b1f4cf9902928~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$87"}, {"id": "54608e2c-80b1-4d2f-86a1-c9783aa682b2", "name": "SOPA DE MARISCOS CON UDON", "description": "Salmón, camarón, kanikama, callo de almeja,\npescado blanco y udon. 300 ml.", "price": "$208.00", "priceNum": 208, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_ddf8c308933347cb8c862aedee4e868f~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$218"}, {"id": "ac951aa7-4b29-4a7b-9048-df1603d77ab9", "name": "TOKYO RAMEN", "description": "Sopa tradicional japonesa, pork belly, naruto, huevo marinado con un toque picante. 300 ml", "price": "$208.00", "priceNum": 208, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_99497d486f394e248cc917efa6231032~mv2.jpg", "featured": false, "labels": ["Suave"], "displayPrice": "$218"}, {"id": "cad7d301-ed16-4957-b34e-d76ef9c2a593", "name": "STEAK RAMEN", "description": "Rib eye, fondo de res, huevo marinado, grano de elote, cebollín, alga nori, ajonjolí mix. 300ml.", "price": "$208.00", "priceNum": 208, "imageUrl": "https://static.wixstatic.com/media/a2a27f_3829eed052244c979725bbe6d3106089~mv2.jpg", "featured": false, "labels": ["New"], "displayPrice": "$218"}, {"id": "b087733e-d511-4a54-8ac1-69eade99fdf6", "name": "TEPPANYAKI MIXTO", "description": "Camarón, filete de res, pollo y vegetales, acompañado de salsa de ajonjolí. 300g.", "price": "$326.00", "priceNum": 326, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_e1bb916dcc7042cb98d5d987d397395c~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$342"}, {"id": "c0c1a95b-bf25-4b32-97f7-80f5434966db", "name": "POKE BOWL RAINBOW", "description": "Arroz sushi, seaweed salad, aguacate, mayo chipotle, salsa de anguila, hamachi, tampico, tempura crunch, ajonjolí mix. Atún, salmón, pasta tampico. 200 g", "price": "$251.00", "priceNum": 251, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_5fa91d5e087045e9a331276d899a3395~mv2.jpg", "featured": false, "labels": ["Fish"], "displayPrice": "$263"}, {"id": "faea340e-eeae-4d31-b164-0dda1833cdd4", "name": "POKE BOWL DINAMITA", "description": "Arroz, camarón roca, esferas de queso crema cubiertas con furikake, kanikama mix, aguacate, cebollín, salsa de anguila y mayo roca. 220g.", "price": "$209.00", "priceNum": 209, "imageUrl": "https://static.wixstatic.com/media/a2a27f_381d90570bed4559971d33690bbce6cf~mv2.jpg", "featured": false, "labels": ["New"], "displayPrice": "$219"}, {"id": "d67cb705-cb46-432d-a1a1-41407d635521", "name": "POKE BOWL CRISPY SALMÓN", "description": "Arroz, aguacate, tempura crunch, pepino, salmón, tobiko rojo, brócoli crujiente, ajonjolí mix, salsa natsu y mayo roca. 220 g.", "price": "$209.00", "priceNum": 209, "imageUrl": "https://static.wixstatic.com/media/a2a27f_8b748c33ad7f452c9e0a39948b088fcd~mv2.jpg", "featured": false, "labels": ["New"], "displayPrice": "$219"}, {"id": "7feb161f-8e52-4ee0-ab89-94667291f25a", "name": "BOWL DE CAMARÓN", "description": "Parrillado con mantequilla especial, yakimeshi y mezcla de vegetales. 200 g.", "price": "$240.00", "priceNum": 240, "imageUrl": "https://static.wixstatic.com/media/a2a27f_53827aa453514d89b942024ed88098ed~mv2.jpg", "featured": false, "labels": ["New"], "displayPrice": "$252"}, {"id": "60f612bc-22f8-4a1a-ae3c-cb2ba02f7567", "name": "BOWL DE POLLO", "description": "Parrillado con mantequilla, salsa teriyaki, yakimeshi y mezcla de vegetales. 200 g.", "price": "$215.00", "priceNum": 215, "imageUrl": "https://static.wixstatic.com/media/a2a27f_f5fe5694c9d940e2958a1eb258fa58f6~mv2.jpg", "featured": false, "labels": ["New"], "displayPrice": "$225"}, {"id": "f3bafd70-88af-4370-8832-e81edb829f4d", "name": "BOWL DE VEGETALES", "description": "Parrillados con mantequilla de ajo. 220 g.", "price": "$125.00", "priceNum": 125, "imageUrl": "https://static.wixstatic.com/media/a2a27f_12c1a739744c471b82f7531a10a4f4ec~mv2.jpg", "featured": false, "labels": ["New"], "displayPrice": "$131"}], "categoryImage": "/Users/josecortes/.openclaw/workspace/sushi-seven-menu/img/cat-bowls.jpg"}, "YAKIMESHI": {"items": [{"id": "48645ae6-a575-4721-ac3f-fecff61fb384", "name": "MIXTO", "description": "", "price": "$173.00", "priceNum": 173, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_61bf2d2c6c794bd390732dd7b3f49d45~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$181"}, {"id": "9d2aa941-6e1b-4569-b5e0-be3385cae651", "name": "CARNE", "description": "", "price": "$173.00", "priceNum": 173, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_633c3e90982147f4be0767f8bb07b209~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$181"}, {"id": "02b39b70-d6f4-45d1-bcc5-14f20a2071c6", "name": "CAMARÓN", "description": "", "price": "$173.00", "priceNum": 173, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_ae019ce4a9da4864abdf85b59d4bc5a3~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$181"}, {"id": "d54e635d-fadf-4bd7-ae10-4b5346d2fb67", "name": "POLLO", "description": "", "price": "$152.00", "priceNum": 152, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_a8948e7fe9f54f6aacf58f9d270d0c7e~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$159"}, {"id": "c4a00763-a3dc-4b7c-b18d-172bda151203", "name": "VEGETALES", "description": "", "price": "$93.00", "priceNum": 93, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_da6c867906914c2ab9f650d9e0da5b02~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$97"}, {"id": "1c561a07-04ac-477e-931e-296f5a342386", "name": "GOHAN", "description": "140 g", "price": "$51.00", "priceNum": 51, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_b6fc5e9614364862a808433b396334d4~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$53"}], "categoryImage": "/Users/josecortes/.openclaw/workspace/sushi-seven-menu/img/cat-yakimeshi.jpg"}, "POSTRES": {"items": [{"id": "bb13e977-6a21-4f56-9a83-b381176ab488", "name": "CHOCOLATE LAVA CAKE", "description": "Helado de vainilla, cocoa y frutos rojos. 110 g", "price": "$163.00", "priceNum": 163, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_e54759e060f1432ea06310bab1a6c322~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$171"}, {"id": "b3c0a348-7995-4fcc-a216-4bf3c8a5ba44", "name": "SKILLET NUTELLA COOKIE", "description": "Masa de galleta con chispas de chocolate horneada al momento, rellena de nutella y avellana tostada, con helado de plátano artesanal. 200 g", "price": "$205.00", "priceNum": 205, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_b001b39f057c421ba397f8eaa8c16913~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$215"}, {"id": "fb6dd18b-785a-482d-a249-b7d0e8f81398", "name": "HELADO DE TEMPURA", "description": "8 piezas", "price": "$175.00", "priceNum": 175, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_e8480b237e6448b18bbe5f908c9c450f~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$183"}, {"id": "74e30bfe-d416-4215-ab17-231284483a60", "name": "BANOFFEE", "description": "Pay cremoso de vainilla, relleno de plátano, nuez caramelizada y dulce de leche. 240 g", "price": "$194.00", "priceNum": 194, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_2bb625fbc7d0453ba4d8d9954e0d36d6~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$203"}, {"id": "6336098a-6019-451f-8b27-d6596a43a9ba", "name": "TEMPURA OREO", "description": "10 piezas", "price": "$142.00", "priceNum": 142, "imageUrl": "https://static.wixstatic.com/media/add3fe_21da929a117a4e92b4defce4063e45a8~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$149"}, {"id": "3609fe63-7cc3-462a-8ec8-4943ccad555f", "name": "MOCHIS", "description": "Pastelito de arroz relleno de helado de sabores. 3 piezas", "price": "$198.00", "priceNum": 198, "imageUrl": "https://static.wixstatic.com/media/ad4cfd_99a53d39c306403fb2120d90ca2cbf44~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$207"}, {"id": "824dce41-9529-4d4d-a9b7-b76e0a879a48", "name": "MOCHI PIEZA", "description": "Chocolate, fresa, matcha o mango. (A elegir)", "price": "$69.00", "priceNum": 69, "imageUrl": "https://static.wixstatic.com/media/add3fe_36d0cc71e3c6457c99f10acfdea0fccc~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$72"}, {"id": "7aa9bf9f-09fc-418c-b48c-f77ab12e704a", "name": "CHEESECAKE DE FRUTOS ROJOS", "description": "NY Style, compota de frutos rojos. 200g", "price": "$194.00", "priceNum": 194, "imageUrl": "https://static.wixstatic.com/media/a2a27f_b4655dd89e7142399b78853aca437122~mv2.jpg", "featured": false, "labels": ["New"], "displayPrice": "$203"}], "categoryImage": "/Users/josecortes/.openclaw/workspace/sushi-seven-menu/img/cat-postres.jpg"}, "BEBIDAS": {"items": [{"id": "37c9af73-278f-4e8d-adfa-07607887fb07", "name": "Agua Natural Ciel", "description": "600 ml", "price": "$58.00", "priceNum": 58, "imageUrl": "https://static.wixstatic.com/media/add3fe_0cd22379791a45629cc2a516d8eb5f89~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$60"}, {"id": "0681bdb8-01b9-4317-be88-bb84d23f70c0", "name": "Agua Mineral Peñafiel", "description": "355 ml", "price": "$58.00", "priceNum": 58, "imageUrl": "https://static.wixstatic.com/media/add3fe_e7dd87e8694e43e7864930f94e79946b~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$60"}, {"id": "f0fb2f18-934b-4fcf-974c-6b0d5cc0507e", "name": "Agua Mineral Topochico", "description": "355 ml", "price": "$73.00", "priceNum": 73, "imageUrl": "https://static.wixstatic.com/media/add3fe_2c7e6eeb00d341c1b3f08ff981dbdcab~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$76"}, {"id": "4e68eff5-bef2-44b8-b3d0-ca316faf8c32", "name": "Agua Mineral Perrier", "description": "330 ml", "price": "$82.00", "priceNum": 82, "imageUrl": "https://static.wixstatic.com/media/add3fe_770e8581adc845ab8bb44f741bad430e~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$86"}, {"id": "66cba343-1cc4-4ac6-9d49-932d550acacb", "name": "Calpis Natural o Mineral", "description": "230 ml", "price": "$75.00", "priceNum": 75, "imageUrl": "https://static.wixstatic.com/media/add3fe_b09eaf74867148178da5aaa0a05c92e8~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$78"}, {"id": "8d664483-2186-46db-b460-cc285f880d63", "name": "Calpis de Sabores Natural o Mineral", "description": "Blueberry, Fresa, Jamaica, Mango, Maracuyá y Tamarindo.", "price": "$79.00", "priceNum": 79, "imageUrl": "https://static.wixstatic.com/media/add3fe_9f7b99f7244d4e68a06a290a723caa0c~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$82"}, {"id": "29cf49b7-936f-45d6-9d4f-3fd002b8b65b", "name": "Coca Cola Clásica", "description": "355 ml", "price": "$58.00", "priceNum": 58, "imageUrl": "https://static.wixstatic.com/media/add3fe_d7c49256fdde466f8b5347ff2f09d692~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$60"}, {"id": "7aea65bc-6cf1-4ca8-992d-0e8c8b51fece", "name": "Coca Cola Light", "description": "355 ml", "price": "$58.00", "priceNum": 58, "imageUrl": "https://static.wixstatic.com/media/add3fe_3bfcd933c65b48298ee18f30606fec11~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$60"}, {"id": "21fa6af3-2fe0-4778-9127-d185b8341437", "name": "Coca Cola Zero", "description": "355 ml", "price": "$58.00", "priceNum": 58, "imageUrl": "https://static.wixstatic.com/media/add3fe_fecd54e25c2c49239efaa5ad82319c91~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$60"}, {"id": "5a782094-6f84-433e-ae38-4ce6304d8a21", "name": "Sprite", "description": "355 ml", "price": "$58.00", "priceNum": 58, "imageUrl": "https://static.wixstatic.com/media/add3fe_14f37368841340d887be745b9092b157~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$60"}, {"id": "3d58bef0-331a-4604-911c-054e60b13033", "name": "Sprite Zero", "description": "355 ml", "price": "$58.00", "priceNum": 58, "imageUrl": "https://static.wixstatic.com/media/add3fe_6aa3a037a977459d91829b46e9c61bcf~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$60"}, {"id": "85c0326b-1068-4230-8ff8-26ccc67a7829", "name": "Fanta", "description": "355 ml", "price": "$58.00", "priceNum": 58, "imageUrl": "https://static.wixstatic.com/media/add3fe_b348bb2e95b045d1b06d3280aac064af~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$60"}, {"id": "44587360-143d-4043-815f-48a0ed56cf08", "name": "Delawere", "description": "355 ml", "price": "$58.00", "priceNum": 58, "imageUrl": "https://static.wixstatic.com/media/add3fe_5c4de93ce5aa4c57ab365a1f70c08e53~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$60"}, {"id": "cfff8124-62f6-463a-9d35-9ef7a71803b5", "name": "Sidral", "description": "355 ml", "price": "$58.00", "priceNum": 58, "imageUrl": "https://static.wixstatic.com/media/add3fe_08c6e243a41040459ff7b803ce89f4cb~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$60"}, {"id": "16a4d831-faa0-4da7-9685-c604a1db0d28", "name": "Velvet Soda Lychee", "description": "275 ml", "price": "$83.00", "priceNum": 83, "imageUrl": "https://static.wixstatic.com/media/add3fe_7d3cadc5419145f4873ddf8c606d6636~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$87"}, {"id": "6ed90084-9fec-4fb5-87ac-b1d5d32433c7", "name": "Ginger Ale", "description": "355 ml", "price": "$58.00", "priceNum": 58, "imageUrl": "https://static.wixstatic.com/media/add3fe_f98cc02c1e534ebba734f0c7ea05e1e7~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$60"}, {"id": "384f2b4b-6c51-4009-90c6-f4c404969ee0", "name": "Heineken", "description": "355 ml", "price": "$84.00", "priceNum": 84, "imageUrl": "https://static.wixstatic.com/media/add3fe_cc6729b7278140bd836de4ba86051f4f~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$88"}, {"id": "49d1a1e1-ed82-4626-8545-05dad44ef7f6", "name": "Heineken 0.0", "description": "250 ml", "price": "$84.00", "priceNum": 84, "imageUrl": "https://static.wixstatic.com/media/add3fe_56306c43c9524ad3a5cd4338dcea3f82~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$88"}, {"id": "4ffd622f-7e7a-4147-a2be-aafc9dbff012", "name": "Sapporo Premium", "description": "473 ml", "price": "$147.00", "priceNum": 147, "imageUrl": "https://static.wixstatic.com/media/add3fe_e2abb1f9e8cb4b26a04ee151a375b3d4~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$154"}, {"id": "a1f7e6a2-9b98-4c58-9d9d-58ca6c652107", "name": "Stella Artois", "description": "330 ml", "price": "$84.00", "priceNum": 84, "imageUrl": "https://static.wixstatic.com/media/add3fe_c6060dc0a04540af872a36ef9e7d88b4~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$88"}, {"id": "71a52e7a-6ce1-45d7-b49f-dd4871f0fc19", "name": "Ultra Michelob", "description": "355 ml", "price": "$84.00", "priceNum": 84, "imageUrl": "https://static.wixstatic.com/media/add3fe_7356a4e64ba94d799f0df8b51a1521a7~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$88"}], "categoryImage": "/Users/josecortes/.openclaw/workspace/sushi-seven-menu/img/cat-bebidas.jpg"}, "EXTRAS": {"items": [{"id": "81953e71-fdd6-4417-80da-3e22ba51fdfd", "name": "Aguacate Extra", "description": "30 g", "price": "$25.00", "priceNum": 25, "imageUrl": "https://static.wixstatic.com/media/add3fe_c40133c6b52d4ba9a05653612b63b67c~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$26"}, {"id": "c1516151-77fa-4b36-8ca5-60bef0d87172", "name": "Mayo Chipotle Extra", "description": "60 ml", "price": "$19.00", "priceNum": 19, "imageUrl": "https://static.wixstatic.com/media/add3fe_825e3698e0ad49f58bfcc485b0c7005e~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$19"}, {"id": "96e33291-66f1-4b2d-add6-1b34585ba374", "name": "Mayo Roca Extra", "description": "60 ml", "price": "$19.00", "priceNum": 19, "imageUrl": "https://static.wixstatic.com/media/add3fe_9156d1719be144aba361c730609b1b51~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$19"}, {"id": "68aa89c8-f75d-4f2e-93a2-ac388097767e", "name": "Papel de Arroz Extra", "description": "1 pieza", "price": "$13.00", "priceNum": 13, "imageUrl": null, "featured": false, "labels": [], "displayPrice": "$13"}, {"id": "06bf77e4-5dd8-45f1-b202-73cc3dbcd63a", "name": "Queso Crema Extra", "description": "30 g", "price": "$32.00", "priceNum": 32, "imageUrl": "https://static.wixstatic.com/media/add3fe_a8edd354a6a84c6ba6277907dfe7bc8e~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$33"}, {"id": "02f66b3e-59f4-48b6-b92a-5f94af1aa26f", "name": "Salsa de Ajonjolí Extra", "description": "60 ml", "price": "$19.00", "priceNum": 19, "imageUrl": "https://static.wixstatic.com/media/add3fe_32db7d6ea12f4fbf8fbaecf704623a94~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$19"}, {"id": "97e3f687-1991-4a04-94be-3e197ddd5788", "name": "Salsa de Anguila Extra", "description": "60 ml", "price": "$19.00", "priceNum": 19, "imageUrl": "https://static.wixstatic.com/media/add3fe_8609c75605d849828d0f8f94c67b682a~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$19"}, {"id": "ec0fe184-f182-48e1-ba05-1d26a64ed133", "name": "Salsa de Mango Extra", "description": "60 ml", "price": "$19.00", "priceNum": 19, "imageUrl": null, "featured": false, "labels": [], "displayPrice": "$19"}, {"id": "25aa6c32-0d3f-4488-8c3e-7f32dd9e9628", "name": "Tampico Extra", "description": "60 ml", "price": "$32.00", "priceNum": 32, "imageUrl": "https://static.wixstatic.com/media/add3fe_e6f72d0ffc1c412091c526063c5a5711~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$33"}, {"id": "0a68144f-ad7d-49cc-bffc-47ea4d605b49", "name": "Salsa Sriracha Extra", "description": "60 ml", "price": "$19.00", "priceNum": 19, "imageUrl": null, "featured": false, "labels": [], "displayPrice": "$19"}, {"id": "50691707-68e7-4515-b626-30c2e3ebcb80", "name": "Salsa Lir Extra", "description": "60 ml", "price": "$19.00", "priceNum": 19, "imageUrl": null, "featured": false, "labels": [], "displayPrice": "$19"}, {"id": "06fd9602-44a1-4ea4-930e-beb3f2ffc957", "name": "Filete de Res Extra", "description": "40 g", "price": "$83.00", "priceNum": 83, "imageUrl": "https://static.wixstatic.com/media/add3fe_f5824427217e4ae8bf8877ee68ba25a2~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$87"}, {"id": "6d1d8bdb-1989-4615-9f5b-5112970ae385", "name": "Salmón Extra", "description": "40 g", "price": "$83.00", "priceNum": 83, "imageUrl": "https://static.wixstatic.com/media/add3fe_2047e957b676470bbf45d387289aa39a~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$87"}, {"id": "f0b7d183-89fa-4a37-97fc-625433e19ade", "name": "Atún Extra", "description": "30 g", "price": "$60.00", "priceNum": 60, "imageUrl": "https://static.wixstatic.com/media/add3fe_79d407bfcb5a46cc93c0be9e6c30e8f2~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$63"}, {"id": "b0e82929-c6e0-49ba-b9d5-97cb9697e433", "name": "Camarón Extra", "description": "60 g", "price": "$77.00", "priceNum": 77, "imageUrl": "https://static.wixstatic.com/media/add3fe_8624b608c3c94448a7221f3a7ea7765a~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$80"}, {"id": "6dfde841-3985-4497-b65d-e6c127e12752", "name": "Pollo Extra", "description": "50 g", "price": "$48.00", "priceNum": 48, "imageUrl": "https://static.wixstatic.com/media/add3fe_157eb03f99e64490a0279998fde494f1~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$50"}, {"id": "fe8423ec-ef09-401b-a345-0404e5bafb2a", "name": "Tofu Extra", "description": "40 g", "price": "$18.00", "priceNum": 18, "imageUrl": "https://static.wixstatic.com/media/add3fe_f691864b38e341a5b101d7b5f505bccb~mv2.jpg", "featured": false, "labels": [], "displayPrice": "$18"}], "categoryImage": "/Users/josecortes/.openclaw/workspace/sushi-seven-menu/img/cat-extras.jpg"}}};
+
+// State
+const cart = {};
+
+// Label styling
+function getLabelClass(label) {
+  const l = label.toLowerCase();
+  if (l === 'suave') return 'label-suave';
+  if (l === 'picante') return 'label-picante';
+  if (l === 'fish') return 'label-fish';
+  if (l === 'new' || l === 'nuevo') return 'label-new';
+  if (l === 'dulce') return 'label-dulce';
+  if (l.includes('especialidad')) return 'label-especialidad';
+  return 'label-default';
+}
+
+function getCatSlug(name) {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+}
+
+function formatPrice(n) {
+  return '$' + Math.ceil(n * 1.05).toLocaleString('es-MX');
+}
+
+// Build tabs
+function buildTabs() {
+  const tabs = document.getElementById('cat-tabs');
+  const cats = Object.keys(MENU_DATA.menu);
+  cats.forEach((cat, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (i === 0 ? ' active' : '');
+    btn.textContent = cat;
+    btn.dataset.cat = getCatSlug(cat);
+    btn.onclick = () => scrollToCategory(getCatSlug(cat), btn);
+    tabs.appendChild(btn);
+  });
+}
+
+function scrollToCategory(slug, btn) {
+  const el = document.getElementById('cat-' + slug);
+  if (!el) return;
+  const offset = 68 + 48; // header + tabs height
+  const top = el.getBoundingClientRect().top + window.scrollY - offset;
+  window.scrollTo({ top, behavior: 'smooth' });
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  (btn || document.querySelector(`[data-cat="${slug}"]`))?.classList.add('active');
+}
+
+// Build menu
+function buildMenu() {
+  const content = document.getElementById('menu-content');
+  const cats = Object.keys(MENU_DATA.menu);
+  cats.forEach(cat => {
+    const slug = getCatSlug(cat);
+    const catData = MENU_DATA.menu[cat];
+    const section = document.createElement('div');
+    section.className = 'cat-section';
+    section.id = 'cat-' + slug;
+
+    let html = `<div class="cat-title">${cat}</div><div class="items-grid">`;
+    catData.items.forEach(item => {
+      const price = item.priceNum ? formatPrice(item.priceNum) : (item.displayPrice || '');
+      const imgSrc = item.imageUrl || `img/cat-${slug}.jpg`;
+      const labelsHtml = (item.labels || []).map(l =>
+        `<span class="label ${getLabelClass(l)}">${l}</span>`
+      ).join('');
+
+      const imgEl = item.imageUrl
+        ? `<img class="card-img" src="${item.imageUrl}" alt="${item.name}" loading="lazy" onerror="this.outerHTML='<div class=card-img-placeholder>🍣</div>'">`
+        : `<div class="card-img-placeholder">🍣</div>`;
+
+      html += `<div class="card">
+        ${imgEl}
+        <div class="card-body">
+          <div class="card-name">${item.name}</div>
+          <div class="card-desc">${item.description || ''}</div>
+          ${labelsHtml ? `<div class="labels">${labelsHtml}</div>` : ''}
+          <div class="card-footer">
+            <span class="card-price">${price}</span>
+            <button class="add-btn" onclick="addToCart(${JSON.stringify(item.name)}, ${item.priceNum || 0}, ${JSON.stringify(price)})">+</button>
+          </div>
+        </div>
+      </div>`;
+    });
+    html += '</div>';
+    section.innerHTML = html;
+    content.appendChild(section);
+  });
+}
+
+// CART
+function addToCart(name, priceNum, displayPrice) {
+  if (!cart[name]) {
+    cart[name] = { name, priceNum, displayPrice, qty: 0 };
+  }
+  cart[name].qty++;
+  updateCartBadge();
+  renderCart();
+  // Brief flash of cart button
+  const btn = document.getElementById('cart-btn');
+  btn.style.transform = 'scale(1.2)';
+  setTimeout(() => btn.style.transform = '', 200);
+}
+
+function removeFromCart(name) {
+  if (!cart[name]) return;
+  cart[name].qty--;
+  if (cart[name].qty <= 0) delete cart[name];
+  updateCartBadge();
+  renderCart();
+}
+
+function updateCartBadge() {
+  const total = Object.values(cart).reduce((s, i) => s + i.qty, 0);
+  const badge = document.getElementById('cart-count');
+  badge.textContent = total;
+  badge.style.display = total > 0 ? 'flex' : 'none';
+}
+
+function renderCart() {
+  const container = document.getElementById('cart-items');
+  const items = Object.values(cart);
+  if (items.length === 0) {
+    container.innerHTML = '<div class="cart-empty">Tu carrito está vacío 🍣</div>';
+    document.getElementById('cart-total').textContent = '$0';
+    document.getElementById('wa-btn').href = 'https://wa.me/5212271132851';
+    return;
+  }
+
+  let html = '';
+  let totalCents = 0;
+  items.forEach(item => {
+    const subtotal = Math.ceil(item.priceNum * 1.05) * item.qty;
+    totalCents += subtotal;
+    html += `<div class="cart-item">
+      <div style="flex:1">
+        <div class="ci-name">${item.name}</div>
+        <div class="ci-price">${item.displayPrice} c/u</div>
       </div>
-      <a class="whatsapp-btn disabled" id="whatsappBtn" href="#" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Ordenar por WhatsApp
-      </a>
-    </div>
-  </div>
+      <div class="qty-ctrl">
+        <button class="qty-btn" onclick="removeFromCart(${JSON.stringify(item.name)})">−</button>
+        <span class="qty-num">${item.qty}</span>
+        <button class="qty-btn" onclick="addToCart(${JSON.stringify(item.name)}, ${item.priceNum}, ${JSON.stringify(item.displayPrice)})">+</button>
+      </div>
+      <div class="ci-subtotal">$${subtotal.toLocaleString('es-MX')}</div>
+    </div>`;
+  });
 
-  <!-- TOAST -->
-  <div class="toast" id="toast"></div>
+  container.innerHTML = html;
+  document.getElementById('cart-total').textContent = '$' + totalCents.toLocaleString('es-MX');
 
-  <script>
-    // ── MENU DATA ──
-    const MENU = {
-      "Entradas": [
-        {nombre:"Edamames Salt o Spicy", desc:"Vaina de soya tierna al vapor. 150g", precio:158},
-        {nombre:"Jalapeños Especiales", desc:"Rellenos de queso crema con cangrejo, mayo roca, salsa de anguila. 9 piezas", precio:163},
-        {nombre:"Camarones Roca", desc:"Salteados con aderezo roca sobre fideo de arroz crujiente. 130g", precio:247},
-        {nombre:"Gyozas", desc:"Rellenas de carne de cerdo con vegetales, salsa especial. 5 piezas", precio:173},
-        {nombre:"Tacos de Jícama", desc:"Camarón empanizado, pico de gallo con mango, chipotle mayo. 3 piezas", precio:198},
-        {nombre:"Tamborcitos de Atún", desc:"Finas láminas, arroz shari y rib eye, salsa teriyaki. 160g", precio:256},
-        {nombre:"Kushiages de Queso", desc:"Queso gouda empanizado. 3 piezas", precio:146},
-        {nombre:"Kushiages de Camarón y Queso", desc:"Camarón envuelto con queso crema empanizado. 2 piezas", precio:125},
-        {nombre:"Crispy Rice", desc:"Atún o salmón spicy sobre arroz crujiente. 5 piezas", precio:215},
-        {nombre:"Lotus Buns de Short Rib", desc:"Costilla horneada 24h, mayonesa de trufa. 2 piezas", precio:173},
-      ],
-      "Awesome Rolls": [
-        {nombre:"California Roll", desc:"Cangrejo, aguacate, pepino. 8 piezas", precio:148},
-        {nombre:"Spicy Tuna Roll", desc:"Atún spicy, pepino, masago. 8 piezas", precio:178},
-        {nombre:"Dragon Roll", desc:"Camarón tempura, aguacate, salsa de anguila. 8 piezas", precio:198},
-        {nombre:"Rainbow Roll", desc:"California con variedad de sashimi encima. 8 piezas", precio:218},
-        {nombre:"Volcano Roll", desc:"Cangrejo spicy horneado, masago. 8 piezas", precio:188},
-        {nombre:"Spider Roll", desc:"Cangrejo suave frito, aguacate, pepino. 8 piezas", precio:208},
-      ],
-      "Rollos Ligeros": [
-        {nombre:"Pepino Roll", desc:"Pepino, aguacate, queso crema. 8 piezas", precio:128},
-        {nombre:"Vegetariano", desc:"Pepino, zanahoria, aguacate, espinaca. 8 piezas", precio:118},
-        {nombre:"Mango Roll", desc:"Mango, queso crema, camarón. 8 piezas", precio:158},
-      ],
-      "Empanizados y Capeados": [
-        {nombre:"Tempura Roll Camarón", desc:"Camarón tempura, aguacate, queso crema. 8 piezas", precio:188},
-        {nombre:"Tempura Roll Cangrejo", desc:"Cangrejo tempura, pepino, aguacate. 8 piezas", precio:178},
-        {nombre:"Capeado Especial", desc:"Rollo capeado con queso crema y jalapeño. 8 piezas", precio:198},
-      ],
-      "Nigiris": [
-        {nombre:"Nigiri Salmón", desc:"2 piezas", precio:98},
-        {nombre:"Nigiri Atún", desc:"2 piezas", precio:108},
-        {nombre:"Nigiri Camarón", desc:"2 piezas", precio:88},
-        {nombre:"Nigiri Anguila", desc:"2 piezas", precio:118},
-      ],
-      "Sashimis": [
-        {nombre:"Sashimi Salmón", desc:"5 láminas frescas", precio:178},
-        {nombre:"Sashimi Atún", desc:"5 láminas frescas", precio:188},
-        {nombre:"Sashimi Mix", desc:"10 láminas variadas", precio:298},
-      ],
-      "Temakis": [
-        {nombre:"Temaki Salmón", desc:"Hand roll cono de salmón fresco", precio:98},
-        {nombre:"Temaki Atún Spicy", desc:"Hand roll cono de atún spicy", precio:108},
-        {nombre:"Temaki Camarón Tempura", desc:"Hand roll cono con camarón tempura", precio:118},
-      ],
-      "Bowls": [
-        {nombre:"Salmon Bowl", desc:"Salmón fresco, arroz shari, aguacate, edamame, pepino", precio:218},
-        {nombre:"Tuna Bowl", desc:"Atún fresco, arroz shari, mango, pepino, masago", precio:228},
-        {nombre:"Veggie Bowl", desc:"Aguacate, edamame, pepino, zanahoria, arroz shari", precio:178},
-      ],
-      "Yakimeshi": [
-        {nombre:"Yakimeshi de Res", desc:"Arroz frito con rib eye y vegetales. 300g", precio:198},
-        {nombre:"Yakimeshi de Camarón", desc:"Arroz frito con camarón y vegetales. 300g", precio:198},
-        {nombre:"Yakimeshi Mixto", desc:"Arroz frito con res, camarón y vegetales. 300g", precio:218},
-      ],
-      "Postres": [
-        {nombre:"Mochi de Helado", desc:"Helado envuelto en mochi. Sabores: fresa, vainilla, mango. 3 piezas", precio:98},
-        {nombre:"Tempura de Plátano", desc:"Plátano en tempura con helado de vainilla", precio:118},
-        {nombre:"Cheesecake Japonés", desc:"Cheesecake esponjoso estilo japonés", precio:128},
-      ],
-      "Bebidas": [
-        {nombre:"Agua Natural", desc:"600ml", precio:35},
-        {nombre:"Refresco", desc:"355ml lata", precio:45},
-        {nombre:"Té Helado Japonés", desc:"Té verde o negro. 500ml", precio:65},
-        {nombre:"Agua de Coco", desc:"Natural. 330ml", precio:75},
-      ]
-    };
+  // Build WhatsApp message
+  let msg = '🍣 *Pedido Sushi Seven*\n\n';
+  items.forEach(item => {
+    const subtotal = Math.ceil(item.priceNum * 1.05) * item.qty;
+    msg += `• ${item.qty}x ${item.name} — $${subtotal.toLocaleString('es-MX')}\n`;
+  });
+  msg += `\n*Total: $${totalCents.toLocaleString('es-MX')}*\n\nQuiero ordenar a domicilio, por favor 🙏`;
+  const waUrl = 'https://wa.me/5212271132851?text=' + encodeURIComponent(msg);
+  document.getElementById('wa-btn').href = waUrl;
+  document.getElementById('wa-float').href = items.length > 0 ? waUrl : 'https://wa.me/5212271132851';
+}
 
-    // ── CART STATE ──
-    const cart = {};
+function toggleCart() {
+  const overlay = document.getElementById('cart-overlay');
+  const drawer = document.getElementById('cart-drawer');
+  const isOpen = drawer.classList.contains('open');
+  if (isOpen) {
+    drawer.classList.remove('open');
+    overlay.classList.remove('open');
+  } else {
+    renderCart();
+    drawer.classList.add('open');
+    overlay.classList.add('open');
+  }
+}
 
-    // ── BUILD UI ──
-    const catBar = document.getElementById('catBar');
-    const menuMain = document.getElementById('menuMain');
-    const categories = Object.keys(MENU);
+// Scroll spy
+function setupScrollSpy() {
+  const sections = document.querySelectorAll('.cat-section');
+  const tabs = document.querySelectorAll('.tab');
+  const offset = 68 + 48 + 10;
 
-    // Category buttons
-    categories.forEach((cat, i) => {
-      const btn = document.createElement('button');
-      btn.className = 'cat-btn' + (i === 0 ? ' active' : '');
-      btn.textContent = cat;
-      btn.dataset.cat = cat;
-      btn.addEventListener('click', () => {
-        document.getElementById('sec-' + slugify(cat))?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        setActiveCategory(cat);
-      });
-      catBar.appendChild(btn);
-    });
-
-    // Menu sections
-    categories.forEach(cat => {
-      const section = document.createElement('section');
-      section.className = 'section';
-      section.id = 'sec-' + slugify(cat);
-      section.dataset.cat = cat;
-
-      const title = document.createElement('h2');
-      title.className = 'section-title';
-      title.textContent = cat;
-      section.appendChild(title);
-
-      const grid = document.createElement('div');
-      grid.className = 'products-grid';
-
-      MENU[cat].forEach(item => {
-        const key = slugify(item.nombre);
-        const card = document.createElement('div');
-        card.className = 'product-card';
-        card.innerHTML = `
-          <div class="product-name">${item.nombre}</div>
-          <div class="product-desc">${item.desc}</div>
-          <div class="product-footer">
-            <div class="product-price"><span>$</span>${item.precio}</div>
-            <button class="add-btn" data-key="${key}" data-nombre="${escapeAttr(item.nombre)}" data-precio="${item.precio}" aria-label="Agregar ${item.nombre}">+</button>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-
-      section.appendChild(grid);
-      menuMain.appendChild(section);
-    });
-
-    // Add to cart listeners
-    document.querySelectorAll('.add-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const key = btn.dataset.key;
-        const nombre = btn.dataset.nombre;
-        const precio = parseInt(btn.dataset.precio, 10);
-        addToCart(key, nombre, precio);
-      });
-    });
-
-    // ── CART LOGIC ──
-    function addToCart(key, nombre, precio) {
-      if (cart[key]) {
-        cart[key].qty++;
-      } else {
-        cart[key] = { nombre, precio, qty: 1 };
-      }
-      updateCart();
-      showToast('✓ ' + nombre + ' agregado');
-      triggerCartBounce();
-    }
-
-    function updateCart() {
-      const count = Object.values(cart).reduce((s, i) => s + i.qty, 0);
-      const total = Object.values(cart).reduce((s, i) => s + i.precio * i.qty, 0);
-
-      document.getElementById('cartCount').textContent = count;
-      document.getElementById('cartTotal').textContent = '$' + total.toLocaleString('es-MX');
-
-      const itemsEl = document.getElementById('cartItems');
-      const waBtn = document.getElementById('whatsappBtn');
-
-      if (count === 0) {
-        itemsEl.innerHTML = '<div class="cart-empty"><span class="emoji">🍱</span>Tu carrito está vacío</div>';
-        waBtn.href = '#';
-        waBtn.className = 'whatsapp-btn disabled';
-        waBtn.onclick = (e) => e.preventDefault();
-        return;
-      }
-
-      itemsEl.innerHTML = '';
-      Object.entries(cart).forEach(([key, item]) => {
-        const div = document.createElement('div');
-        div.className = 'cart-item';
-        div.innerHTML = `
-          <div class="cart-item-info">
-            <div class="cart-item-name">${item.nombre}</div>
-            <div class="cart-item-price">$${(item.precio * item.qty).toLocaleString('es-MX')}</div>
-          </div>
-          <div class="qty-ctrl">
-            <button class="qty-btn" data-key="${key}" data-action="minus">−</button>
-            <span class="qty-num">${item.qty}</span>
-            <button class="qty-btn" data-key="${key}" data-action="plus">+</button>
-          </div>
-        `;
-        itemsEl.appendChild(div);
-      });
-
-      itemsEl.querySelectorAll('.qty-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const key = btn.dataset.key;
-          if (btn.dataset.action === 'plus') {
-            cart[key].qty++;
-          } else {
-            cart[key].qty--;
-            if (cart[key].qty <= 0) delete cart[key];
-          }
-          updateCart();
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        let current = null;
+        sections.forEach(s => {
+          const top = s.getBoundingClientRect().top;
+          if (top <= offset + 20) current = s.id.replace('cat-', '');
         });
-      });
-
-      // Build WhatsApp URL
-      const lines = Object.values(cart).map(i => `${i.qty}x ${i.nombre} ($${i.precio * i.qty})`).join('%0A');
-      const totalText = '$' + total.toLocaleString('es-MX');
-      const msg = `Hola+Sushi+Seven+quiero+ordenar:%0A${encodeURIComponent(Object.values(cart).map(i => `${i.qty}x ${i.nombre} ($${i.precio * i.qty})`).join('\n'))}%0ATotal:+${encodeURIComponent(totalText)}`;
-      waBtn.href = `https://wa.me/5212271132851?text=${msg}`;
-      waBtn.className = 'whatsapp-btn';
-      waBtn.onclick = null;
-    }
-
-    // ── CART DRAWER ──
-    const cartOverlay = document.getElementById('cartOverlay');
-    const cartDrawer = document.getElementById('cartDrawer');
-
-    function openCart() {
-      cartOverlay.classList.add('open');
-      cartDrawer.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeCart() {
-      cartOverlay.classList.remove('open');
-      cartDrawer.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    document.getElementById('cartToggle').addEventListener('click', openCart);
-    document.getElementById('cartClose').addEventListener('click', closeCart);
-    cartOverlay.addEventListener('click', closeCart);
-
-    // ── HEADER SCROLL ──
-    window.addEventListener('scroll', () => {
-      document.getElementById('mainHeader').classList.toggle('scrolled', window.scrollY > 10);
-    }, { passive: true });
-
-    // ── INTERSECTION OBSERVER (active category) ──
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const cat = entry.target.dataset.cat;
-          setActiveCategory(cat);
-          // Also trigger section fade-in
-          entry.target.classList.add('visible');
+        if (current) {
+          tabs.forEach(t => {
+            t.classList.toggle('active', t.dataset.cat === current);
+          });
+          // scroll active tab into view
+          const activeTab = document.querySelector(`.tab.active`);
+          if (activeTab) {
+            activeTab.scrollIntoView({ inline: 'nearest', behavior: 'smooth', block: 'nearest' });
+          }
         }
+        ticking = false;
       });
-    }, { rootMargin: '-100px 0px -60% 0px', threshold: 0 });
-
-    document.querySelectorAll('.section').forEach(sec => observer.observe(sec));
-
-    function setActiveCategory(cat) {
-      document.querySelectorAll('.cat-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.cat === cat);
-      });
-      // Scroll active cat button into view
-      const activeBtn = catBar.querySelector('.cat-btn.active');
-      if (activeBtn) activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      ticking = true;
     }
+  });
+}
 
-    // ── TOAST ──
-    let toastTimer;
-    function showToast(msg) {
-      const toast = document.getElementById('toast');
-      toast.textContent = msg;
-      toast.classList.add('show');
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => toast.classList.remove('show'), 2000);
-    }
-
-    // ── CART BOUNCE ──
-    function triggerCartBounce() {
-      const el = document.getElementById('cartCount');
-      el.classList.remove('bounce');
-      void el.offsetWidth; // reflow
-      el.classList.add('bounce');
-    }
-
-    // ── HELPER FUNCTIONS ──
-    function slugify(str) {
-      return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-    }
-    function escapeAttr(str) {
-      return str.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-    }
-
-    // ── INIT ──
-    updateCart();
-
-    // Trigger first section visible immediately
-    document.querySelectorAll('.section').forEach((sec, i) => {
-      if (i < 3) setTimeout(() => sec.classList.add('visible'), i * 100);
-    });
-  </script>
+// Init
+buildTabs();
+buildMenu();
+setupScrollSpy();
+renderCart();
+</script>
 </body>
 </html>
