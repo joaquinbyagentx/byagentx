@@ -212,7 +212,7 @@ function buildMenu() {
           ${labelsHtml ? `<div class="labels">${labelsHtml}</div>` : ''}
           <div class="card-footer">
             <span class="card-price">${price}</span>
-            <button class="add-btn" onclick="addToCart(${JSON.stringify(item.name)}, ${item.priceNum || 0}, ${JSON.stringify(price)})">+</button>
+            <button class="add-btn" onclick='addToCart(${JSON.stringify(item.name)}, ${item.priceNum || 0}, ${JSON.stringify(price)})'>+</button>
           </div>
         </div>
       </div>`;
@@ -265,7 +265,9 @@ function renderCart() {
   let html = '';
   let totalCents = 0;
   items.forEach(item => {
-    const subtotal = Math.ceil(item.priceNum * 1.05) * item.qty;
+    // Use displayPrice (already includes +5%) to avoid double-applying the surcharge
+    const unitPrice = parseInt((item.displayPrice || '').replace(/[^0-9]/g, ''), 10) || Math.ceil(item.priceNum * 1.05);
+    const subtotal = unitPrice * item.qty;
     totalCents += subtotal;
     html += `<div class="cart-item">
       <div style="flex:1">
@@ -273,9 +275,9 @@ function renderCart() {
         <div class="ci-price">${item.displayPrice} c/u</div>
       </div>
       <div class="qty-ctrl">
-        <button class="qty-btn" onclick="removeFromCart(${JSON.stringify(item.name)})">−</button>
+        <button class="qty-btn" onclick='removeFromCart(${JSON.stringify(item.name)})'>−</button>
         <span class="qty-num">${item.qty}</span>
-        <button class="qty-btn" onclick="addToCart(${JSON.stringify(item.name)}, ${item.priceNum}, ${JSON.stringify(item.displayPrice)})">+</button>
+        <button class="qty-btn" onclick='addToCart(${JSON.stringify(item.name)}, ${item.priceNum}, ${JSON.stringify(item.displayPrice)})'>+</button>
       </div>
       <div class="ci-subtotal">$${subtotal.toLocaleString('es-MX')}</div>
     </div>`;
@@ -287,7 +289,8 @@ function renderCart() {
   // Build WhatsApp message
   let msg = '🍣 *Pedido Sushi Seven*\n\n';
   items.forEach(item => {
-    const subtotal = Math.ceil(item.priceNum * 1.05) * item.qty;
+    const unitPrice = parseInt((item.displayPrice || '').replace(/[^0-9]/g, ''), 10) || Math.ceil(item.priceNum * 1.05);
+    const subtotal = unitPrice * item.qty;
     msg += `• ${item.qty}x ${item.name} — $${subtotal.toLocaleString('es-MX')}\n`;
   });
   msg += `\n*Total: $${totalCents.toLocaleString('es-MX')}*\n\nQuiero ordenar a domicilio, por favor 🙏`;
