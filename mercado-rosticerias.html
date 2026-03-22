@@ -411,6 +411,170 @@
     }
     .footer strong { color: #f39c12; }
 
+    /* ===== PRICE COMPARISON SECTION ===== */
+    .precios-section { margin-top: 72px; }
+    .precios-intro {
+      background: linear-gradient(135deg, #6b2a00 0%, #b4532a 100%);
+      border-radius: 16px;
+      padding: 24px 32px;
+      margin-bottom: 36px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .precios-intro-icon { font-size: 2.8rem; flex-shrink: 0; }
+    .precios-intro-text h3 { font-size: 1.2rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
+    .precios-intro-text p { font-size: 0.88rem; color: rgba(255,255,255,0.75); }
+    .premium-note {
+      background: #fff8f0;
+      border: 2px solid #b4532a;
+      border-radius: 12px;
+      padding: 12px 20px;
+      font-size: 0.88rem;
+      color: #6b2a00;
+      font-weight: 600;
+      margin-top: -12px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .premium-note-icon { font-size: 1.4rem; flex-shrink: 0; }
+
+    /* Price Table */
+    .price-table-wrapper {
+      overflow-x: auto;
+      border-radius: 16px;
+      box-shadow: 0 2px 16px rgba(26,26,46,0.1);
+      margin-bottom: 40px;
+    }
+    .price-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      font-size: 0.88rem;
+    }
+    .price-table thead th {
+      padding: 16px 20px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 0.84rem;
+      letter-spacing: 0.3px;
+    }
+    .price-table thead th:first-child { background: #1a1a2e; color: rgba(255,255,255,0.65); border-radius: 16px 0 0 0; }
+    .price-table thead .th-ricki { background: linear-gradient(135deg, #6b2a00, #b4532a); color: #ffe0cc; }
+    .price-table thead .th-feliz { background: #c0392b; color: #ffe5e5; }
+    .price-table thead .th-sabornis { background: #555; color: #e0e0e0; border-radius: 0 16px 0 0; }
+    .price-table tbody tr { border-bottom: 1px solid #f0f0f5; }
+    .price-table tbody tr:hover { background: #fafafa; }
+    .price-table tbody td {
+      padding: 14px 20px;
+      color: #333;
+      vertical-align: middle;
+    }
+    .price-table tbody td:first-child { font-weight: 600; color: #1a1a2e; background: #fafafa; }
+    .price-table .td-ricki {
+      font-weight: 700;
+      color: #6b2a00;
+      background: linear-gradient(90deg, #fff3ec, #fff);
+    }
+    .price-table .td-feliz { color: #c0392b; }
+    .price-table .td-sabornis { color: #555; }
+    .best-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 8px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+    .badge-win { background: #b4532a; color: white; }
+    .badge-nd { background: #e5e7eb; color: #9ca3af; }
+
+    /* Bar chart visual */
+    .price-bars-section {
+      background: white;
+      border-radius: 16px;
+      padding: 28px 32px;
+      box-shadow: 0 2px 12px rgba(26,26,46,0.08);
+      margin-bottom: 40px;
+    }
+    .price-bars-section h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 24px;
+    }
+    .bar-group { margin-bottom: 20px; }
+    .bar-group-label {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 10px;
+    }
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 7px;
+    }
+    .bar-brand-label { width: 110px; font-size: 0.79rem; font-weight: 600; flex-shrink: 0; }
+    .bar-track { flex: 1; background: #f0f0f5; border-radius: 20px; height: 26px; overflow: hidden; }
+    .bar-fill {
+      height: 100%;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: white;
+      white-space: nowrap;
+      transition: width 0.3s ease;
+    }
+    .bar-ricki { background: linear-gradient(90deg, #b4532a, #d4692e); }
+    .bar-feliz { background: #c0392b; }
+    .bar-sabornis { background: #777; }
+
+    /* Complementos section */
+    .complementos-section {
+      background: linear-gradient(135deg, #fff8f4 0%, #fff 100%);
+      border: 2px solid #e8c4ae;
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-bottom: 40px;
+    }
+    .complementos-section h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #6b2a00;
+      margin-bottom: 6px;
+    }
+    .complementos-section .comp-subtitle {
+      font-size: 0.84rem;
+      color: #888;
+      margin-bottom: 20px;
+    }
+    .comp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 10px;
+    }
+    .comp-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      border: 1px solid #f0dbd0;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 0.85rem;
+    }
+    .comp-name { color: #333; font-weight: 500; }
+    .comp-price { font-weight: 800; color: #b4532a; }
+
     @media (max-width: 700px) {
       .lena-hero-inner { flex-direction: column; gap: 16px; }
       .lena-points { grid-template-columns: 1fr; }
@@ -420,6 +584,9 @@
       .header h1 { font-size: 1.5rem; }
       .opp-grid { grid-template-columns: 1fr 1fr; }
       .lena-hero { padding: 24px 20px; }
+      .comp-grid { grid-template-columns: 1fr 1fr; }
+      .bar-brand-label { width: 80px; }
+      .complementos-section, .price-bars-section { padding: 20px; }
     }
   </style>
 </head>
@@ -776,6 +943,192 @@
         </tbody>
       </table>
     </div>
+  </div>
+
+
+  <!-- ===== COMPARATIVO DE PRECIOS REALES ===== -->
+  <div class="precios-section">
+    <div class="opp-title">💰 Comparativo de Precios Reales</div>
+    <p class="opp-subtitle">Precios de venta al público — Ricki Pollo vs competidores directos</p>
+
+    <div class="precios-intro">
+      <div class="precios-intro-icon">🔥</div>
+      <div class="precios-intro-text">
+        <h3>Precio premium justificado: leña de encino vs gas industrial</h3>
+        <p>Ricki Pollo supera a Pollo Feliz en precio — y eso es una fortaleza, no una debilidad. El cliente que elige Ricki Pollo entiende la diferencia del sabor artesanal.</p>
+      </div>
+    </div>
+
+    <div class="premium-note">
+      <div class="premium-note-icon">🪵</div>
+      <div>
+        <strong>¿Por qué Ricki Pollo cuesta más?</strong> Porque la leña de encino seleccionada eleva el costo de producción pero entrega un sabor genuino, imposible con gas industrial. Así como el vino artesanal vs el de caja — el cliente premium lo sabe.
+      </div>
+    </div>
+
+    <!-- TABLA COMPARATIVA DE PRECIOS -->
+    <div class="price-table-wrapper">
+      <table class="price-table">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th class="th-ricki">🔥 Ricki Pollo</th>
+            <th class="th-feliz">Pollo Feliz</th>
+            <th class="th-sabornis">Sabornis</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Pollo entero (8 piezas)</td>
+            <td class="td-ricki">$285 <span class="best-badge badge-win">MEJOR VALOR</span></td>
+            <td class="td-feliz">$269</td>
+            <td class="td-sabornis">$335</td>
+          </tr>
+          <tr>
+            <td>Paquete individual (2 piezas)</td>
+            <td class="td-ricki">$114 <span class="best-badge badge-win">DISPONIBLE</span></td>
+            <td class="td-feliz">$112</td>
+            <td class="td-sabornis"><span class="best-badge badge-nd">N/D</span></td>
+          </tr>
+          <tr>
+            <td>Paquete ejecutivo (4 piezas)</td>
+            <td class="td-ricki">$195 <span class="best-badge badge-win">DISPONIBLE</span></td>
+            <td class="td-feliz">$189</td>
+            <td class="td-sabornis"><span class="best-badge badge-nd">N/D</span></td>
+          </tr>
+          <tr>
+            <td>Paquete familiar (8 piezas + extras)</td>
+            <td class="td-ricki">$395 <span class="best-badge badge-win">DISPONIBLE</span></td>
+            <td class="td-feliz">$393</td>
+            <td class="td-sabornis"><span class="best-badge badge-nd">N/D</span></td>
+          </tr>
+          <tr>
+            <td>Paquete Especial</td>
+            <td class="td-ricki">$409 <span class="best-badge badge-win">DISPONIBLE</span></td>
+            <td class="td-feliz">$399</td>
+            <td class="td-sabornis"><span class="best-badge badge-nd">N/D</span></td>
+          </tr>
+          <tr>
+            <td>Pollo Adobado entero</td>
+            <td class="td-ricki">$295 <span class="best-badge badge-win">EXCLUSIVO</span></td>
+            <td class="td-feliz"><span class="best-badge badge-nd">N/D</span></td>
+            <td class="td-sabornis"><span class="best-badge badge-nd">N/D</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- BARRAS VISUALES POR PRODUCTO -->
+    <div class="price-bars-section">
+      <h3>📊 Visualización de precios — Ricki Pollo vs competencia</h3>
+
+      <div class="bar-group">
+        <div class="bar-group-label">🍗 Pollo Entero (8 piezas)</div>
+        <div class="bar-row">
+          <div class="bar-brand-label" style="color:#b4532a;font-weight:800;">🔥 Ricki Pollo</div>
+          <div class="bar-track">
+            <div class="bar-fill bar-ricki" style="width:85%;">$285 — Leña de encino</div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-brand-label" style="color:#c0392b;">Pollo Feliz</div>
+          <div class="bar-track">
+            <div class="bar-fill bar-feliz" style="width:80%;">$269 — Gas industrial</div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-brand-label" style="color:#555;">Sabornis</div>
+          <div class="bar-track">
+            <div class="bar-fill bar-sabornis" style="width:100%;">$335 — Ahumado industrial</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bar-group">
+        <div class="bar-group-label">📦 Paquete Familiar (8 piezas + extras)</div>
+        <div class="bar-row">
+          <div class="bar-brand-label" style="color:#b4532a;font-weight:800;">🔥 Ricki Pollo</div>
+          <div class="bar-track">
+            <div class="bar-fill bar-ricki" style="width:99%;">$395</div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-brand-label" style="color:#c0392b;">Pollo Feliz</div>
+          <div class="bar-track">
+            <div class="bar-fill bar-feliz" style="width:98%;">$393</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bar-group">
+        <div class="bar-group-label">⭐ Paquete Especial</div>
+        <div class="bar-row">
+          <div class="bar-brand-label" style="color:#b4532a;font-weight:800;">🔥 Ricki Pollo</div>
+          <div class="bar-track">
+            <div class="bar-fill bar-ricki" style="width:100%;">$409</div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-brand-label" style="color:#c0392b;">Pollo Feliz</div>
+          <div class="bar-track">
+            <div class="bar-fill bar-feliz" style="width:97%;">$399</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPLEMENTOS RICKI POLLO -->
+    <div class="complementos-section">
+      <h3>🫙 Complementos Ricki Pollo</h3>
+      <p class="comp-subtitle">Acompañamientos disponibles para complementar tu pedido</p>
+      <div class="comp-grid">
+        <div class="comp-item">
+          <span class="comp-name">🍝 Espagueti Rojo</span>
+          <span class="comp-price">$59</span>
+        </div>
+        <div class="comp-item">
+          <span class="comp-name">🍚 Arroz Rojo</span>
+          <span class="comp-price">$59</span>
+        </div>
+        <div class="comp-item">
+          <span class="comp-name">🥗 Ensalada de Col</span>
+          <span class="comp-price">$59</span>
+        </div>
+        <div class="comp-item">
+          <span class="comp-name">🍎 Ensalada de Manzana</span>
+          <span class="comp-price">$69</span>
+        </div>
+        <div class="comp-item">
+          <span class="comp-name">🍟 Papas Fritas</span>
+          <span class="comp-price">$65</span>
+        </div>
+        <div class="comp-item">
+          <span class="comp-name">🥔 Papas Cambray Adobadas</span>
+          <span class="comp-price">$59</span>
+        </div>
+        <div class="comp-item">
+          <span class="comp-name">🌶️ Salsa Roja</span>
+          <span class="comp-price">$35</span>
+        </div>
+        <div class="comp-item">
+          <span class="comp-name">🟢 Salsa Verde</span>
+          <span class="comp-price">$35</span>
+        </div>
+        <div class="comp-item">
+          <span class="comp-name">🫙 Salsa Macha</span>
+          <span class="comp-price">$35</span>
+        </div>
+        <div class="comp-item">
+          <span class="comp-name">🥑 Guacamole</span>
+          <span class="comp-price">$48</span>
+        </div>
+        <div class="comp-item">
+          <span class="comp-name">🫓 Tortillas de maíz</span>
+          <span class="comp-price">$19</span>
+        </div>
+      </div>
+    </div>
+
   </div>
 
 </div>
