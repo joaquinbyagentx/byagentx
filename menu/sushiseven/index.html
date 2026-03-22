@@ -137,6 +137,11 @@ const MENU_DATA = {"scrapedAt": "2026-03-22T14:36:23.884Z", "url": "https://www.
 // State
 const cart = {};
 
+// Leer número de WhatsApp del parámetro ?from= en la URL
+// El bot manda el link con ?from=NUMERO para que el pedido regrese a la misma conversación
+const urlParams = new URLSearchParams(window.location.search);
+const WA_NUMBER = urlParams.get('from') || '14155238886';
+
 // Label styling
 function getLabelClass(label) {
   const l = label.toLowerCase();
@@ -258,7 +263,7 @@ function renderCart() {
   if (items.length === 0) {
     container.innerHTML = '<div class="cart-empty">Tu carrito está vacío 🍣</div>';
     document.getElementById('cart-total').textContent = '$0';
-    document.getElementById('wa-btn').href = 'https://wa.me/14155238886';
+    document.getElementById('wa-btn').href = 'https://wa.me/' + WA_NUMBER + '';
     return;
   }
 
@@ -294,9 +299,9 @@ function renderCart() {
     msg += `• ${item.qty}x ${item.name} — $${subtotal.toLocaleString('es-MX')}\n`;
   });
   msg += `\n*Total: $${totalCents.toLocaleString('es-MX')}*\n\nQuiero ordenar a domicilio, por favor 🙏`;
-  const waUrl = 'https://wa.me/14155238886?text=' + encodeURIComponent(msg);
+  const waUrl = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg);
   document.getElementById('wa-btn').href = waUrl;
-  document.getElementById('wa-float').href = items.length > 0 ? waUrl : 'https://wa.me/14155238886';
+  document.getElementById('wa-float').href = items.length > 0 ? waUrl : 'https://wa.me/' + WA_NUMBER + '';
 }
 
 function toggleCart() {
