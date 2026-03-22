@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Ricki Pollo 🔥 — Menú a Domicilio</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#1a1a1a;color:#f0e6d0;min-height:100vh;padding-bottom:120px}
+
+/* HEADER */
+#header{background:#5c0000;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;border-bottom:2px solid #F5A623}
+#header .brand{display:flex;align-items:center;gap:10px}
+#header .brand-text .name{color:#F5A623;font-size:20px;font-weight:700;letter-spacing:1px}
+#header .brand-text .sub{color:#f0e6d0;font-size:11px;font-weight:600;letter-spacing:0.5px;opacity:0.8}
+#cart-btn{background:none;border:none;cursor:pointer;position:relative;padding:4px}
+#cart-btn .icon{font-size:26px}
+#cart-count{position:absolute;top:-2px;right:-2px;background:#F5A623;color:#1a1a1a;border-radius:50%;width:18px;height:18px;font-size:11px;font-weight:700;display:none;align-items:center;justify-content:center}
+
+/* CATEGORY TABS */
+#cat-tabs{background:#2a1a1a;border-bottom:2px solid #3a2020;overflow-x:auto;white-space:nowrap;padding:8px 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch;position:sticky;top:65px;z-index:99}
+#cat-tabs::-webkit-scrollbar{display:none}
+.tab{display:inline-block;padding:7px 14px;margin-right:6px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;background:#3a2020;color:#f0e6d0;border:none;transition:all 0.2s;white-space:nowrap}
+.tab.active{background:#F5A623;color:#1a1a1a}
+
+/* MENU SECTIONS */
+#menu-content{padding:0 12px}
+.cat-section{padding:16px 0 8px}
+.cat-title{font-size:20px;font-weight:700;color:#F5A623;padding:8px 0 12px;border-bottom:3px solid #8B0000;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px}
+
+/* CARDS GRID */
+.items-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+@media(min-width:600px){.items-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}}
+@media(min-width:900px){.items-grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}}
+
+.card{background:#2a1a1a;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.4);display:flex;flex-direction:column;position:relative;border:1px solid #3a2020}
+.card-img{width:100%;height:130px;object-fit:cover;display:block;background:#3a2020}
+.card-img-placeholder{width:100%;height:130px;background:linear-gradient(135deg,#3a2020,#5c0000);display:flex;align-items:center;justify-content:center;font-size:40px}
+.card-body{padding:8px 10px 10px;flex:1;display:flex;flex-direction:column}
+.card-name{font-size:12px;font-weight:700;color:#F5A623;text-transform:uppercase;margin-bottom:3px;line-height:1.3}
+.card-desc{font-size:11px;color:#b09070;line-height:1.3;flex:1;margin-bottom:6px}
+.card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+.card-price{font-size:14px;font-weight:700;color:#F5A623}
+.add-btn{background:#8B0000;color:#F5A623;border:none;border-radius:50%;width:30px;height:30px;font-size:20px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:transform 0.1s,background 0.2s}
+.add-btn:hover{background:#F5A623;color:#8B0000}
+.add-btn:active{transform:scale(0.9)}
+
+/* CART DRAWER */
+#cart-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200}
+#cart-overlay.open{display:block}
+#cart-drawer{position:fixed;bottom:0;left:0;right:0;background:#1a1a1a;border-radius:20px 20px 0 0;max-height:80vh;display:flex;flex-direction:column;z-index:201;transform:translateY(100%);transition:transform 0.3s ease;border-top:2px solid #8B0000}
+#cart-drawer.open{transform:translateY(0)}
+#cart-header{padding:16px 20px 12px;border-bottom:1px solid #3a2020;display:flex;align-items:center;justify-content:space-between}
+#cart-header h2{font-size:18px;font-weight:700;color:#F5A623}
+#cart-close{background:none;border:none;font-size:24px;cursor:pointer;color:#b09070;padding:4px}
+#cart-items{overflow-y:auto;flex:1;padding:12px 16px}
+.cart-empty{text-align:center;padding:40px 20px;color:#6a5040;font-size:15px}
+.cart-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #2a1a1a}
+.ci-name{flex:1;font-size:13px;font-weight:600;color:#f0e6d0}
+.ci-price{font-size:12px;color:#b09070;margin-top:2px}
+.qty-ctrl{display:flex;align-items:center;gap:6px}
+.qty-btn{background:#2a1a1a;border:1px solid #3a2020;border-radius:50%;width:26px;height:26px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700;color:#F5A623}
+.qty-btn:hover{background:#8B0000;color:#F5A623}
+.qty-num{min-width:20px;text-align:center;font-size:14px;font-weight:700;color:#f0e6d0}
+.ci-subtotal{font-size:14px;font-weight:700;color:#F5A623;min-width:52px;text-align:right}
+#cart-footer{padding:16px 20px;border-top:2px solid #3a2020}
+#cart-total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+#cart-total-row span{font-size:16px;font-weight:700;color:#f0e6d0}
+#cart-total{font-size:22px;font-weight:700;color:#F5A623}
+#wa-btn{display:block;width:100%;background:#25d366;color:#fff;border:none;border-radius:12px;padding:14px;font-size:16px;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;letter-spacing:0.3px}
+#wa-btn:hover{background:#1ebe5a}
+
+/* FLOATING WA BUTTON */
+#wa-float{position:fixed;bottom:24px;right:16px;background:#25d366;color:#fff;border:none;border-radius:50%;width:56px;height:56px;font-size:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(37,211,102,0.5);z-index:150;text-decoration:none}
+#wa-float:hover{background:#1ebe5a;transform:scale(1.05)}
+</style>
+</head>
+<body>
+
+<div id="header">
+  <div class="brand">
+    <div class="brand-text">
+      <div class="name">RICKI 🔥 POLLO</div>
+      <div class="sub">Menú a Domicilio · Cholula, Puebla</div>
+    </div>
+  </div>
+  <button id="cart-btn" onclick="toggleCart()">
+    <span class="icon">🛒</span>
+    <span id="cart-count">0</span>
+  </button>
+</div>
+
+<div id="cat-tabs"></div>
+<div id="menu-content"></div>
+
+<!-- Cart Overlay -->
+<div id="cart-overlay" onclick="toggleCart()"></div>
+
+<!-- Cart Drawer -->
+<div id="cart-drawer">
+  <div id="cart-header">
+    <h2>🛒 Tu Pedido</h2>
+    <button id="cart-close" onclick="toggleCart()">✕</button>
+  </div>
+  <div id="cart-items"></div>
+  <div id="cart-footer">
+    <div id="cart-total-row">
+      <span>Total</span>
+      <span id="cart-total">$0</span>
+    </div>
+    <a id="wa-btn" href="#" target="_blank">🟢 Confirmar Pedido por WhatsApp</a>
+  </div>
+</div>
+
+<!-- Floating WhatsApp Button -->
+<a id="wa-float" href="https://wa.me/5212711328513" target="_blank" title="WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+// Read ?from= param
+const urlParams = new URLSearchParams(window.location.search);
+const fromParam = urlParams.get('from') || '';
+const WA_NUMBER = '5212711328513';
+
+const MENU = {
+  "POLLOS": {
+    emoji: "🍗",
+    img: "rickipollo-img/pollo-rostizado.jpg",
+    items: [
+      { id:"p1", name:"Pollo Rostizado",    price:285, desc:"8 piezas, tortillas, salsa y chiles",           img:"rickipollo-img/pollo-rostizado.jpg" },
+      { id:"p2", name:"Paquete Ejecutivo",  price:195, desc:"4 piezas, tortillas y salsa",                   img:"rickipollo-img/paquete-ejecutivo.jpg" },
+      { id:"p3", name:"Paquete Familiar",   price:395, desc:"16 piezas, tortillas, salsas, chiles y refresco 2L", img:"rickipollo-img/paquete-familiar.jpg" },
+      { id:"p4", name:"Pollo Adobado",      price:295, desc:"8 piezas, adobo tradicional",                   img:"rickipollo-img/pollo-adobado.jpg" }
+    ]
+  },
+  "COMPLEMENTOS": {
+    emoji: "🥗",
+    img: "rickipollo-img/complementos.jpg",
+    items: [
+      { id:"c1",  name:"Espagueti Rojo",          price:59,  desc:"", img:"rickipollo-img/complementos.jpg" },
+      { id:"c2",  name:"Sopa de Codito con Jamón", price:59,  desc:"", img:"rickipollo-img/complementos.jpg" },
+      { id:"c3",  name:"Arroz Rojo",               price:59,  desc:"", img:"rickipollo-img/complementos.jpg" },
+      { id:"c4",  name:"Ensalada de Col",           price:59,  desc:"", img:"rickipollo-img/complementos.jpg" },
+      { id:"c5",  name:"Ensalada de Manzana",       price:69,  desc:"", img:"rickipollo-img/complementos.jpg" },
+      { id:"c6",  name:"Papas Fritas",              price:65,  desc:"", img:"rickipollo-img/complementos.jpg" },
+      { id:"c7",  name:"Papas Cambray Adobadas",    price:59,  desc:"", img:"rickipollo-img/complementos.jpg" },
+      { id:"c8",  name:"Chiles en Escabeche",       price:59,  desc:"", img:"rickipollo-img/complementos.jpg" },
+      { id:"c9",  name:"Guacamole",                 price:48,  desc:"", img:"rickipollo-img/complementos.jpg" },
+      { id:"c10", name:"Salsas variadas",            price:35,  desc:"", img:"rickipollo-img/complementos.jpg" }
+    ]
+  },
+  "BEBIDAS": {
+    emoji: "🥤",
+    img: "rickipollo-img/bebidas.jpg",
+    items: [
+      { id:"b1", name:"Refresco Lata 355ml",  price:28, desc:"", img:"rickipollo-img/bebidas.jpg" },
+      { id:"b2", name:"Refresco 600ml",        price:35, desc:"", img:"rickipollo-img/bebidas.jpg" },
+      { id:"b3", name:"Agua Natural 600ml",    price:22, desc:"", img:"rickipollo-img/bebidas.jpg" },
+      { id:"b4", name:"Agua de Sabor 500ml",   price:32, desc:"", img:"rickipollo-img/bebidas.jpg" },
+      { id:"b5", name:"Cerveza",               price:45, desc:"", img:"rickipollo-img/bebidas.jpg" }
+    ]
+  }
+};
+
+// Cart state
+let cart = {};
+
+function getItemById(id) {
+  for (const cat of Object.values(MENU)) {
+    for (const item of cat.items) {
+      if (item.id === id) return item;
+    }
+  }
+  return null;
+}
+
+function addToCart(id) {
+  const item = getItemById(id);
+  if (!item) return;
+  if (!cart[id]) cart[id] = { item, qty: 0 };
+  cart[id].qty++;
+  updateCartUI();
+  animateBtn(id);
+}
+
+function changeQty(id, delta) {
+  if (!cart[id]) return;
+  cart[id].qty += delta;
+  if (cart[id].qty <= 0) delete cart[id];
+  updateCartUI();
+}
+
+function animateBtn(id) {
+  const btn = document.getElementById('addbtn-' + id);
+  if (!btn) return;
+  btn.style.transform = 'scale(1.3)';
+  setTimeout(() => btn.style.transform = '', 200);
+}
+
+function getTotal() {
+  return Object.values(cart).reduce((s, e) => s + e.item.price * e.qty, 0);
+}
+
+function getCartCount() {
+  return Object.values(cart).reduce((s, e) => s + e.qty, 0);
+}
+
+function updateCartUI() {
+  // Count badge
+  const count = getCartCount();
+  const badge = document.getElementById('cart-count');
+  badge.textContent = count;
+  badge.style.display = count > 0 ? 'flex' : 'none';
+
+  // Items list
+  const container = document.getElementById('cart-items');
+  if (count === 0) {
+    container.innerHTML = '<div class="cart-empty">🍗 Tu carrito está vacío<br><small style="color:#6a5040">Agrega algo del menú</small></div>';
+  } else {
+    container.innerHTML = Object.values(cart).map(e => `
+      <div class="cart-item">
+        <div style="flex:1">
+          <div class="ci-name">${e.item.name}</div>
+          <div class="ci-price">$${e.item.price} c/u</div>
+        </div>
+        <div class="qty-ctrl">
+          <button class="qty-btn" onclick="changeQty('${e.item.id}',-1)">−</button>
+          <span class="qty-num">${e.qty}</span>
+          <button class="qty-btn" onclick="changeQty('${e.item.id}',1)">+</button>
+        </div>
+        <div class="ci-subtotal">$${e.item.price * e.qty}</div>
+      </div>`).join('');
+  }
+
+  // Total
+  document.getElementById('cart-total').textContent = '$' + getTotal();
+
+  // WA button
+  const waBtn = document.getElementById('wa-btn');
+  if (count === 0) {
+    waBtn.style.opacity = '0.5';
+    waBtn.style.pointerEvents = 'none';
+    waBtn.href = '#';
+  } else {
+    waBtn.style.opacity = '1';
+    waBtn.style.pointerEvents = '';
+    const lines = Object.values(cart).map(e => `• ${e.item.name} x${e.qty} = $${e.item.price * e.qty}`).join('\n');
+    let msg = `🔥 PEDIDO RICKI POLLO 🔥\n\n${lines}\n\n💰 Total: $${getTotal()}`;
+    if (fromParam) msg += `\n\n[ref: ${fromParam}]`;
+    waBtn.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+  }
+}
+
+function toggleCart() {
+  const overlay = document.getElementById('cart-overlay');
+  const drawer = document.getElementById('cart-drawer');
+  const isOpen = drawer.classList.contains('open');
+  overlay.classList.toggle('open', !isOpen);
+  drawer.classList.toggle('open', !isOpen);
+}
+
+// Build menu
+function buildMenu() {
+  const tabsEl = document.getElementById('cat-tabs');
+  const contentEl = document.getElementById('menu-content');
+  const cats = Object.keys(MENU);
+
+  // Tabs
+  tabsEl.innerHTML = cats.map((cat, i) =>
+    `<button class="tab${i===0?' active':''}" onclick="scrollToSection('sec-${cat}',this)">${MENU[cat].emoji} ${cat}</button>`
+  ).join('');
+
+  // Sections
+  contentEl.innerHTML = cats.map(cat => {
+    const data = MENU[cat];
+    const cards = data.items.map(item => `
+      <div class="card">
+        <img class="card-img" src="${item.img}" alt="${item.name}"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="card-img-placeholder" style="display:none">${data.emoji}</div>
+        <div class="card-body">
+          <div class="card-name">${item.name}</div>
+          ${item.desc ? `<div class="card-desc">${item.desc}</div>` : ''}
+          <div class="card-footer">
+            <span class="card-price">$${item.price}</span>
+            <button class="add-btn" id="addbtn-${item.id}" onclick="addToCart('${item.id}')">+</button>
+          </div>
+        </div>
+      </div>`).join('');
+
+    return `
+      <div class="cat-section" id="sec-${cat}">
+        <div class="cat-title">${data.emoji} ${cat}</div>
+        <div class="items-grid">${cards}</div>
+      </div>`;
+  }).join('');
+
+  updateCartUI();
+}
+
+function scrollToSection(id, tabEl) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  tabEl.classList.add('active');
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+buildMenu();
+</script>
+</body>
+</html>
