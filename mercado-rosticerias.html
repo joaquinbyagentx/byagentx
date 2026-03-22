@@ -70,6 +70,80 @@
       padding: 60px 24px 80px;
     }
 
+    /* ===== LEÑA HERO SECTION ===== */
+    .lena-hero {
+      background: linear-gradient(135deg, #3d1a00 0%, #6b2a00 40%, #8b3a00 100%);
+      border-radius: 20px;
+      padding: 36px 40px;
+      margin-bottom: 52px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(61,26,0,0.35);
+    }
+    .lena-hero::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(243,156,18,0.12);
+    }
+    .lena-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: -30px;
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+    }
+    .lena-hero-inner {
+      display: flex;
+      gap: 28px;
+      align-items: flex-start;
+      position: relative;
+      z-index: 1;
+    }
+    .lena-flame {
+      font-size: 4rem;
+      line-height: 1;
+      flex-shrink: 0;
+      filter: drop-shadow(0 0 12px rgba(243,156,18,0.6));
+    }
+    .lena-content { flex: 1; }
+    .lena-content h2 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 4px;
+      line-height: 1.2;
+    }
+    .lena-sub {
+      font-size: 1.1rem;
+      color: #f39c12;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .lena-desc {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+    }
+    .lena-points {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .lena-point {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(243,156,18,0.25);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 0.86rem;
+      color: rgba(255,255,255,0.9);
+      line-height: 1.4;
+    }
+    .lena-point strong { color: #f39c12; }
+
     /* SECTION TITLE */
     .section-title {
       font-size: 1.4rem;
@@ -127,19 +201,46 @@
     .rating-yellow { background: #fef3cd; color: #9a6200; }
     .rating-red { background: #fde8e8; color: #c0392b; }
 
-    /* MAP */
-    .map-wrapper {
+    /* PHOTO WRAPPER */
+    .photo-wrapper {
       position: relative;
       width: 100%;
-      height: 220px;
-      background: #eef0f5;
+      height: 200px;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      overflow: hidden;
     }
-    .map-wrapper iframe {
+    .photo-wrapper img {
       width: 100%;
       height: 100%;
-      border: none;
+      object-fit: cover;
       display: block;
     }
+    .photo-maps-link {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(255,255,255,0.92);
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #1a1a2e;
+      text-decoration: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .photo-maps-link:hover { background: #fff; }
+    .photo-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 0.85rem;
+      gap: 8px;
+    }
+    .photo-placeholder span:first-child { font-size: 2rem; }
 
     /* CARD BODY */
     .card-body { padding: 20px 24px; }
@@ -238,6 +339,68 @@
     .opp-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
     .opp-card p { font-size: 0.83rem; opacity: 0.8; line-height: 1.5; }
 
+    /* ===== VENTAJA COMPETITIVA TABLE ===== */
+    .ventaja-section {
+      margin-top: 64px;
+    }
+    .table-wrapper {
+      overflow-x: auto;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(26,26,46,0.08);
+      margin-top: 28px;
+    }
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      font-size: 0.88rem;
+    }
+    .comp-table thead th {
+      padding: 16px 20px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 0.85rem;
+      background: #1a1a2e;
+      color: rgba(255,255,255,0.7);
+      border-bottom: 2px solid #f39c12;
+    }
+    .comp-table thead th:first-child { border-radius: 16px 0 0 0; }
+    .comp-table thead th:last-child { border-radius: 0 16px 0 0; }
+    .comp-table thead th.col-ricki {
+      background: linear-gradient(135deg, #3d1a00, #6b2a00);
+      color: #f39c12;
+    }
+    .comp-table tbody tr { border-bottom: 1px solid #f0f0f5; }
+    .comp-table tbody tr:hover { background: #f8f9fb; }
+    .comp-table tbody td {
+      padding: 14px 20px;
+      color: #333;
+      vertical-align: middle;
+    }
+    .comp-table tbody td:first-child {
+      font-weight: 600;
+      color: #1a1a2e;
+      background: #fafafa;
+    }
+    .comp-table tbody td.col-ricki {
+      background: linear-gradient(90deg, #fff8f0, #fff);
+      font-weight: 700;
+      color: #6b2a00;
+    }
+    .comp-table tbody tr:last-child td:first-child { border-radius: 0 0 0 16px; }
+    .comp-table tbody tr:last-child td:last-child { border-radius: 0 0 16px 0; }
+    .win-badge {
+      display: inline-block;
+      background: #f39c12;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 8px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
     /* FOOTER */
     .footer {
       background: #1a1a2e;
@@ -248,11 +411,15 @@
     }
     .footer strong { color: #f39c12; }
 
-    @media (max-width: 600px) {
+    @media (max-width: 700px) {
+      .lena-hero-inner { flex-direction: column; gap: 16px; }
+      .lena-points { grid-template-columns: 1fr; }
+      .lena-flame { font-size: 3rem; }
       .competitors-grid { grid-template-columns: 1fr; }
       .sw-grid { grid-template-columns: 1fr; }
       .header h1 { font-size: 1.5rem; }
       .opp-grid { grid-template-columns: 1fr 1fr; }
+      .lena-hero { padding: 24px 20px; }
     }
   </style>
 </head>
@@ -273,6 +440,24 @@
 
 <div class="container">
 
+  <!-- ===== LEÑA HERO ===== -->
+  <div class="lena-hero">
+    <div class="lena-hero-inner">
+      <div class="lena-flame">🔥</div>
+      <div class="lena-content">
+        <h2>¿Por qué Ricki Pollo?</h2>
+        <p class="lena-sub">La diferencia está en la leña de encino</p>
+        <p class="lena-desc">Mientras todos usan gas o pollos industriales:</p>
+        <div class="lena-points">
+          <div class="lena-point">✅ <strong>Leña de encino seleccionada</strong> — sabor ahumado real, no artificial</div>
+          <div class="lena-point">✅ <strong>Cocción lenta tradicional</strong> — jugosidad garantizada</div>
+          <div class="lena-point">✅ <strong>Receta artesanal</strong> — sin químicos ni conservadores</div>
+          <div class="lena-point">✅ <strong>Precio premium accesible</strong> — mejor que Sabornis ($335) con más tradición</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="section-title">🐔 Competidores Directos</div>
 
   <div class="competitors-grid">
@@ -289,8 +474,13 @@
           <span class="rating-badge rating-green" style="margin-top:4px">⭐ 4.8 UE</span>
         </div>
       </div>
-      <div class="map-wrapper">
-        <iframe src="https://www.google.com/maps/search/?api=1&query=Pollo+Feliz+Zavaleta+Calzada+Zavaleta+98+Puebla" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="photo-wrapper">
+        <img
+          src="https://maps.googleapis.com/maps/api/streetview?size=600x200&location=Calzada+Zavaleta+98+Puebla+Mexico&key=GOOGLE_MAPS_API_KEY_REDACTED"
+          alt="Pollo Feliz Zavaleta"
+          onerror="this.outerHTML='<div class=\'photo-placeholder\'><span>🍗</span><span>Pollo Feliz Zavaleta</span></div>'"
+        />
+        <a class="photo-maps-link" href="https://maps.google.com/?q=Calzada+Zavaleta+98+Puebla" target="_blank">📍 Ver en Maps</a>
       </div>
       <div class="card-body">
         <div class="info-row"><span class="info-icon">🕐</span><span><span class="info-label">Horario:</span> Lun–Dom: 12:01 PM – 6:45 PM</span></div>
@@ -328,8 +518,13 @@
           <span class="rating-badge rating-green">⭐ 4.8 UE</span>
         </div>
       </div>
-      <div class="map-wrapper">
-        <iframe src="https://www.google.com/maps/search/?api=1&query=Pollo+Feliz+Calle+14+Oriente+San+Andres+Cholula" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="photo-wrapper">
+        <img
+          src="https://maps.googleapis.com/maps/api/streetview?size=600x200&location=Calle+14+Oriente+1+San+Andres+Cholula+Mexico&key=GOOGLE_MAPS_API_KEY_REDACTED"
+          alt="Pollo Feliz Cholula"
+          onerror="this.outerHTML='<div class=\'photo-placeholder\'><span>🍗</span><span>Pollo Feliz Cholula</span></div>'"
+        />
+        <a class="photo-maps-link" href="https://maps.google.com/?q=Calle+14+Oriente+1+San+Andres+Cholula" target="_blank">📍 Ver en Maps</a>
       </div>
       <div class="card-body">
         <div class="info-row"><span class="info-icon">🕐</span><span><span class="info-label">Horario:</span> Lun–Dom: 12:01 PM – 6:45 PM</span></div>
@@ -367,8 +562,13 @@
           <span class="rating-badge rating-green">⭐ 4.7 UE</span>
         </div>
       </div>
-      <div class="map-wrapper">
-        <iframe src="https://www.google.com/maps/search/?api=1&query=Sabornis+Pollos+Costillas+Calzada+Zavaleta+1953+Puebla" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="photo-wrapper">
+        <img
+          src="https://maps.googleapis.com/maps/api/streetview?size=600x200&location=Calzada+Zavaleta+1953+Puebla+Mexico&key=GOOGLE_MAPS_API_KEY_REDACTED"
+          alt="Sabornis Pollos y Costillas"
+          onerror="this.outerHTML='<div class=\'photo-placeholder\'><span>🍖</span><span>Sabornis</span></div>'"
+        />
+        <a class="photo-maps-link" href="https://maps.google.com/?q=Calzada+Zavaleta+1953+Puebla" target="_blank">📍 Ver en Maps</a>
       </div>
       <div class="card-body">
         <div class="info-row"><span class="info-icon">🕐</span><span><span class="info-label">Horario:</span> Lun–Dom: 10:00 AM – 6:30 PM</span></div>
@@ -407,8 +607,13 @@
           <span class="rating-badge rating-red">⭐ 3.1/5</span>
         </div>
       </div>
-      <div class="map-wrapper">
-        <iframe src="https://www.google.com/maps/search/?api=1&query=Rosticeria+Molinos+Calle+3+Norte+202+San+Pedro+Cholula" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="photo-wrapper">
+        <img
+          src="https://maps.googleapis.com/maps/api/streetview?size=600x200&location=Calle+3+Norte+202+San+Pedro+Cholula+Mexico&key=GOOGLE_MAPS_API_KEY_REDACTED"
+          alt="Rosticería Molinos"
+          onerror="this.outerHTML='<div class=\'photo-placeholder\'><span>🐔</span><span>Rosticería Molinos</span></div>'"
+        />
+        <a class="photo-maps-link" href="https://maps.google.com/?q=Calle+3+Norte+202+San+Pedro+Cholula" target="_blank">📍 Ver en Maps</a>
       </div>
       <div class="card-body">
         <div class="info-row"><span class="info-icon">🕐</span><span><span class="info-label">Horario:</span> Lun–Dom: 9:00 AM – 9:00 PM</span></div>
@@ -445,8 +650,13 @@
           <span class="rating-badge rating-yellow">⭐ 7.6/10 FS</span>
         </div>
       </div>
-      <div class="map-wrapper">
-        <iframe src="https://www.google.com/maps/search/?api=1&query=Rosticeria+La+Granja+Cholula+Puebla" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="photo-wrapper">
+        <img
+          src="https://maps.googleapis.com/maps/api/streetview?size=600x200&location=Cholula+de+Rivadavia+Puebla+Mexico&key=GOOGLE_MAPS_API_KEY_REDACTED"
+          alt="Rosticería La Granja"
+          onerror="this.outerHTML='<div class=\'photo-placeholder\'><span>🐔</span><span>Rosticería La Granja</span></div>'"
+        />
+        <a class="photo-maps-link" href="https://maps.google.com/?q=Rosticeria+La+Granja+Cholula" target="_blank">📍 Ver en Maps</a>
       </div>
       <div class="card-body">
         <div class="info-row"><span class="info-icon">🕐</span><span><span class="info-label">Horario:</span> Solo fines de semana: Sáb 2–7:30 PM | Dom 1:30–7:30 PM</span></div>
@@ -503,6 +713,68 @@
         <h3>Sabor Superior, Mejor Precio</h3>
         <p>Sabornis cobra $335 sin ser a la leña. Ricki Pollo puede posicionarse con producto superior a precio más accesible y ganar la comparación directa.</p>
       </div>
+    </div>
+  </div>
+
+  <!-- ===== VENTAJA COMPETITIVA TABLE ===== -->
+  <div class="ventaja-section">
+    <div class="opp-title">🏆 Ventaja Competitiva de Ricki Pollo</div>
+    <p class="opp-subtitle">Comparativa directa frente a la competencia clave en el mercado</p>
+    <div class="table-wrapper">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Característica</th>
+            <th>Pollo Feliz</th>
+            <th>Sabornis</th>
+            <th class="col-ricki">🔥 Ricki Pollo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Método de cocción</td>
+            <td>Gas industrial</td>
+            <td>Ahumado industrial</td>
+            <td class="col-ricki">🔥 Leña de encino<span class="win-badge">ÚNICO</span></td>
+          </tr>
+          <tr>
+            <td>Sabor</td>
+            <td>Estándar / Cadena</td>
+            <td>Ahumado</td>
+            <td class="col-ricki">🏆 Artesanal único</td>
+          </tr>
+          <tr>
+            <td>Precio pollo entero</td>
+            <td>No publicado</td>
+            <td>$335 MXN</td>
+            <td class="col-ricki">Competitivo<span class="win-badge">MEJOR VALOR</span></td>
+          </tr>
+          <tr>
+            <td>Delivery</td>
+            <td>✅ Uber + Rappi</td>
+            <td>✅ Uber + Rappi + DiDi</td>
+            <td class="col-ricki">🚀 Por implementar</td>
+          </tr>
+          <tr>
+            <td>Autenticidad</td>
+            <td>Cadena / Franquicia</td>
+            <td>Marca regional</td>
+            <td class="col-ricki">✅ Local artesanal<span class="win-badge">DIFERENCIAL</span></td>
+          </tr>
+          <tr>
+            <td>Horario</td>
+            <td>12PM – 6:45PM</td>
+            <td>10AM – 6:30PM</td>
+            <td class="col-ricki">Flexible (ventaja potencial)</td>
+          </tr>
+          <tr>
+            <td>Sin químicos / conservadores</td>
+            <td>No garantizado</td>
+            <td>No garantizado</td>
+            <td class="col-ricki">✅ Receta 100% natural<span class="win-badge">SALUD</span></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 

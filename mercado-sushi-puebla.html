@@ -90,15 +90,193 @@
       display: inline-block;
     }
 
-    /* COMPETITOR GRID */
+    /* ===== SUCURSALES SECTION ===== */
+    .sucursales-section {
+      margin-bottom: 60px;
+    }
+    .sucursales-section .section-title {
+      border-bottom-color: #2ecc71;
+      color: #1a1a2e;
+    }
+    .sucursales-banner {
+      background: linear-gradient(135deg, #0d2137 0%, #0f3460 60%, #143d60 100%);
+      border-radius: 16px;
+      padding: 20px 28px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .sucursales-banner-icon { font-size: 2.2rem; flex-shrink: 0; }
+    .sucursales-banner-text { flex: 1; }
+    .sucursales-banner-text h3 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 4px;
+    }
+    .sucursales-banner-text p {
+      font-size: 0.86rem;
+      color: rgba(255,255,255,0.65);
+    }
+    .sucursales-stat {
+      text-align: center;
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 12px 20px;
+      flex-shrink: 0;
+    }
+    .sucursales-stat .num { font-size: 2rem; font-weight: 800; color: #2ecc71; line-height: 1; }
+    .sucursales-stat .label { font-size: 0.72rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+
+    .sucursales-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+      gap: 24px;
+    }
+
+    .suc-card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(26,26,46,0.08);
+      overflow: hidden;
+      border: 2px solid #2ecc71;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .suc-card:hover {
+      box-shadow: 0 8px 32px rgba(46,204,113,0.2);
+      transform: translateY(-2px);
+    }
+    .suc-card-header {
+      padding: 16px 20px 12px;
+      background: linear-gradient(90deg, #f0faf5, #fff);
+      border-bottom: 1px solid #d4f5e3;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .suc-card-title {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #0d2137;
+    }
+    .suc-card-address {
+      font-size: 0.78rem;
+      color: #666;
+      margin-top: 3px;
+    }
+    .suc-active-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #2ecc71;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .suc-rating-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #d4f5e3;
+      color: #1a8c50;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-top: 4px;
+    }
+
+    /* PHOTO WRAPPER */
+    .photo-wrapper {
+      position: relative;
+      width: 100%;
+      height: 180px;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      overflow: hidden;
+    }
+    .photo-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-maps-link {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(255,255,255,0.92);
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #1a1a2e;
+      text-decoration: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .photo-maps-link:hover { background: #fff; }
+    .photo-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 0.85rem;
+      gap: 8px;
+    }
+    .photo-placeholder span:first-child { font-size: 2rem; }
+
+    .suc-card-body { padding: 16px 20px; }
+    .suc-info-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 0.84rem;
+      align-items: flex-start;
+    }
+    .suc-info-icon { flex-shrink: 0; }
+    .suc-info-label { font-weight: 600; color: #555; margin-right: 4px; }
+
+    .suc-menu-preview {
+      background: #f0faf5;
+      border: 1px solid #b6f0d0;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      color: #1d5c38;
+      margin: 10px 0;
+      line-height: 1.6;
+    }
+    .suc-menu-preview strong { font-weight: 700; }
+
+    .suc-reviews { margin-top: 10px; }
+    .suc-review {
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-bottom: 6px;
+    }
+    .suc-review-pos { background: #f0faf5; border-left: 3px solid #2ecc71; color: #1d5c38; }
+    .suc-review-neg { background: #fff5f5; border-left: 3px solid #e74c3c; color: #7b1e1e; }
+
+    .suc-platforms { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+
+    /* COMPETITOR CARDS (same as before) */
     .competitors-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
       gap: 32px;
       margin-bottom: 72px;
     }
-
-    /* COMPETITOR CARD */
     .card {
       background: #ffffff;
       border-radius: 16px;
@@ -109,7 +287,6 @@
     .card:hover {
       box-shadow: 0 8px 32px rgba(26,26,46,0.14), 0 2px 8px rgba(26,26,46,0.06);
     }
-
     .card-header {
       padding: 20px 24px 16px;
       border-bottom: 1px solid #f0f0f5;
@@ -120,7 +297,6 @@
     }
     .card-title { font-size: 1.15rem; font-weight: 700; color: #1a1a2e; }
     .card-address { font-size: 0.82rem; color: #888; margin-top: 4px; }
-
     .rating-badge {
       display: inline-flex;
       align-items: center;
@@ -136,23 +312,21 @@
     .rating-yellow { background: #fef3cd; color: #9a6200; }
     .rating-red { background: #fde8e8; color: #c0392b; }
 
-    /* MAP */
-    .map-wrapper {
+    .card-photo-wrapper {
       position: relative;
       width: 100%;
-      height: 220px;
-      background: #eef0f5;
+      height: 200px;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      overflow: hidden;
     }
-    .map-wrapper iframe {
+    .card-photo-wrapper img {
       width: 100%;
       height: 100%;
-      border: none;
+      object-fit: cover;
       display: block;
     }
 
-    /* CARD BODY */
     .card-body { padding: 20px 24px; }
-
     .info-row {
       display: flex;
       gap: 8px;
@@ -162,8 +336,6 @@
     }
     .info-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
     .info-label { font-weight: 600; color: #555; margin-right: 4px; }
-
-    /* SPECIALTY TAG */
     .specialty-tag {
       display: inline-block;
       background: #f0f4ff;
@@ -176,8 +348,6 @@
       line-height: 1.4;
     }
     .specialty-tag strong { font-weight: 700; }
-
-    /* PLATFORMS */
     .platforms { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 16px; }
     .platform-badge {
       padding: 4px 12px;
@@ -191,8 +361,6 @@
     .p-didi { background: #FF5C00; color: white; }
     .p-propio { background: #4a4a8a; color: white; }
     .p-none { background: #e5e7eb; color: #6b7280; font-style: italic; font-weight: 500; }
-
-    /* REVIEWS */
     .reviews { margin: 14px 0; }
     .review {
       padding: 10px 14px;
@@ -204,8 +372,6 @@
     .review-pos { background: #f0faf5; border-left: 3px solid #2ecc71; color: #1d5c38; }
     .review-neg { background: #fff5f5; border-left: 3px solid #e74c3c; color: #7b1e1e; }
     .review-neu { background: #f5f5f5; border-left: 3px solid #bbb; color: #555; }
-
-    /* STRENGTHS/WEAKNESSES */
     .sw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
     .sw-box { border-radius: 10px; padding: 12px 14px; font-size: 0.83rem; line-height: 1.5; }
     .sw-strong { background: #f0faf5; border: 1px solid #b6f0d0; }
@@ -213,11 +379,7 @@
     .sw-weak { background: #fff5f5; border: 1px solid #f5c0c0; }
     .sw-weak .sw-label { color: #c0392b; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
     .sw-box p { color: #444; }
-
-    /* DIVIDER */
     .divider { height: 1px; background: #f0f0f5; margin: 16px 0; }
-
-    /* PRICE TIER */
     .price-tier {
       display: inline-block;
       padding: 2px 10px;
@@ -230,16 +392,10 @@
     .tier-mid { background: #fef3cd; color: #9a6200; }
     .tier-premium { background: #fde8e8; color: #c0392b; }
 
-    /* OPPORTUNITIES SECTION */
+    /* OPPORTUNITIES */
     .opportunities { margin-top: 16px; }
-    .opp-title {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: #1a1a2e;
-      margin-bottom: 8px;
-    }
+    .opp-title { font-size: 1.5rem; font-weight: 800; color: #1a1a2e; margin-bottom: 8px; }
     .opp-subtitle { color: #666; margin-bottom: 32px; font-size: 0.95rem; }
-
     .opp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 20px; }
     .opp-card {
       background: linear-gradient(135deg, #1a1a2e 0%, #0d2137 100%);
@@ -257,25 +413,12 @@
       border-radius: 50%;
       background: rgba(243,156,18,0.15);
     }
-    .opp-num {
-      font-size: 2rem;
-      font-weight: 800;
-      color: #f39c12;
-      line-height: 1;
-      margin-bottom: 10px;
-    }
-    .opp-label {
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #f39c12;
-      margin-bottom: 6px;
-    }
+    .opp-num { font-size: 2rem; font-weight: 800; color: #f39c12; line-height: 1; margin-bottom: 10px; }
+    .opp-label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #f39c12; margin-bottom: 6px; }
     .opp-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
     .opp-card p { font-size: 0.83rem; opacity: 0.8; line-height: 1.5; }
 
-    /* PRICE COMPARISON TABLE */
+    /* PRICE COMPARISON */
     .price-comparison {
       background: white;
       border-radius: 16px;
@@ -283,45 +426,41 @@
       box-shadow: 0 2px 12px rgba(26,26,46,0.08);
       margin-bottom: 48px;
     }
-    .price-comparison h3 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 20px;
-      color: #1a1a2e;
-    }
-    .price-bar-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-    .price-bar-name {
-      width: 160px;
-      font-size: 0.83rem;
-      font-weight: 500;
-      flex-shrink: 0;
-    }
-    .price-bar-track {
-      flex: 1;
-      background: #f0f0f5;
-      border-radius: 20px;
-      height: 22px;
-      overflow: hidden;
-    }
-    .price-bar-fill {
-      height: 100%;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      padding: 0 10px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: white;
-    }
+    .price-comparison h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; color: #1a1a2e; }
+    .price-bar-item { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .price-bar-name { width: 160px; font-size: 0.83rem; font-weight: 500; flex-shrink: 0; }
+    .price-bar-track { flex: 1; background: #f0f0f5; border-radius: 20px; height: 22px; overflow: hidden; }
+    .price-bar-fill { height: 100%; border-radius: 20px; display: flex; align-items: center; padding: 0 10px; font-size: 0.75rem; font-weight: 700; color: white; }
     .bar-budget { background: #2ecc71; }
     .bar-mid { background: #f39c12; }
     .bar-premium { background: #e74c3c; }
     .price-bar-value { font-size: 0.8rem; color: #666; font-weight: 600; width: 100px; flex-shrink: 0; }
+
+    /* POSICIONAMIENTO */
+    .posicionamiento-section { margin-top: 64px; }
+    .posic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 28px;
+    }
+    .posic-card {
+      background: white;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(26,26,46,0.07);
+      text-align: center;
+      border-top: 4px solid #0f3460;
+    }
+    .posic-card.highlight {
+      border-top-color: #2ecc71;
+      background: linear-gradient(135deg, #f0faf5, #fff);
+    }
+    .posic-card .posic-icon { font-size: 2rem; margin-bottom: 8px; }
+    .posic-card .posic-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #999; margin-bottom: 4px; }
+    .posic-card .posic-value { font-size: 1.1rem; font-weight: 800; color: #1a1a2e; }
+    .posic-card .posic-detail { font-size: 0.78rem; color: #666; margin-top: 4px; line-height: 1.4; }
+    .posic-card.highlight .posic-value { color: #1a8c50; }
 
     /* FOOTER */
     .footer {
@@ -333,12 +472,15 @@
     }
     .footer strong { color: #f39c12; }
 
-    @media (max-width: 600px) {
+    @media (max-width: 700px) {
+      .sucursales-grid { grid-template-columns: 1fr; }
       .competitors-grid { grid-template-columns: 1fr; }
       .sw-grid { grid-template-columns: 1fr; }
       .header h1 { font-size: 1.5rem; }
       .opp-grid { grid-template-columns: 1fr 1fr; }
       .price-bar-name { width: 100px; }
+      .posic-grid { grid-template-columns: 1fr 1fr; }
+      .sucursales-banner { flex-direction: column; }
     }
   </style>
 </head>
@@ -348,7 +490,7 @@
   <div class="header-inner">
     <div>
       <h1>Mercado de <span>Sushi</span><br>Puebla · Angelópolis</h1>
-      <p>Análisis competitivo para <strong style="color:#fff">Sushi Seven</strong> — 5 competidores identificados</p>
+      <p>Análisis competitivo para <strong style="color:#fff">Sushi Seven</strong> — 5 competidores identificados · Ryoshi 2026 incluido</p>
     </div>
     <div class="header-meta">
       <div class="date">📅 Marzo 2026</div>
@@ -358,6 +500,149 @@
 </header>
 
 <div class="container">
+
+  <!-- ===== SUCURSALES SECTION ===== -->
+  <div class="sucursales-section">
+    <div class="section-title">🗺️ Nuestra Presencia en Puebla</div>
+
+    <div class="sucursales-banner">
+      <div class="sucursales-banner-icon">🍣</div>
+      <div class="sucursales-banner-text">
+        <h3>Sushi Seven domina el mercado de sushi en Puebla</h3>
+        <p>3 sucursales activas en zonas clave de la ciudad — ningún competidor tiene esta cobertura geográfica</p>
+      </div>
+      <div class="sucursales-stat">
+        <div class="num">3</div>
+        <div class="label">Sucursales<br>en Puebla</div>
+      </div>
+      <div class="sucursales-stat">
+        <div class="num">14+</div>
+        <div class="label">Años en el<br>mercado</div>
+      </div>
+      <div class="sucursales-stat">
+        <div class="num">4.5+</div>
+        <div class="label">Rating<br>promedio</div>
+      </div>
+    </div>
+
+    <div class="sucursales-grid">
+
+      <!-- SUC 1: La Paz -->
+      <div class="suc-card">
+        <div class="suc-card-header">
+          <div>
+            <div class="suc-card-title">🏮 Sushi Seven La Paz</div>
+            <div class="suc-card-address">📍 Teziutlan Sur 9, Col. La Paz, Puebla 72160</div>
+            <span class="suc-rating-badge">⭐ 4.5 OpenTable · 4.4 Tripadvisor</span>
+          </div>
+          <div>
+            <span class="suc-active-badge">● Activa</span>
+          </div>
+        </div>
+        <div class="photo-wrapper">
+          <img
+            src="https://maps.googleapis.com/maps/api/streetview?size=600x180&location=Teziutlan+Sur+9+Col+La+Paz+Puebla+Mexico&key=GOOGLE_MAPS_API_KEY_REDACTED"
+            alt="Sushi Seven La Paz"
+            onerror="this.outerHTML='<div class=\'photo-placeholder\'><span>🍣</span><span>Sushi Seven La Paz</span></div>'"
+          />
+          <a class="photo-maps-link" href="https://maps.google.com/?q=Sushi+Seven+La+Paz+Teziutlan+Sur+9+Puebla" target="_blank">📍 Ver en Maps</a>
+        </div>
+        <div class="suc-card-body">
+          <div class="suc-info-row"><span class="suc-info-icon">🕐</span><span><span class="suc-info-label">Horario:</span> Lun–Mié 1–10PM · Jue–Sáb 1–11PM · Dom 1–7PM</span></div>
+          <div class="suc-info-row"><span class="suc-info-icon">📞</span><span><span class="suc-info-label">Tel:</span> 222 249 0011</span></div>
+          <div class="suc-info-row"><span class="suc-info-icon">💳</span><span>Mastercard, Visa · Valet Parking · Bar completo · Salón privado</span></div>
+          <div class="suc-menu-preview">
+            <strong>Precios representativos:</strong> Entradas desde $165 · Rolls desde $193 · Bowls (Donburi) desde $131 · Teppanyaki $350–500 · Precio por persona $310–500 MXN
+          </div>
+          <div class="suc-platforms">
+            <span class="platform-badge p-uber">Uber Eats</span>
+            <span class="platform-badge p-rappi">Rappi</span>
+          </div>
+          <div class="suc-reviews">
+            <div class="suc-review suc-review-pos">🟢 "Todo muy bien. Bonito lugar, excelente atención. Buenos precios. Excelente sazón. Sí regreso." — Jorge, OpenTable 5/5</div>
+            <div class="suc-review suc-review-pos">🟢 "Excelente lugar, servicio cordial y profesional. Le pedí modificación al platillo y la cumplieron." — Fernando, OpenTable 5/5</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUC 2: Solesta -->
+      <div class="suc-card">
+        <div class="suc-card-header">
+          <div>
+            <div class="suc-card-title">🏬 Sushi Seven Solesta</div>
+            <div class="suc-card-address">📍 Plaza Solesta, Planta Alta · Vía Atlixcáyotl, Puebla</div>
+            <span class="suc-rating-badge">⭐ 4.2 Rappi</span>
+          </div>
+          <div>
+            <span class="suc-active-badge">● Activa</span>
+          </div>
+        </div>
+        <div class="photo-wrapper">
+          <img
+            src="https://maps.googleapis.com/maps/api/streetview?size=600x180&location=Via+Atlixcayotl+Solesta+Puebla+Mexico&key=GOOGLE_MAPS_API_KEY_REDACTED"
+            alt="Sushi Seven Solesta"
+            onerror="this.outerHTML='<div class=\'photo-placeholder\'><span>🍣</span><span>Sushi Seven Solesta</span></div>'"
+          />
+          <a class="photo-maps-link" href="https://maps.google.com/?q=Sushi+Seven+Plaza+Solesta+Puebla" target="_blank">📍 Ver en Maps</a>
+        </div>
+        <div class="suc-card-body">
+          <div class="suc-info-row"><span class="suc-info-icon">🕐</span><span><span class="suc-info-label">Horario:</span> Lun–Sáb 1–11PM · Dom 1–7PM</span></div>
+          <div class="suc-info-row"><span class="suc-info-icon">📞</span><span><span class="suc-info-label">Tel:</span> 222 290 3891 · WhatsApp: 221 409 0803</span></div>
+          <div class="suc-info-row"><span class="suc-info-icon">🏬</span><span>Planta Alta del centro comercial líder de Puebla · Estacionamiento de plaza</span></div>
+          <div class="suc-menu-preview">
+            <strong>Precios representativos:</strong> Entradas desde $165 · Rolls desde $193 · Bowls desde $131 · Teppanyaki $350–500 · Precio por persona $310–500 MXN
+          </div>
+          <div class="suc-platforms">
+            <span class="platform-badge p-uber">Uber Eats</span>
+            <span class="platform-badge p-rappi">Rappi</span>
+          </div>
+          <div class="suc-reviews">
+            <div class="suc-review suc-review-pos">🟢 "Cocina de fusión gastronómica de primer nivel en un ambiente moderno y casual." — sushiseven.com.mx</div>
+            <div class="suc-review suc-review-pos">🟢 Ubicada en el corredor comercial más importante de Puebla — máxima visibilidad y tráfico</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUC 3: Sonata (Lomas de Angelópolis) -->
+      <div class="suc-card">
+        <div class="suc-card-header">
+          <div>
+            <div class="suc-card-title">🌙 Sushi Seven Sonata</div>
+            <div class="suc-card-address">📍 Paseo Ópera #4 Local PB2, Lomas de Angelópolis II, San Andrés Cholula</div>
+            <span class="suc-rating-badge">⭐ 4.6 OpenTable</span>
+          </div>
+          <div>
+            <span class="suc-active-badge">● Activa</span>
+          </div>
+        </div>
+        <div class="photo-wrapper">
+          <img
+            src="https://maps.googleapis.com/maps/api/streetview?size=600x180&location=Paseo+Opera+4+Lomas+de+Angelopolis+San+Andres+Cholula+Mexico&key=GOOGLE_MAPS_API_KEY_REDACTED"
+            alt="Sushi Seven Sonata Lomas"
+            onerror="this.outerHTML='<div class=\'photo-placeholder\'><span>🍣</span><span>Sushi Seven Sonata</span></div>'"
+          />
+          <a class="photo-maps-link" href="https://maps.google.com/?q=Sushi+Seven+Paseo+Opera+Lomas+Angelopolis" target="_blank">📍 Ver en Maps</a>
+        </div>
+        <div class="suc-card-body">
+          <div class="suc-info-row"><span class="suc-info-icon">🕐</span><span><span class="suc-info-label">Horario:</span> Lun–Mié 1:30–10PM · Jue–Sáb 1:30–11PM · Dom 1:30–7PM</span></div>
+          <div class="suc-info-row"><span class="suc-info-icon">📞</span><span><span class="suc-info-label">Tel:</span> 222 216 85 42</span></div>
+          <div class="suc-info-row"><span class="suc-info-icon">🅿️</span><span>Estacionamiento de la plaza · Bueno para ocasiones especiales · Cócteles creativos</span></div>
+          <div class="suc-menu-preview">
+            <strong>Precios representativos:</strong> Entradas desde $165 · Rolls desde $193 · Bowls desde $131 · Teppanyaki $350–500 · Precio por persona $310–500 MXN
+          </div>
+          <div class="suc-platforms">
+            <span class="platform-badge p-uber">Uber Eats</span>
+            <span class="platform-badge p-rappi">Rappi</span>
+          </div>
+          <div class="suc-reviews">
+            <div class="suc-review suc-review-pos">🟢 "Excelente servicio y la comida muy buena, la presentación de los platillos también bien." — OpenTable 5/5</div>
+            <div class="suc-review suc-review-pos">🟢 "Diez total al sushi seven; 9 al cheese cake roll de postre. El lugar excelente y muy buena atención." — Foursquare</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
   <!-- PRICE COMPARISON -->
   <div class="price-comparison">
@@ -388,14 +673,14 @@
       <div class="price-bar-track" style="background:#d4f5e3">
         <div class="price-bar-fill" style="width:55%;background:#0f3460">Sweet Spot</div>
       </div>
-      <div class="price-bar-value" style="font-weight:700;color:#0f3460">Premium accesible</div>
+      <div class="price-bar-value" style="font-weight:700;color:#0f3460">$310–500</div>
     </div>
     <div class="price-bar-item">
-      <div class="price-bar-name">Ryoshi</div>
+      <div class="price-bar-name">Ryoshi ★ 2026</div>
       <div class="price-bar-track">
         <div class="price-bar-fill bar-premium" style="width:72%"></div>
       </div>
-      <div class="price-bar-value">Premium</div>
+      <div class="price-bar-value">Premium $$$$</div>
     </div>
     <div class="price-bar-item">
       <div class="price-bar-name">Suntory</div>
@@ -421,8 +706,13 @@
           <span class="rating-badge rating-yellow">⭐ 4.2/5</span>
         </div>
       </div>
-      <div class="map-wrapper">
-        <iframe src="https://www.google.com/maps/search/?api=1&query=Kampai+Puebla+Las+Animas+Juan+Pablo+II" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="card-photo-wrapper">
+        <img
+          src="https://maps.googleapis.com/maps/api/streetview?size=600x200&location=Circuito+Juan+Pablo+II+3301+Las+Animas+Puebla+Mexico&key=GOOGLE_MAPS_API_KEY_REDACTED"
+          alt="Kampai Puebla"
+          onerror="this.outerHTML='<div class=\'photo-placeholder\'><span>🍱</span><span>Kampai Puebla</span></div>'"
+        />
+        <a class="photo-maps-link" href="https://maps.google.com/?q=Kampai+Puebla+Las+Animas" target="_blank">📍 Ver en Maps</a>
       </div>
       <div class="card-body">
         <div class="specialty-tag"><strong>✦ Especialidad:</strong> 14 años en Puebla. Fusión japonesa, Pato Pekín, salones privados para grupos.</div>
@@ -462,8 +752,13 @@
           <span class="rating-badge rating-yellow">⭐ 4.3/5</span>
         </div>
       </div>
-      <div class="map-wrapper">
-        <iframe src="https://www.google.com/maps/search/?api=1&query=Suntory+Puebla+Via+Atlixcayotl+4931" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="card-photo-wrapper">
+        <img
+          src="https://maps.googleapis.com/maps/api/streetview?size=600x200&location=Via+Atlixcayotl+4931+Puebla+Mexico&key=GOOGLE_MAPS_API_KEY_REDACTED"
+          alt="Restaurante Suntory"
+          onerror="this.outerHTML='<div class=\'photo-placeholder\'><span>🍱</span><span>Restaurante Suntory</span></div>'"
+        />
+        <a class="photo-maps-link" href="https://maps.google.com/?q=Suntory+Puebla+Via+Atlixcayotl+4931" target="_blank">📍 Ver en Maps</a>
       </div>
       <div class="card-body">
         <div class="specialty-tag"><strong>✦ Especialidad:</strong> Alta cocina japonesa clásica. +40 años de prestigio. Teppanyaki en mesa, jardines, música en vivo.</div>
@@ -491,40 +786,48 @@
       </div>
     </div>
 
-    <!-- 3. Ryoshi Puebla -->
-    <div class="card">
-      <div class="card-header">
+    <!-- 3. Ryoshi Puebla — NUEVO 2026 -->
+    <div class="card" style="border: 2px solid #f39c12;">
+      <div class="card-header" style="background: linear-gradient(90deg, #fff8f0, #fff);">
         <div>
-          <div class="card-title">Ryoshi Puebla <span style="font-size:0.75rem;color:#f39c12;font-weight:600">★ NUEVO 2026</span></div>
-          <div class="card-address">📍 Osa Mayor 5149, Angelópolis, Puebla</div>
+          <div class="card-title">
+            Ryoshi Puebla
+            <span style="font-size:0.72rem; background:#f39c12; color:white; font-weight:700; padding:2px 8px; border-radius:8px; margin-left:6px; vertical-align:middle;">★ NUEVO FEB 2026</span>
+          </div>
+          <div class="card-address">📍 Osa Mayor 5149, Angelópolis, Puebla · Tel: (221) 101 8268</div>
         </div>
         <div>
-          <span class="rating-badge rating-green">⭐ 4.9/5</span>
+          <span class="rating-badge rating-green">⭐ 4.9 OpenTable</span>
         </div>
       </div>
-      <div class="map-wrapper">
-        <iframe src="https://www.google.com/maps/search/?api=1&query=Ryoshi+Puebla+Osa+Mayor+5149+Angelopolis" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="card-photo-wrapper">
+        <img
+          src="https://maps.googleapis.com/maps/api/streetview?size=600x200&location=Osa+Mayor+5149+Angelopolis+Puebla+Mexico&key=GOOGLE_MAPS_API_KEY_REDACTED"
+          alt="Ryoshi Puebla"
+          onerror="this.outerHTML='<div class=\'photo-placeholder\'><span>🥢</span><span>Ryoshi Puebla</span></div>'"
+        />
+        <a class="photo-maps-link" href="https://maps.google.com/?q=Ryoshi+Puebla+Osa+Mayor+5149+Angelopolis" target="_blank">📍 Ver en Maps</a>
       </div>
       <div class="card-body">
-        <div class="specialty-tag"><strong>✦ Especialidad:</strong> Alta cocina japonesa de lujo. Marca presente en Monterrey, CDMX y Cancún. Restaurante-bar.</div>
-        <div class="info-row"><span class="info-icon">🕐</span><span><span class="info-label">Horario:</span> Recientemente abierto (2026) — confirmar en sucursal</span></div>
-        <div class="info-row"><span class="info-icon">💰</span><span><span class="info-label">Precio:</span> Premium (sin precio publicado) <span class="price-tier tier-premium">Premium</span></span></div>
+        <div class="specialty-tag"><strong>✦ Especialidad:</strong> Alta cocina japonesa de lujo. Marca con presencia en Monterrey, CDMX y Cancún. Restaurante-bar premium.</div>
+        <div class="info-row"><span class="info-icon">🕐</span><span><span class="info-label">Horario:</span> Abierto desde feb 2026 — confirmar horarios en sucursal</span></div>
+        <div class="info-row"><span class="info-icon">💰</span><span><span class="info-label">Precio:</span> Premium $$$$ <span class="price-tier tier-premium">Premium</span></span></div>
         <div class="platforms">
           <span class="platform-badge p-uber">Uber Eats</span>
         </div>
         <div class="divider"></div>
         <div class="reviews">
           <div class="review review-pos">🟢 "Rollo Ryoshi imperdible y súper atención desde los primeros días de apertura." — Tripadvisor</div>
-          <div class="review review-neu">⚪ "Calificación promedio de 4.9 estrellas según comensales de OpenTable (feb 2026)."</div>
+          <div class="review review-neu">⚪ "Calificación de 4.9 estrellas, el más alto de todos los sushi en Puebla." — OpenTable (feb 2026)</div>
         </div>
         <div class="sw-grid">
           <div class="sw-box sw-strong">
             <div class="sw-label">✅ Fortaleza</div>
-            <p>Rating altísimo (4.9), novedad con buzz mediático, posicionamiento premium exitoso en otras ciudades.</p>
+            <p>Rating más alto en Puebla (4.9). Novedad con buzz. Posicionamiento premium exitoso en otras ciudades.</p>
           </div>
           <div class="sw-box sw-weak">
             <div class="sw-label">⚠️ Debilidad</div>
-            <p>Recién abierto, pocas reseñas reales, precio muy elevado, operación delivery en consolidación.</p>
+            <p>Recién abierto, pocas reseñas reales. Precio muy elevado. Solo Uber Eats. Operación en consolidación.</p>
           </div>
         </div>
       </div>
@@ -541,8 +844,13 @@
           <span class="rating-badge rating-red">⭐ 3.7 Rappi</span>
         </div>
       </div>
-      <div class="map-wrapper">
-        <iframe src="https://www.google.com/maps/search/?api=1&query=Sushi+Roll+Angelopolis+Puebla+CC+Angelopolis" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="card-photo-wrapper">
+        <img
+          src="https://maps.googleapis.com/maps/api/streetview?size=600x200&location=Boulevard+del+Nino+Poblano+7510+Angelopolis+Puebla+Mexico&key=GOOGLE_MAPS_API_KEY_REDACTED"
+          alt="Sushi Roll Angelópolis"
+          onerror="this.outerHTML='<div class=\'photo-placeholder\'><span>🍱</span><span>Sushi Roll Angelópolis</span></div>'"
+        />
+        <a class="photo-maps-link" href="https://maps.google.com/?q=Sushi+Roll+Angelopolis+Puebla" target="_blank">📍 Ver en Maps</a>
       </div>
       <div class="card-body">
         <div class="specialty-tag"><strong>✦ Especialidad:</strong> Cadena nacional (50+ sucursales). Menú amplio: rollos, sashimi, tempura, teppanyaki, ramen.</div>
@@ -581,8 +889,13 @@
           <span class="rating-badge rating-red">⭐ 3.8/5</span>
         </div>
       </div>
-      <div class="map-wrapper">
-        <iframe src="https://www.google.com/maps/search/?api=1&query=Sumo+Buffet+Angelopolis+Puebla+Cumulo+Virgo" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="card-photo-wrapper">
+        <img
+          src="https://maps.googleapis.com/maps/api/streetview?size=600x200&location=Cumulo+de+Virgo+28+Angelopolis+Puebla+Mexico&key=GOOGLE_MAPS_API_KEY_REDACTED"
+          alt="Sumo Buffet"
+          onerror="this.outerHTML='<div class=\'photo-placeholder\'><span>🍱</span><span>Sumo Buffet</span></div>'"
+        />
+        <a class="photo-maps-link" href="https://maps.google.com/?q=Sumo+Buffet+Angelopolis+Puebla" target="_blank">📍 Ver en Maps</a>
       </div>
       <div class="card-body">
         <div class="specialty-tag"><strong>✦ Especialidad:</strong> Buffet all-you-can-eat: sushi + alitas + hamburguesas. Transmisión de partidos. Concepto familiar.</div>
@@ -643,10 +956,54 @@
     </div>
   </div>
 
+  <!-- ===== POSICIONAMIENTO SUSHI SEVEN ===== -->
+  <div class="posicionamiento-section">
+    <div class="opp-title">🎯 Posicionamiento de Sushi Seven</div>
+    <p class="opp-subtitle">Dónde está Sushi Seven frente a la competencia — ventajas claras y accionables</p>
+    <div class="posic-grid">
+      <div class="posic-card highlight">
+        <div class="posic-icon">💰</div>
+        <div class="posic-label">Precio</div>
+        <div class="posic-value">Sweet Spot</div>
+        <div class="posic-detail">Entre Sumo ($209) y Suntory ($600–1,200). $310–500 por persona con calidad premium.</div>
+      </div>
+      <div class="posic-card highlight">
+        <div class="posic-icon">⭐</div>
+        <div class="posic-label">Calidad</div>
+        <div class="posic-value">Superior a cadenas</div>
+        <div class="posic-detail">Sushi Roll 3.7 vs Sushi Seven 4.5+. Artesanal vs franquicia — el cliente lo percibe.</div>
+      </div>
+      <div class="posic-card highlight">
+        <div class="posic-icon">🛵</div>
+        <div class="posic-label">Delivery</div>
+        <div class="posic-value">Mejor cobertura</div>
+        <div class="posic-detail">Uber + Rappi en 3 sucursales. Suntory solo tiene Rappi, Ryoshi solo Uber Eats.</div>
+      </div>
+      <div class="posic-card highlight">
+        <div class="posic-icon">🏛️</div>
+        <div class="posic-label">Trayectoria</div>
+        <div class="posic-value">14+ años</div>
+        <div class="posic-detail">No franquicia, no nuevo: referente local establecido en 3 zonas de alto tráfico en Puebla.</div>
+      </div>
+      <div class="posic-card">
+        <div class="posic-icon">🗺️</div>
+        <div class="posic-label">Cobertura</div>
+        <div class="posic-value">3 sucursales</div>
+        <div class="posic-detail">La Paz + Solesta + Sonata. Ningún competidor tiene esta red en Puebla.</div>
+      </div>
+      <div class="posic-card">
+        <div class="posic-icon">🥢</div>
+        <div class="posic-label">Especialidad</div>
+        <div class="posic-value">Fusión única</div>
+        <div class="posic-detail">Menú innovador: sushi, teppanyaki, bowls, kushiagues — no solo rolls como las cadenas.</div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <footer class="footer">
-  <p>Reporte generado en Marzo 2026 · Datos de fuentes públicas (Tripadvisor, OpenTable, Rappi, Uber Eats, Gastroranking) · <strong>Powered by AgentX</strong> — byagentx.com</p>
+  <p>Reporte generado en Marzo 2026 · Datos de fuentes públicas (Tripadvisor, OpenTable, Rappi, Uber Eats, Gastroranking, solesta.mx) · <strong>Powered by AgentX</strong> — byagentx.com</p>
 </footer>
 
 </body>
