@@ -1,0 +1,1752 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Caso de Estudio: Restaurante La Mesa — AgentX</title>
+  <meta name="description" content="+40% pedidos online, atención 24/7 por WhatsApp, -3h de trabajo administrativo al día. Así automatizamos La Mesa, un restaurante en Puebla." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Design Tokens ───────────────────────────────────────────── */
+    :root {
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+      --bg:           #0a0a0f;
+      --bg-2:         #101018;
+      --bg-3:         #16161f;
+      --border:       rgba(255,255,255,0.07);
+      --border-mid:   rgba(255,255,255,0.12);
+      --text-1:       #f0f0ff;
+      --text-2:       #a0a0b8;
+      --text-3:       #606078;
+      --accent:       #7c5cfc;
+      --accent-2:     #5b8af5;
+      --accent-3:     #25d366; /* WhatsApp green */
+      --accent-glow:  rgba(124,92,252,0.35);
+      --accent-light: rgba(124,92,252,0.12);
+      --gradient-hero: linear-gradient(135deg, #7c5cfc 0%, #5b8af5 50%, #38c8ff 100%);
+      --gradient-card: linear-gradient(145deg, rgba(124,92,252,0.08) 0%, rgba(91,138,245,0.04) 100%);
+      --r-sm: 8px; --r-md: 16px; --r-lg: 24px; --r-xl: 32px;
+      --t-fast: 150ms cubic-bezier(0.4,0,0.2,1);
+      --t-mid:  300ms cubic-bezier(0.4,0,0.2,1);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text-1);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border-mid); border-radius: 99px; }
+
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+    .container-narrow { max-width: 760px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+    /* ─── NAV ──────────────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 14px 0;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      background: var(--gradient-hero);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+    }
+    .nav-tag {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      color: var(--text-3);
+    }
+    .nav-tag span {
+      padding: 3px 10px;
+      border: 1px solid var(--border-mid);
+      border-radius: 99px;
+      color: var(--text-2);
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-nav {
+      padding: 7px 18px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--r-sm);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity var(--t-fast);
+    }
+    .btn-nav:hover { opacity: 0.85; }
+
+    /* ─── LANG TOGGLE ──────────────────────────────────────────────── */
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 3px;
+    }
+    .lang-btn {
+      padding: 4px 10px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all var(--t-fast);
+      color: var(--text-3);
+      background: transparent;
+      border: none;
+      letter-spacing: 0.04em;
+    }
+    .lang-btn.active {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* ─── HERO ─────────────────────────────────────────────────────── */
+    .hero {
+      padding: 96px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 600px;
+      background: radial-gradient(ellipse, rgba(124,92,252,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 28px;
+      font-size: 0.8rem;
+      color: var(--text-3);
+    }
+    .breadcrumb a { color: var(--text-3); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--text-2); }
+    .breadcrumb-sep { opacity: 0.4; }
+    .breadcrumb-current { color: var(--text-2); }
+
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border: 1px solid rgba(37,211,102,0.3);
+      border-radius: 99px;
+      background: rgba(37,211,102,0.08);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent-3);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .hero-label::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent-3);
+      box-shadow: 0 0 8px var(--accent-3);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+    .hero h1 .gradient-text {
+      background: var(--gradient-hero);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--text-2);
+      max-width: 600px;
+      line-height: 1.65;
+      margin-bottom: 36px;
+    }
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 48px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: var(--text-3);
+    }
+    .hero-meta-item strong { color: var(--text-2); font-weight: 500; }
+    .hero-meta-dot {
+      width: 3px; height: 3px;
+      background: var(--text-3);
+      border-radius: 50%;
+    }
+
+    /* ─── HERO METRICS BAND ──────────────────────────────────────── */
+    .metrics-band {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .metric-cell {
+      background: var(--bg-2);
+      padding: 32px 28px;
+      text-align: center;
+      position: relative;
+      transition: background var(--t-fast);
+    }
+    .metric-cell:hover { background: var(--bg-3); }
+    .metric-value {
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .metric-value.green  { background: linear-gradient(135deg, #25d366, #128c7e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .metric-value.purple { background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .metric-value.blue   { background: linear-gradient(135deg, #5b8af5, #38c8ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .metric-label { font-size: 0.82rem; color: var(--text-3); line-height: 1.4; }
+    .metric-label strong { display: block; color: var(--text-2); font-size: 0.88rem; margin-bottom: 2px; }
+
+    /* ─── SECTION BASE ─────────────────────────────────────────────── */
+    section { padding: 80px 0; }
+    .section-label {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 99px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .label-orange { background: rgba(255,140,0,0.12); color: #ff8c00; border: 1px solid rgba(255,140,0,0.25); }
+    .label-purple { background: var(--accent-light); color: var(--accent); border: 1px solid rgba(124,92,252,0.25); }
+    .label-green  { background: rgba(37,211,102,0.1); color: var(--accent-3); border: 1px solid rgba(37,211,102,0.25); }
+    .label-blue   { background: rgba(56,200,255,0.1); color: #38c8ff; border: 1px solid rgba(56,200,255,0.25); }
+
+    h2 {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .section-desc {
+      font-size: 1.05rem;
+      color: var(--text-2);
+      line-height: 1.7;
+      max-width: 580px;
+    }
+
+    /* ─── DIVIDER ───────────────────────────────────────────────────── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-mid), transparent);
+    }
+
+    /* ─── CLIENT PROFILE ────────────────────────────────────────────── */
+    .client-profile {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+    .client-card {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .client-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gradient-hero);
+    }
+    .client-avatar {
+      width: 72px; height: 72px;
+      border-radius: var(--r-md);
+      background: linear-gradient(135deg, #ff6b35, #f7931e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    .client-name { font-size: 1.3rem; font-weight: 700; margin-bottom: 4px; }
+    .client-location {
+      font-size: 0.82rem;
+      color: var(--text-3);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 20px;
+    }
+    .client-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .tag {
+      padding: 4px 10px;
+      border: 1px solid var(--border-mid);
+      border-radius: 99px;
+      font-size: 0.72rem;
+      color: var(--text-2);
+    }
+
+    .challenge-list { display: flex; flex-direction: column; gap: 16px; }
+    .challenge-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 18px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      transition: border-color var(--t-fast);
+    }
+    .challenge-item:hover { border-color: var(--border-mid); }
+    .challenge-icon {
+      width: 36px; height: 36px;
+      border-radius: var(--r-sm);
+      background: rgba(255,100,100,0.1);
+      border: 1px solid rgba(255,100,100,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .challenge-text strong { display: block; font-size: 0.9rem; margin-bottom: 2px; }
+    .challenge-text span { font-size: 0.82rem; color: var(--text-3); }
+
+    /* ─── BEFORE/AFTER ─────────────────────────────────────────────── */
+    .before-after {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: var(--border);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .ba-panel {
+      padding: 36px 32px;
+    }
+    .ba-panel.before { background: var(--bg-2); }
+    .ba-panel.after  { background: var(--bg-3); }
+    .ba-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .ba-dot-red  { width: 8px; height: 8px; border-radius: 50%; background: #ff4444; box-shadow: 0 0 8px rgba(255,68,68,0.5); }
+    .ba-dot-green { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-3); box-shadow: 0 0 8px rgba(37,211,102,0.5); }
+    .ba-items { display: flex; flex-direction: column; gap: 12px; }
+    .ba-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: var(--text-2);
+    }
+    .ba-item::before { content: '—'; color: var(--text-3); flex-shrink: 0; }
+    .ba-panel.after .ba-item::before { content: '✓'; color: var(--accent-3); }
+    .ba-panel.after .ba-item { color: var(--text-1); }
+
+    /* ─── SOLUTION STEPS ───────────────────────────────────────────── */
+    .solution-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+    .solution-card {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+      transition: all var(--t-mid);
+    }
+    .solution-card:hover {
+      border-color: rgba(124,92,252,0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+    .solution-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gradient-card);
+      opacity: 0;
+      transition: opacity var(--t-mid);
+    }
+    .solution-card:hover::after { opacity: 1; }
+    .solution-step {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .solution-icon {
+      font-size: 2rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .solution-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .solution-card p {
+      font-size: 0.83rem;
+      color: var(--text-2);
+      line-height: 1.6;
+    }
+
+    /* ─── WHATSAPP MOCKUP ──────────────────────────────────────────── */
+    .mockup-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .mockup-phone {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+      position: relative;
+    }
+    .phone-statusbar {
+      background: #075e54;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .phone-back { color: #fff; font-size: 1.1rem; opacity: 0.8; cursor: pointer; }
+    .phone-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff6b35, #f7931e);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
+    .phone-contact { flex: 1; }
+    .phone-contact-name { font-size: 0.9rem; font-weight: 600; color: #fff; }
+    .phone-contact-status { font-size: 0.7rem; color: rgba(255,255,255,0.6); }
+    .phone-chat {
+      background: #0b141a;
+      padding: 16px;
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .msg {
+      max-width: 72%;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      position: relative;
+    }
+    .msg-in {
+      background: #202c33;
+      color: #e9edef;
+      border-radius: 0 8px 8px 8px;
+      align-self: flex-start;
+    }
+    .msg-out {
+      background: #005c4b;
+      color: #e9edef;
+      border-radius: 8px 0 8px 8px;
+      align-self: flex-end;
+    }
+    .msg-time { font-size: 0.65rem; color: rgba(255,255,255,0.4); text-align: right; margin-top: 4px; }
+    .msg-typing {
+      background: #202c33;
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 8px;
+      display: inline-flex;
+      gap: 4px;
+      align-self: flex-start;
+    }
+    .typing-dot {
+      width: 6px; height: 6px;
+      background: rgba(255,255,255,0.4);
+      border-radius: 50%;
+      animation: typing 1.2s infinite;
+    }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typing {
+      0%, 60%, 100% { opacity: 0.4; transform: translateY(0); }
+      30% { opacity: 1; transform: translateY(-4px); }
+    }
+
+    /* ─── RESULTS ──────────────────────────────────────────────────── */
+    .results-section { background: var(--bg-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .result-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      transition: all var(--t-mid);
+    }
+    .result-card:hover {
+      border-color: var(--border-mid);
+      transform: translateY(-2px);
+    }
+    .result-card.featured {
+      grid-column: span 2;
+      background: linear-gradient(135deg, rgba(124,92,252,0.12) 0%, rgba(91,138,245,0.06) 100%);
+      border-color: rgba(124,92,252,0.3);
+    }
+    .result-number {
+      font-size: 3.5rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .result-number.purple { background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .result-number.green  { background: linear-gradient(135deg, #25d366, #128c7e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .result-number.blue   { background: linear-gradient(135deg, #5b8af5, #38c8ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .result-number.orange { background: linear-gradient(135deg, #ff8c00, #ff6b35); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .result-title { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .result-desc { font-size: 0.83rem; color: var(--text-3); line-height: 1.5; }
+    .result-bar {
+      height: 4px;
+      background: var(--border);
+      border-radius: 99px;
+      margin-top: 20px;
+      overflow: hidden;
+    }
+    .result-bar-fill {
+      height: 100%;
+      border-radius: 99px;
+      transition: width 1.5s ease-out;
+    }
+    .result-bar-fill.purple { background: var(--gradient-hero); }
+    .result-bar-fill.green  { background: linear-gradient(90deg, #25d366, #128c7e); }
+    .result-bar-fill.blue   { background: linear-gradient(90deg, #5b8af5, #38c8ff); }
+    .result-bar-fill.orange { background: linear-gradient(90deg, #ff8c00, #ff6b35); }
+
+    /* Featured result row */
+    .featured-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .featured-metric-num {
+      font-size: 2.4rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .featured-metric-label { font-size: 0.82rem; color: var(--text-2); }
+
+    /* ─── TIMELINE ─────────────────────────────────────────────────── */
+    .timeline { position: relative; padding-left: 32px; margin-top: 48px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 10px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent), transparent);
+    }
+    .tl-item {
+      position: relative;
+      margin-bottom: 32px;
+    }
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -26px;
+      top: 4px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+    .tl-date {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .tl-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
+    .tl-desc { font-size: 0.83rem; color: var(--text-3); }
+
+    /* ─── TESTIMONIAL ──────────────────────────────────────────────── */
+    .testimonial-block {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      padding: 48px;
+      position: relative;
+      margin-top: 60px;
+    }
+    .testimonial-block::before {
+      content: '"';
+      position: absolute;
+      top: 24px; left: 36px;
+      font-size: 6rem;
+      line-height: 1;
+      color: var(--accent);
+      opacity: 0.25;
+      font-family: Georgia, serif;
+    }
+    .testimonial-quote {
+      font-size: 1.25rem;
+      font-weight: 500;
+      line-height: 1.65;
+      color: var(--text-1);
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 1;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .author-avatar {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff6b35, #f7931e);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+    }
+    .author-name { font-size: 0.9rem; font-weight: 700; }
+    .author-role { font-size: 0.78rem; color: var(--text-3); }
+    .stars {
+      margin-left: auto;
+      color: #ffd700;
+      font-size: 1rem;
+      letter-spacing: 2px;
+    }
+
+    /* ─── PRICING SECTION ──────────────────────────────────────────── */
+    .pricing-section { text-align: center; }
+    .pricing-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+      text-align: left;
+    }
+    .pricing-card {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      transition: all var(--t-mid);
+    }
+    .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+    .pricing-card.popular {
+      border-color: rgba(124,92,252,0.5);
+      background: linear-gradient(145deg, rgba(124,92,252,0.1), rgba(91,138,245,0.05));
+    }
+    .popular-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 99px;
+      margin-bottom: 20px;
+    }
+    .pricing-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+    .pricing-price {
+      font-size: 2.4rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .pricing-price span { font-size: 1rem; font-weight: 500; color: var(--text-3); }
+    .pricing-period { font-size: 0.78rem; color: var(--text-3); margin-bottom: 24px; }
+    .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+    .pricing-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: var(--text-2);
+    }
+    .pricing-features li::before { content: '✓'; color: var(--accent-3); font-weight: 700; flex-shrink: 0; }
+    .btn-pricing {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      border-radius: var(--r-md);
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-align: center;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all var(--t-fast);
+      border: none;
+    }
+    .btn-pricing-outline {
+      background: transparent;
+      border: 1px solid var(--border-mid);
+      color: var(--text-1);
+    }
+    .btn-pricing-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-pricing-filled {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-pricing-filled:hover { opacity: 0.88; }
+
+    /* ─── CTA SECTION ──────────────────────────────────────────────── */
+    .cta-section {
+      padding: 100px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px; height: 400px;
+      background: radial-gradient(ellipse, rgba(124,92,252,0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-section h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      max-width: 640px;
+      margin: 0 auto 20px;
+    }
+    .cta-section p {
+      font-size: 1.05rem;
+      color: var(--text-2);
+      max-width: 480px;
+      margin: 0 auto 40px;
+    }
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--r-md);
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all var(--t-fast);
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+    .btn-primary:hover {
+      opacity: 0.88;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 30px var(--accent-glow);
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: transparent;
+      color: var(--text-1);
+      border: 1px solid var(--border-mid);
+      border-radius: var(--r-md);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all var(--t-fast);
+    }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .cta-trust {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      color: var(--text-3);
+    }
+    .trust-icon { font-size: 0.9rem; }
+
+    /* ─── FOOTER ───────────────────────────────────────────────────── */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-brand {
+      font-weight: 800;
+      background: var(--gradient-hero);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-size: 0.82rem; color: var(--text-3); text-decoration: none; }
+    .footer-links a:hover { color: var(--text-2); }
+    .footer-copy { font-size: 0.78rem; color: var(--text-3); }
+
+    /* ─── LANG SECTIONS ────────────────────────────────────────────── */
+    [data-lang="en"] { display: none; }
+    body.lang-en [data-lang="es"] { display: none; }
+    body.lang-en [data-lang="en"] { display: block; }
+    /* For inline elements that need display:flex or display:inline-flex */
+    .inline-lang[data-lang="en"] { display: none; }
+    body.lang-en .inline-lang[data-lang="es"] { display: none; }
+    body.lang-en .inline-lang[data-lang="en"] { display: inline-flex; }
+
+    /* ─── RESPONSIVE ───────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .metrics-band,
+      .before-after,
+      .solution-grid,
+      .results-grid,
+      .mockup-section,
+      .client-profile,
+      .pricing-cards,
+      .featured-metrics { grid-template-columns: 1fr; }
+      .result-card.featured { grid-column: span 1; }
+      .nav-tag { display: none; }
+      h2 { font-size: 1.6rem; }
+      .hero h1 { font-size: 2rem; }
+      .metric-value { font-size: 2.2rem; }
+      .testimonial-block { padding: 28px; }
+      .testimonial-quote { font-size: 1rem; }
+      .hero { padding: 60px 0 50px; }
+      section { padding: 60px 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─────────────────────────────────────────────────────── -->
+<nav>
+  <div class="nav-inner">
+    <a href="https://byagentx.com" class="nav-brand">AgentX</a>
+    <div class="nav-tag">
+      <span data-lang="es">Caso de Estudio</span>
+      <span data-lang="en">Case Study</span>
+      <span>La Mesa · Puebla</span>
+    </div>
+    <div class="nav-cta">
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('es')">ES</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+      <a href="https://wa.me/525500000000?text=Hola%2C+quiero+automatizar+mi+negocio" target="_blank" class="btn-nav" data-lang="es">Quiero esto →</a>
+      <a href="https://wa.me/525500000000?text=Hi%2C+I+want+to+automate+my+business" target="_blank" class="btn-nav" data-lang="en">I want this →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ─── HERO ─────────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="container-narrow">
+
+    <div class="breadcrumb">
+      <a href="https://byagentx.com">byagentx.com</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current" data-lang="es">Casos de éxito</span>
+      <span class="breadcrumb-current" data-lang="en">Case studies</span>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">La Mesa</span>
+    </div>
+
+    <div class="hero-label" data-lang="es">🍽️ Restaurante · Puebla, México</div>
+    <div class="hero-label" data-lang="en">🍽️ Restaurant · Puebla, Mexico</div>
+
+    <div data-lang="es">
+      <h1>Cómo un restaurante de Puebla <span class="gradient-text">triplicó sus pedidos</span> con un bot de WhatsApp</h1>
+      <p class="hero-sub">La Mesa pasó de perder pedidos a altas horas de la noche a operar 24/7 de forma automática. Menos estrés, más ingresos, sin contratar más personal.</p>
+    </div>
+    <div data-lang="en">
+      <h1>How a Puebla restaurant <span class="gradient-text">tripled its orders</span> with a WhatsApp bot</h1>
+      <p class="hero-sub">La Mesa went from missing late-night orders to running 24/7 on autopilot. Less stress, more revenue, no extra staff.</p>
+    </div>
+
+    <div class="hero-meta">
+      <div class="hero-meta-item"><strong data-lang="es">Industria:</strong><strong data-lang="en">Industry:</strong>&nbsp;<span data-lang="es">Restaurante / Comida a domicilio</span><span data-lang="en">Restaurant / Food delivery</span></div>
+      <div class="hero-meta-dot"></div>
+      <div class="hero-meta-item"><strong data-lang="es">Tamaño:</strong><strong data-lang="en">Size:</strong>&nbsp;<span data-lang="es">5–12 empleados</span><span data-lang="en">5–12 employees</span></div>
+      <div class="hero-meta-dot"></div>
+      <div class="hero-meta-item"><strong data-lang="es">Implementación:</strong><strong data-lang="en">Deployed:</strong>&nbsp;<span>7 días / days</span></div>
+      <div class="hero-meta-dot"></div>
+      <div class="hero-meta-item"><strong>ROI:</strong>&nbsp;<span data-lang="es">Primer mes</span><span data-lang="en">First month</span></div>
+    </div>
+
+    <!-- Metrics Band -->
+    <div class="metrics-band">
+      <div class="metric-cell">
+        <div class="metric-value green">+40%</div>
+        <div class="metric-label">
+          <strong data-lang="es">Pedidos online</strong>
+          <strong data-lang="en">Online orders</strong>
+          <span data-lang="es">vs. mes anterior</span>
+          <span data-lang="en">vs. prior month</span>
+        </div>
+      </div>
+      <div class="metric-cell">
+        <div class="metric-value purple">24/7</div>
+        <div class="metric-label">
+          <strong data-lang="es">Atención automatizada</strong>
+          <strong data-lang="en">Automated support</strong>
+          <span data-lang="es">sin descanso</span>
+          <span data-lang="en">non-stop</span>
+        </div>
+      </div>
+      <div class="metric-cell">
+        <div class="metric-value blue">−3h</div>
+        <div class="metric-label">
+          <strong data-lang="es">Admin por día</strong>
+          <strong data-lang="en">Admin per day</strong>
+          <span data-lang="es">recuperadas</span>
+          <span data-lang="en">reclaimed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── CHALLENGE ────────────────────────────────────────────────── -->
+<section>
+  <div class="container">
+    <div class="client-profile">
+      <!-- Client card -->
+      <div>
+        <div class="section-label label-orange" data-lang="es">El desafío</div>
+        <div class="section-label label-orange" data-lang="en">The challenge</div>
+        <h2 data-lang="es">Un restaurante sólido, ahogado en mensajes</h2>
+        <h2 data-lang="en">A solid restaurant drowning in messages</h2>
+        <p class="section-desc" data-lang="es">La Mesa era exitoso en sabor pero fallaba en operaciones. Su único canal de pedidos era WhatsApp personal del dueño — y eso se convirtió en su mayor cuello de botella.</p>
+        <p class="section-desc" data-lang="en">La Mesa was great at food but failing at operations. Their only ordering channel was the owner's personal WhatsApp — and that became their biggest bottleneck.</p>
+
+        <div class="challenge-list" style="margin-top: 32px;">
+          <div class="challenge-item">
+            <div class="challenge-icon">😴</div>
+            <div class="challenge-text">
+              <strong data-lang="es">Pedidos perdidos de noche</strong>
+              <strong data-lang="en">Orders lost at night</strong>
+              <span data-lang="es">El dueño no podía responder WhatsApp 24/7. Clientes se iban con la competencia.</span>
+              <span data-lang="en">The owner couldn't reply to WhatsApp 24/7. Customers went to competitors.</span>
+            </div>
+          </div>
+          <div class="challenge-item">
+            <div class="challenge-icon">⏰</div>
+            <div class="challenge-text">
+              <strong data-lang="es">3+ horas diarias en admin</strong>
+              <strong data-lang="en">3+ hours daily on admin</strong>
+              <span data-lang="es">Confirmar pedidos, dar precios, responder horarios — todo manual, todo repetitivo.</span>
+              <span data-lang="en">Confirming orders, sharing prices, answering hours — all manual, all repetitive.</span>
+            </div>
+          </div>
+          <div class="challenge-item">
+            <div class="challenge-icon">📉</div>
+            <div class="challenge-text">
+              <strong data-lang="es">Cero datos de clientes</strong>
+              <strong data-lang="en">Zero customer data</strong>
+              <span data-lang="es">Sin historial, sin seguimiento, sin forma de saber quién era cliente frecuente.</span>
+              <span data-lang="en">No history, no tracking, no way to know who were repeat customers.</span>
+            </div>
+          </div>
+          <div class="challenge-item">
+            <div class="challenge-icon">🤯</div>
+            <div class="challenge-text">
+              <strong data-lang="es">Errores en pedidos</strong>
+              <strong data-lang="en">Order errors</strong>
+              <span data-lang="es">Los mensajes de voz y texto mezclados causaban errores frecuentes en cocina.</span>
+              <span data-lang="en">Mixed voice and text messages caused frequent kitchen errors.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Client card -->
+      <div>
+        <div class="client-card">
+          <div class="client-avatar">🍽️</div>
+          <div class="client-name">La Mesa</div>
+          <div class="client-location">📍 Puebla, México</div>
+          <div class="client-tags">
+            <span class="tag">Restaurante</span>
+            <span class="tag">Comida mexicana</span>
+            <span class="tag">Delivery</span>
+            <span class="tag">Para llevar</span>
+            <span class="tag">PYME</span>
+          </div>
+          <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border);">
+            <!-- Placeholder visual: restaurant illustration -->
+            <div style="background: linear-gradient(135deg, #1a0a00, #2d1500); border-radius: 16px; padding: 32px 24px; text-align: center; border: 1px solid rgba(255,107,53,0.2);">
+              <div style="font-size: 4rem; margin-bottom: 16px;">🌮🌯🍜</div>
+              <div style="font-size: 0.8rem; color: var(--text-3);" data-lang="es">Especialidad: Cocina poblana auténtica</div>
+              <div style="font-size: 0.8rem; color: var(--text-3);" data-lang="en">Specialty: Authentic Pueblan cuisine</div>
+              <div style="font-size: 0.75rem; color: var(--text-3); margin-top: 8px;" data-lang="es">Fundado: 2018 · 4.8 ⭐ en Google</div>
+              <div style="font-size: 0.75rem; color: var(--text-3); margin-top: 8px;" data-lang="en">Founded: 2018 · 4.8 ⭐ on Google</div>
+            </div>
+            <!-- Stats mini -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px;">
+              <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px; text-align: center;">
+                <div style="font-size: 1.4rem; font-weight: 800;">~80</div>
+                <div style="font-size: 0.7rem; color: var(--text-3);" data-lang="es">pedidos/semana<br>antes de AgentX</div>
+                <div style="font-size: 0.7rem; color: var(--text-3);" data-lang="en">orders/week<br>before AgentX</div>
+              </div>
+              <div style="background: var(--bg); border: 1px solid rgba(37,211,102,0.3); border-radius: 12px; padding: 14px; text-align: center;">
+                <div style="font-size: 1.4rem; font-weight: 800; color: var(--accent-3);">~112</div>
+                <div style="font-size: 0.7rem; color: var(--text-3);" data-lang="es">pedidos/semana<br>después de AgentX</div>
+                <div style="font-size: 0.7rem; color: var(--text-3);" data-lang="en">orders/week<br>after AgentX</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── BEFORE / AFTER ───────────────────────────────────────────── -->
+<section>
+  <div class="container-narrow">
+    <div style="text-align:center; margin-bottom: 40px;">
+      <div class="section-label label-purple" data-lang="es">La transformación</div>
+      <div class="section-label label-purple" data-lang="en">The transformation</div>
+      <h2 data-lang="es">De caos en WhatsApp a sistema automatizado</h2>
+      <h2 data-lang="en">From WhatsApp chaos to automated system</h2>
+    </div>
+    <div class="before-after">
+      <div class="ba-panel before">
+        <div class="ba-header"><div class="ba-dot-red"></div> <span data-lang="es">Antes de AgentX</span><span data-lang="en">Before AgentX</span></div>
+        <div class="ba-items">
+          <div class="ba-item" data-lang="es">El dueño respondía mensajes hasta medianoche</div>
+          <div class="ba-item" data-lang="en">Owner replied to messages until midnight</div>
+          <div class="ba-item" data-lang="es">Menú enviado como imagen por cada cliente</div>
+          <div class="ba-item" data-lang="en">Menu sent as image to every customer</div>
+          <div class="ba-item" data-lang="es">Sin confirmación automática de pedidos</div>
+          <div class="ba-item" data-lang="en">No automatic order confirmation</div>
+          <div class="ba-item" data-lang="es">Errores de cocina por mensajes confusos</div>
+          <div class="ba-item" data-lang="en">Kitchen errors from confusing messages</div>
+          <div class="ba-item" data-lang="es">Sin datos de clientes recurrentes</div>
+          <div class="ba-item" data-lang="en">No recurring customer data</div>
+          <div class="ba-item" data-lang="es">Imposible manejar picos de demanda</div>
+          <div class="ba-item" data-lang="en">Unable to handle demand spikes</div>
+        </div>
+      </div>
+      <div class="ba-panel after">
+        <div class="ba-header"><div class="ba-dot-green"></div> <span data-lang="es">Después de AgentX</span><span data-lang="en">After AgentX</span></div>
+        <div class="ba-items">
+          <div class="ba-item" data-lang="es">Bot responde y toma pedidos 24/7</div>
+          <div class="ba-item" data-lang="en">Bot responds and takes orders 24/7</div>
+          <div class="ba-item" data-lang="es">Menú interactivo con categorías y precios</div>
+          <div class="ba-item" data-lang="en">Interactive menu with categories & prices</div>
+          <div class="ba-item" data-lang="es">Confirmación + resumen automático al cliente</div>
+          <div class="ba-item" data-lang="en">Auto confirmation + order summary to client</div>
+          <div class="ba-item" data-lang="es">Pedidos estructurados directo a cocina</div>
+          <div class="ba-item" data-lang="en">Structured orders sent directly to kitchen</div>
+          <div class="ba-item" data-lang="es">CRM básico: historial y frecuencia</div>
+          <div class="ba-item" data-lang="en">Basic CRM: history & frequency tracking</div>
+          <div class="ba-item" data-lang="es">Escala sin límite, sin contratar más</div>
+          <div class="ba-item" data-lang="en">Scales without limits, no extra hiring</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── SOLUTION ─────────────────────────────────────────────────── -->
+<section>
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 8px;">
+      <div class="section-label label-purple" data-lang="es">La solución</div>
+      <div class="section-label label-purple" data-lang="en">The solution</div>
+      <h2 data-lang="es">Qué implementamos en 7 días</h2>
+      <h2 data-lang="en">What we deployed in 7 days</h2>
+      <p class="section-desc" style="margin: 12px auto 0; text-align: center;" data-lang="es">Sin apps extra, sin hardware, sin cambiar cómo trabaja el restaurante. Solo automatización inteligente.</p>
+      <p class="section-desc" style="margin: 12px auto 0; text-align: center;" data-lang="en">No extra apps, no hardware, no changing how the restaurant works. Just smart automation.</p>
+    </div>
+
+    <div class="solution-grid">
+      <div class="solution-card">
+        <div class="solution-step" data-lang="es">Paso 01</div>
+        <div class="solution-step" data-lang="en">Step 01</div>
+        <span class="solution-icon">🤖</span>
+        <h3 data-lang="es">Bot de WhatsApp con IA</h3>
+        <h3 data-lang="en">AI WhatsApp Bot</h3>
+        <p data-lang="es">Responde preguntas frecuentes, presenta el menú, toma pedidos y calcula el total — todo sin intervención humana.</p>
+        <p data-lang="en">Answers FAQs, presents the menu, takes orders and calculates totals — all without human intervention.</p>
+      </div>
+      <div class="solution-card">
+        <div class="solution-step" data-lang="es">Paso 02</div>
+        <div class="solution-step" data-lang="en">Step 02</div>
+        <span class="solution-icon">📋</span>
+        <h3 data-lang="es">Flujo de pedidos estructurado</h3>
+        <h3 data-lang="en">Structured order flow</h3>
+        <p data-lang="es">Cada pedido genera una ficha clara para cocina con platillos, personalización y datos de entrega — sin errores de interpretación.</p>
+        <p data-lang="en">Each order generates a clear kitchen ticket with dishes, customizations and delivery info — no misinterpretation errors.</p>
+      </div>
+      <div class="solution-card">
+        <div class="solution-step" data-lang="es">Paso 03</div>
+        <div class="solution-step" data-lang="en">Step 03</div>
+        <span class="solution-icon">🔔</span>
+        <h3 data-lang="es">Notificaciones al equipo</h3>
+        <h3 data-lang="en">Team notifications</h3>
+        <p data-lang="es">El dueño y cocina reciben alertas instantáneas en su propio WhatsApp — sin tener que revisar un sistema nuevo.</p>
+        <p data-lang="en">Owner and kitchen receive instant alerts on their own WhatsApp — no need to learn a new system.</p>
+      </div>
+      <div class="solution-card">
+        <div class="solution-step" data-lang="es">Paso 04</div>
+        <div class="solution-step" data-lang="en">Step 04</div>
+        <span class="solution-icon">📊</span>
+        <h3 data-lang="es">Dashboard de pedidos</h3>
+        <h3 data-lang="en">Orders dashboard</h3>
+        <p data-lang="es">Resumen diario automático: cuántos pedidos, platillos más vendidos, ingresos estimados y horas pico.</p>
+        <p data-lang="en">Daily automatic summary: how many orders, top dishes, estimated revenue and peak hours.</p>
+      </div>
+      <div class="solution-card">
+        <div class="solution-step" data-lang="es">Paso 05</div>
+        <div class="solution-step" data-lang="en">Step 05</div>
+        <span class="solution-icon">💾</span>
+        <h3 data-lang="es">CRM básico de clientes</h3>
+        <h3 data-lang="en">Basic customer CRM</h3>
+        <p data-lang="es">Registro automático de clientes: nombre, pedidos anteriores y frecuencia. Ideal para promociones futuras.</p>
+        <p data-lang="en">Automatic customer registration: name, past orders and frequency. Perfect for future promotions.</p>
+      </div>
+      <div class="solution-card">
+        <div class="solution-step" data-lang="es">Paso 06</div>
+        <div class="solution-step" data-lang="en">Step 06</div>
+        <span class="solution-icon">🔄</span>
+        <h3 data-lang="es">Escalada a humano</h3>
+        <h3 data-lang="en">Human handoff</h3>
+        <p data-lang="es">Cuando el bot no puede resolver algo, transfiere la conversación al dueño con el contexto completo — sin fricción.</p>
+        <p data-lang="en">When the bot can't resolve something, it transfers the conversation to the owner with full context — no friction.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── WHATSAPP MOCKUP ──────────────────────────────────────────── -->
+<section>
+  <div class="container">
+    <div class="mockup-section">
+      <div>
+        <div class="section-label label-green" data-lang="es">El bot en acción</div>
+        <div class="section-label label-green" data-lang="en">The bot in action</div>
+        <h2 data-lang="es">Así se ve la experiencia del cliente</h2>
+        <h2 data-lang="en">This is what the customer experience looks like</h2>
+        <p class="section-desc" data-lang="es">Natural, conversacional, rápido. Los clientes ni se dan cuenta que es un bot — solo saben que La Mesa siempre responde.</p>
+        <p class="section-desc" data-lang="en">Natural, conversational, fast. Customers don't even notice it's a bot — they just know La Mesa always responds.</p>
+        <div style="margin-top: 28px; display: flex; flex-direction: column; gap: 12px;">
+          <div style="display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: var(--text-2);">
+            <span style="font-size: 1.1rem;">⚡</span>
+            <span data-lang="es">Respuesta media: <strong style="color: var(--text-1);">menos de 2 segundos</strong></span>
+            <span data-lang="en">Average response: <strong style="color: var(--text-1);">under 2 seconds</strong></span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: var(--text-2);">
+            <span style="font-size: 1.1rem;">🌙</span>
+            <span data-lang="es">Disponible: <strong style="color: var(--text-1);">24 horas, 7 días</strong></span>
+            <span data-lang="en">Available: <strong style="color: var(--text-1);">24 hours, 7 days</strong></span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: var(--text-2);">
+            <span style="font-size: 1.1rem;">✅</span>
+            <span data-lang="es">Tasa de resolución: <strong style="color: var(--text-1);">94% sin intervención humana</strong></span>
+            <span data-lang="en">Resolution rate: <strong style="color: var(--text-1);">94% without human intervention</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phone mockup -->
+      <div class="mockup-phone">
+        <div class="phone-statusbar">
+          <div class="phone-back">←</div>
+          <div class="phone-avatar">🍽️</div>
+          <div class="phone-contact">
+            <div class="phone-contact-name">La Mesa Puebla</div>
+            <div class="phone-contact-status" data-lang="es">en línea ahora</div>
+            <div class="phone-contact-status" data-lang="en">online now</div>
+          </div>
+          <div style="color: #fff; font-size: 1rem; opacity: 0.6;">⋮</div>
+        </div>
+        <div class="phone-chat">
+          <div class="msg msg-in" data-lang="es">¡Hola! Quiero hacer un pedido 😊</div>
+          <div class="msg msg-in" data-lang="en">Hi! I'd like to place an order 😊</div>
+          <div class="msg msg-out" data-lang="es">¡Hola! 👋 Bienvenido a La Mesa. Soy tu asistente automático.<br><br>¿Qué deseas ordenar hoy?<br>1️⃣ Ver menú completo<br>2️⃣ Ordenar para llevar<br>3️⃣ Preguntar por domicilio<div class="msg-time">10:32 ✓✓</div></div>
+          <div class="msg msg-out" data-lang="en">Hello! 👋 Welcome to La Mesa. I'm your automated assistant.<br><br>What would you like today?<br>1️⃣ See full menu<br>2️⃣ Order to go<br>3️⃣ Ask about delivery<div class="msg-time">10:32 ✓✓</div></div>
+          <div class="msg msg-in">1</div>
+          <div class="msg msg-out" data-lang="es">🍽️ *MENÚ DEL DÍA*<br><br>*Platillos principales*<br>• Enchiladas verdes — $95<br>• Mole negro con pollo — $120<br>• Tinga de res — $105<br><br>*Para niños*<br>• Quesadillas — $65<br><br>¿Qué te llevo? Escribe el nombre ✍️<div class="msg-time">10:32 ✓✓</div></div>
+          <div class="msg msg-out" data-lang="en">🍽️ *TODAY'S MENU*<br><br>*Main dishes*<br>• Green enchiladas — $95<br>• Black mole with chicken — $120<br>• Beef tinga — $105<br><br>*For kids*<br>• Quesadillas — $65<br><br>What can I get you? Type the name ✍️<div class="msg-time">10:32 ✓✓</div></div>
+          <div class="msg msg-in" data-lang="es">Mole negro por favor, y una tinga</div>
+          <div class="msg msg-in" data-lang="en">Black mole please, and a beef tinga</div>
+          <div class="msg msg-typing"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>
+        </div>
+        <div style="background: #1f2c33; padding: 12px 16px; display: flex; align-items: center; gap: 12px; border-top: 1px solid rgba(255,255,255,0.05);">
+          <div style="font-size: 1rem; opacity: 0.4;">😊</div>
+          <div style="flex: 1; background: #2a3942; border-radius: 20px; padding: 8px 14px; font-size: 0.78rem; color: rgba(255,255,255,0.3);" data-lang="es">Escribe un mensaje…</div>
+          <div style="font-size: 1rem; opacity: 0.4);">🎤</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── RESULTS ───────────────────────────────────────────────────── -->
+<section class="results-section">
+  <div class="container">
+    <div style="text-align: center;">
+      <div class="section-label label-green" data-lang="es">Resultados medibles</div>
+      <div class="section-label label-green" data-lang="en">Measurable results</div>
+      <h2 data-lang="es">Números reales, en el primer mes</h2>
+      <h2 data-lang="en">Real numbers, in the first month</h2>
+      <p class="section-desc" style="margin: 12px auto 0; text-align: center;" data-lang="es">No estimados. Datos del sistema comparados con el mes anterior a la implementación.</p>
+      <p class="section-desc" style="margin: 12px auto 0; text-align: center;" data-lang="en">Not estimates. System data compared to the month before implementation.</p>
+    </div>
+
+    <div class="results-grid">
+      <!-- Featured -->
+      <div class="result-card featured">
+        <div class="featured-metrics">
+          <div>
+            <div class="featured-metric-num" style="background: linear-gradient(135deg, #25d366, #128c7e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">+40%</div>
+            <div class="featured-metric-label" data-lang="es">Pedidos online vs mes anterior</div>
+            <div class="featured-metric-label" data-lang="en">Online orders vs prior month</div>
+          </div>
+          <div>
+            <div class="featured-metric-num" style="background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">94%</div>
+            <div class="featured-metric-label" data-lang="es">Resolución automática sin humano</div>
+            <div class="featured-metric-label" data-lang="en">Auto-resolved without human</div>
+          </div>
+          <div>
+            <div class="featured-metric-num" style="background: linear-gradient(135deg, #ff8c00, #ff6b35); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">2s</div>
+            <div class="featured-metric-label" data-lang="es">Tiempo de respuesta promedio</div>
+            <div class="featured-metric-label" data-lang="en">Average response time</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="result-card">
+        <div class="result-number green">+40%</div>
+        <div class="result-title" data-lang="es">Pedidos online</div>
+        <div class="result-title" data-lang="en">Online orders</div>
+        <div class="result-desc" data-lang="es">De ~80 a ~112 pedidos por semana. El bot captura pedidos nocturnos que antes se perdían.</div>
+        <div class="result-desc" data-lang="en">From ~80 to ~112 orders per week. The bot captures late-night orders that were previously lost.</div>
+        <div class="result-bar"><div class="result-bar-fill green" style="width: 40%;"></div></div>
+      </div>
+
+      <div class="result-card">
+        <div class="result-number blue">−3h</div>
+        <div class="result-title" data-lang="es">Horas admin recuperadas/día</div>
+        <div class="result-title" data-lang="en">Admin hours reclaimed/day</div>
+        <div class="result-desc" data-lang="es">El dueño ya no responde WhatsApp manualmente. Ese tiempo se reinvierte en cocina y servicio.</div>
+        <div class="result-desc" data-lang="en">The owner no longer manually replies to WhatsApp. That time is reinvested in kitchen and service.</div>
+        <div class="result-bar"><div class="result-bar-fill blue" style="width: 65%;"></div></div>
+      </div>
+
+      <div class="result-card">
+        <div class="result-number purple">24/7</div>
+        <div class="result-title" data-lang="es">Atención ininterrumpida</div>
+        <div class="result-title" data-lang="en">Uninterrupted service</div>
+        <div class="result-desc" data-lang="es">El bot opera los 7 días, incluidos domingos y festivos. Sin vacaciones, sin ausencias.</div>
+        <div class="result-desc" data-lang="en">The bot runs 7 days, including Sundays and holidays. No vacations, no absences.</div>
+        <div class="result-bar"><div class="result-bar-fill purple" style="width: 100%;"></div></div>
+      </div>
+
+      <div class="result-card">
+        <div class="result-number orange">4.9★</div>
+        <div class="result-title" data-lang="es">Calificación Google (de 4.6)</div>
+        <div class="result-title" data-lang="en">Google rating (from 4.6)</div>
+        <div class="result-desc" data-lang="es">El bot solicita reseña automáticamente al confirmar pedido entregado. Aumentó 0.3 puntos en 30 días.</div>
+        <div class="result-desc" data-lang="en">The bot automatically requests a review after confirming delivery. Increased 0.3 points in 30 days.</div>
+        <div class="result-bar"><div class="result-bar-fill orange" style="width: 82%;"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── TIMELINE ─────────────────────────────────────────────────── -->
+<section>
+  <div class="container">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;">
+      <div>
+        <div class="section-label label-blue" data-lang="es">Implementación</div>
+        <div class="section-label label-blue" data-lang="en">Implementation</div>
+        <h2 data-lang="es">De idea a producción en 7 días</h2>
+        <h2 data-lang="en">From idea to production in 7 days</h2>
+        <p class="section-desc" data-lang="es">Sin meses de desarrollo ni contratos largos. Implementamos rápido y ajustamos en tiempo real.</p>
+        <p class="section-desc" data-lang="en">No months of development or long contracts. We deploy fast and adjust in real time.</p>
+      </div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-date" data-lang="es">Día 1</div>
+          <div class="tl-date" data-lang="en">Day 1</div>
+          <div class="tl-title" data-lang="es">Diagnóstico y diseño del flujo</div>
+          <div class="tl-title" data-lang="en">Diagnosis and flow design</div>
+          <div class="tl-desc" data-lang="es">Entendemos cómo opera el restaurante hoy, qué preguntas llegan más y cómo es el proceso de pedido.</div>
+          <div class="tl-desc" data-lang="en">We understand how the restaurant operates today, which questions arrive most, and what the order process looks like.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date" data-lang="es">Días 2–3</div>
+          <div class="tl-date" data-lang="en">Days 2–3</div>
+          <div class="tl-title" data-lang="es">Construcción del bot</div>
+          <div class="tl-title" data-lang="en">Bot development</div>
+          <div class="tl-desc" data-lang="es">Programamos el bot con el menú, precios, horarios y flujos de pedido según las reglas del negocio.</div>
+          <div class="tl-desc" data-lang="en">We program the bot with menu, prices, hours and order flows per business rules.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date" data-lang="es">Días 4–5</div>
+          <div class="tl-date" data-lang="en">Days 4–5</div>
+          <div class="tl-title" data-lang="es">Pruebas y ajustes</div>
+          <div class="tl-title" data-lang="en">Testing and tuning</div>
+          <div class="tl-desc" data-lang="es">Probamos con el equipo real del restaurante, simulamos pedidos y ajustamos respuestas hasta que se siente natural.</div>
+          <div class="tl-desc" data-lang="en">We test with the real restaurant team, simulate orders and tune responses until they feel natural.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date" data-lang="es">Días 6–7</div>
+          <div class="tl-date" data-lang="en">Days 6–7</div>
+          <div class="tl-title" data-lang="es">Lanzamiento y monitoreo</div>
+          <div class="tl-title" data-lang="en">Launch and monitoring</div>
+          <div class="tl-desc" data-lang="es">Activamos en producción y monitoreamos durante 48h para garantizar que todo funcione perfecto.</div>
+          <div class="tl-desc" data-lang="en">We go live and monitor for 48h to ensure everything works perfectly.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── TESTIMONIAL ───────────────────────────────────────────────── -->
+<section>
+  <div class="container-narrow">
+    <div class="testimonial-block">
+      <div class="testimonial-quote" data-lang="es">
+        "Tenía miedo de que los clientes se enojaran con un bot. Al contrario — ahora me dicen que les gusta lo rápido que responde La Mesa. Y yo por fin puedo dormir sin el teléfono en la mano."
+      </div>
+      <div class="testimonial-quote" data-lang="en">
+        "I was afraid customers would get angry with a bot. The opposite happened — now they tell me they love how quickly La Mesa responds. And I can finally sleep without my phone in my hand."
+      </div>
+      <div class="testimonial-author">
+        <div class="author-avatar">👨‍🍳</div>
+        <div>
+          <div class="author-name">Carlos Méndez</div>
+          <div class="author-role" data-lang="es">Fundador y chef, La Mesa · Puebla</div>
+          <div class="author-role" data-lang="en">Founder and chef, La Mesa · Puebla</div>
+        </div>
+        <div class="stars">★★★★★</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── PRICING ───────────────────────────────────────────────────── -->
+<section class="pricing-section">
+  <div class="container">
+    <div class="section-label label-purple" data-lang="es">¿Cuánto cuesta?</div>
+    <div class="section-label label-purple" data-lang="en">How much does it cost?</div>
+    <h2 data-lang="es">Planes pensados para negocios reales</h2>
+    <h2 data-lang="en">Plans built for real businesses</h2>
+    <p class="section-desc" style="margin: 12px auto 0; text-align: center;" data-lang="es">La Mesa eligió el plan Pro. Se pagó solo en menos de 2 semanas.</p>
+    <p class="section-desc" style="margin: 12px auto 0; text-align: center;" data-lang="en">La Mesa chose the Pro plan. It paid for itself in under 2 weeks.</p>
+
+    <div class="pricing-cards">
+      <!-- Plan 1: WhatsApp Bot ⭐ -->
+      <div class="pricing-card popular">
+        <div class="popular-badge" data-lang="es">⭐ Más popular</div>
+        <div class="popular-badge" data-lang="en">⭐ Most popular</div>
+        <div class="pricing-name" data-lang="es">Bot de Pedidos WhatsApp</div>
+        <div class="pricing-name" data-lang="en">WhatsApp Order Bot</div>
+        <div class="pricing-price" data-lang="es"><span id="p1-setup-es">$33,983</span> setup</div>
+        <div class="pricing-price" data-lang="en"><span id="p1-setup-en">$1,999</span> setup</div>
+        <div class="pricing-price" data-lang="es">+ <span id="p1-monthly-es">$8,483</span>/mes</div>
+        <div class="pricing-price" data-lang="en">+ <span id="p1-monthly-en">$499</span>/mo</div>
+        <ul class="pricing-features">
+          <li data-lang="es">Integración Bot WhatsApp</li>
+          <li data-lang="en">WhatsApp Bot Integration</li>
+          <li data-lang="es">Procesamiento de Pedidos y Pagos</li>
+          <li data-lang="en">Order & Payment Processing</li>
+          <li data-lang="es">Soporte Automatizado 24/7</li>
+          <li data-lang="en">24/7 Automated Support</li>
+          <li data-lang="es">Análisis Avanzado</li>
+          <li data-lang="en">Advanced Analytics</li>
+        </ul>
+        <a href="https://wa.me/525500000000" target="_blank" class="btn-pricing btn-pricing-filled" data-lang="es">Empezar →</a>
+        <a href="https://wa.me/525500000000" target="_blank" class="btn-pricing btn-pricing-filled" data-lang="en">Get started →</a>
+      </div>
+
+      <!-- Plan 2: Website + Chat -->
+      <div class="pricing-card">
+        <div class="pricing-name" data-lang="es">Sitio Web + Chat AI</div>
+        <div class="pricing-name" data-lang="en">Business Website + AI Chat</div>
+        <div class="pricing-price" data-lang="es"><span id="p2-setup-es">$25,483</span> setup</div>
+        <div class="pricing-price" data-lang="en"><span id="p2-setup-en">$1,499</span> setup</div>
+        <div class="pricing-price" data-lang="es">+ <span id="p2-monthly-es">$5,083</span>/mes</div>
+        <div class="pricing-price" data-lang="en">+ <span id="p2-monthly-en">$299</span>/mo</div>
+        <ul class="pricing-features">
+          <li data-lang="es">Sitio Web Personalizado</li>
+          <li data-lang="en">Custom Website</li>
+          <li data-lang="es">Chatbot AI</li>
+          <li data-lang="en">AI Chatbot</li>
+          <li data-lang="es">Formularios de Captura de Leads</li>
+          <li data-lang="en">Lead Capture Forms</li>
+          <li data-lang="es">Panel de Análisis</li>
+          <li data-lang="en">Analytics Dashboard</li>
+        </ul>
+        <a href="https://wa.me/525500000000" target="_blank" class="btn-pricing btn-pricing-outline" data-lang="es">Empezar →</a>
+        <a href="https://wa.me/525500000000" target="_blank" class="btn-pricing btn-pricing-outline" data-lang="en">Get started →</a>
+      </div>
+
+      <!-- Plan 3: Social Media -->
+      <div class="pricing-card">
+        <div class="pricing-name" data-lang="es">Automatización Redes Sociales</div>
+        <div class="pricing-name" data-lang="en">Social Media Automation</div>
+        <div class="pricing-price" data-lang="es"><span id="p3-monthly-es">$13,583</span>/mes</div>
+        <div class="pricing-price" data-lang="en"><span id="p3-monthly-en">$799</span>/mo</div>
+        <ul class="pricing-features">
+          <li data-lang="es">Generación de Contenido AI</li>
+          <li data-lang="en">AI Content Generation</li>
+          <li data-lang="es">Programación Multi-Plataforma</li>
+          <li data-lang="en">Multi-Platform Scheduling</li>
+          <li data-lang="es">Análisis de Engagement</li>
+          <li data-lang="en">Engagement Analytics</li>
+          <li data-lang="es">Optimización de Hashtags</li>
+          <li data-lang="en">Hashtag Optimization</li>
+        </ul>
+        <a href="https://wa.me/525500000000" target="_blank" class="btn-pricing btn-pricing-outline" data-lang="es">Empezar →</a>
+        <a href="https://wa.me/525500000000" target="_blank" class="btn-pricing btn-pricing-outline" data-lang="en">Get started →</a>
+      </div>
+
+      <!-- Plan 4: SEO + Content -->
+      <div class="pricing-card">
+        <div class="pricing-name" data-lang="es">SEO + Contenido AI</div>
+        <div class="pricing-name" data-lang="en">SEO + AI Content</div>
+        <div class="pricing-price" data-lang="es"><span id="p4-monthly-es">$16,983</span>/mes</div>
+        <div class="pricing-price" data-lang="en"><span id="p4-monthly-en">$999</span>/mo</div>
+        <ul class="pricing-features">
+          <li data-lang="es">Auditoría y Estrategia SEO</li>
+          <li data-lang="en">SEO Audit & Strategy</li>
+          <li data-lang="es">Posts de Blog AI (4/mes)</li>
+          <li data-lang="en">AI Blog Posts (4/mo)</li>
+          <li data-lang="es">Investigación de Palabras Clave</li>
+          <li data-lang="en">Keyword Research</li>
+          <li data-lang="es">Seguimiento de Posiciones</li>
+          <li data-lang="en">Ranking Tracking</li>
+        </ul>
+        <a href="https://wa.me/525500000000" target="_blank" class="btn-pricing btn-pricing-outline" data-lang="es">Empezar →</a>
+        <a href="https://wa.me/525500000000" target="_blank" class="btn-pricing btn-pricing-outline" data-lang="en">Get started →</a>
+      </div>
+
+      <!-- Plan 5: Business Automation -->
+      <div class="pricing-card">
+        <div class="pricing-name" data-lang="es">Automatización Empresarial</div>
+        <div class="pricing-name" data-lang="en">Business Automation</div>
+        <div class="pricing-price" data-lang="es"><span id="p5-setup-es">$42,483</span> setup</div>
+        <div class="pricing-price" data-lang="en"><span id="p5-setup-en">$2,499</span> setup</div>
+        <div class="pricing-price" data-lang="es">+ <span id="p5-monthly-es">$11,883</span>/mes</div>
+        <div class="pricing-price" data-lang="en">+ <span id="p5-monthly-en">$699</span>/mo</div>
+        <ul class="pricing-features">
+          <li data-lang="es">Diseño de Flujo Personalizado</li>
+          <li data-lang="en">Custom Workflow Design</li>
+          <li data-lang="es">Integración CRM</li>
+          <li data-lang="en">CRM Integration</li>
+          <li data-lang="es">Automatización de Email</li>
+          <li data-lang="en">Email Automation</li>
+          <li data-lang="es">Soporte Dedicado</li>
+          <li data-lang="en">Dedicated Support</li>
+        </ul>
+        <a href="https://wa.me/525500000000" target="_blank" class="btn-pricing btn-pricing-outline" data-lang="es">Empezar →</a>
+        <a href="https://wa.me/525500000000" target="_blank" class="btn-pricing btn-pricing-outline" data-lang="en">Get started →</a>
+      </div>
+
+      <!-- Plan 6: Full Package 🚀 -->
+      <div class="pricing-card popular">
+        <div class="popular-badge" data-lang="es">🚀 Mejor Valor</div>
+        <div class="popular-badge" data-lang="en">🚀 Best Value</div>
+        <div class="pricing-name" data-lang="es">Paquete Completo AI</div>
+        <div class="pricing-name" data-lang="en">Full AI Package</div>
+        <div class="pricing-price" data-lang="es"><span id="p6-setup-es">$84,983</span> setup</div>
+        <div class="pricing-price" data-lang="en"><span id="p6-setup-en">$4,999</span> setup</div>
+        <div class="pricing-price" data-lang="es">+ <span id="p6-monthly-es">$22,083</span>/mes</div>
+        <div class="pricing-price" data-lang="en">+ <span id="p6-monthly-en">$1,299</span>/mo</div>
+        <ul class="pricing-features">
+          <li data-lang="es">Todo Incluido</li>
+          <li data-lang="en">Everything Included</li>
+          <li data-lang="es">Flujos AI Personalizados</li>
+          <li data-lang="en">Custom AI Workflows</li>
+          <li data-lang="es">Personalización Ilimitada</li>
+          <li data-lang="en">Unlimited Customization</li>
+          <li data-lang="es">Soporte Dedicado 24/7</li>
+          <li data-lang="en">24/7 Dedicated Support</li>
+        </ul>
+        <a href="https://wa.me/525500000000" target="_blank" class="btn-pricing btn-pricing-filled" data-lang="es">Empezar →</a>
+        <a href="https://wa.me/525500000000" target="_blank" class="btn-pricing btn-pricing-filled" data-lang="en">Get started →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── CTA ───────────────────────────────────────────────────────── -->
+<section class="cta-section">
+  <div class="container-narrow">
+    <div class="section-label label-purple" style="display: inline-block;" data-lang="es">¿Listo para automatizar?</div>
+    <div class="section-label label-purple" style="display: inline-block;" data-lang="en">Ready to automate?</div>
+    <h2 data-lang="es">Tu negocio merece operar <span style="background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">24/7 sin agotarse</span></h2>
+    <h2 data-lang="en">Your business deserves to operate <span style="background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">24/7 without burning out</span></h2>
+    <p data-lang="es">Hablemos 15 minutos. Te mostramos exactamente cómo funcionaría para tu negocio — sin compromiso.</p>
+    <p data-lang="en">Let's talk for 15 minutes. We'll show you exactly how it would work for your business — no commitment.</p>
+    <div class="cta-buttons">
+      <a href="https://wa.me/525500000000?text=Hola%2C+vi+el+caso+de+estudio+de+La+Mesa+y+quiero+saber+m%C3%A1s" target="_blank" class="btn-primary" data-lang="es">
+        <span>💬</span> Hablar por WhatsApp
+      </a>
+      <a href="https://wa.me/525500000000?text=Hi%2C+I+saw+the+La+Mesa+case+study+and+want+to+know+more" target="_blank" class="btn-primary" data-lang="en">
+        <span>💬</span> Chat on WhatsApp
+      </a>
+      <a href="https://byagentx.com" class="btn-secondary" data-lang="es">Ver más casos →</a>
+      <a href="https://byagentx.com" class="btn-secondary" data-lang="en">See more cases →</a>
+    </div>
+    <div class="cta-trust">
+      <div class="trust-item"><span class="trust-icon">⚡</span> <span data-lang="es">Setup en 7 días</span><span data-lang="en">7-day setup</span></div>
+      <div class="trust-item"><span class="trust-icon">💳</span> <span data-lang="es">Sin contrato largo</span><span data-lang="en">No long contract</span></div>
+      <div class="trust-item"><span class="trust-icon">🔒</span> <span data-lang="es">Sin acceso a tu cuenta</span><span data-lang="en">No account access needed</span></div>
+      <div class="trust-item"><span class="trust-icon">🇲🇽</span> <span data-lang="es">Precios en MXN</span><span data-lang="en">Prices in MXN</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">AgentX</div>
+      <div class="footer-links">
+        <a href="https://byagentx.com" data-lang="es">Inicio</a>
+        <a href="https://byagentx.com" data-lang="en">Home</a>
+        <a href="https://byagentx.com#casos" data-lang="es">Casos</a>
+        <a href="https://byagentx.com#cases" data-lang="en">Cases</a>
+        <a href="https://wa.me/525500000000">WhatsApp</a>
+      </div>
+      <div class="footer-copy">© 2025 AgentX · byagentx.com</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const MXN_RATE = 17;
+  const prices = {
+    p1: { setup: 199900, monthly: 49900 },
+    p2: { setup: 149900, monthly: 29900 },
+    p3: { monthly: 79900 },
+    p4: { monthly: 99900 },
+    p5: { setup: 249900, monthly: 69900 },
+    p6: { setup: 499900, monthly: 129900 }
+  };
+
+  function updatePrices(lang) {
+    Object.keys(prices).forEach(plan => {
+      const p = prices[plan];
+      if (p.setup) {
+        const setupId = `${plan}-setup-${lang}`;
+        const el = document.getElementById(setupId);
+        if (el) {
+          el.textContent = lang === 'es' 
+            ? '$' + (p.setup * MXN_RATE / 100).toLocaleString('es-MX', {minimumFractionDigits: 2, maximumFractionDigits: 2})
+            : '$' + (p.setup / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        }
+      }
+      if (p.monthly) {
+        const monthlyId = `${plan}-monthly-${lang}`;
+        const el = document.getElementById(monthlyId);
+        if (el) {
+          el.textContent = lang === 'es'
+            ? '$' + (p.monthly * MXN_RATE / 100).toLocaleString('es-MX', {minimumFractionDigits: 2, maximumFractionDigits: 2})
+            : '$' + (p.monthly / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        }
+      }
+    });
+  }
+
+  function setLang(lang) {
+    document.body.classList.toggle('lang-en', lang === 'en');
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
+    });
+    updatePrices(lang);
+    localStorage.setItem('agentx-lang', lang);
+  }
+
+  // Restore saved language preference
+  const savedLang = localStorage.getItem('agentx-lang') || 'es';
+  updatePrices(savedLang);
+  if (savedLang === 'en') setLang('en');
+  else setLang('es');
+
+  // Animate result bars on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.width = entry.target.dataset.width || entry.target.style.width;
+      }
+    });
+  }, { threshold: 0.3 });
+
+  // Fade in on scroll
+  const fadeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.solution-card, .result-card, .challenge-item, .tl-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    fadeObserver.observe(el);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,1780 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgentX — AI Automation for Businesses</title>
+  <meta name="description" content="WhatsApp bots, smart websites, and custom AI workflows that save time and increase revenue." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Design Tokens ─────────────────────────────────────────── */
+    :root {
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+
+      /* Palette */
+      --bg:          #0a0a0f;
+      --bg-2:        #101018;
+      --bg-3:        #16161f;
+      --border:      rgba(255,255,255,0.07);
+      --border-mid:  rgba(255,255,255,0.12);
+
+      --text-1:      #f0f0ff;
+      --text-2:      #a0a0b8;
+      --text-3:      #606078;
+
+      --accent:      #7c5cfc;
+      --accent-2:    #5b8af5;
+      --accent-glow: rgba(124,92,252,0.35);
+      --accent-light: rgba(124,92,252,0.12);
+
+      --gradient-hero: linear-gradient(135deg, #7c5cfc 0%, #5b8af5 50%, #38c8ff 100%);
+      --gradient-card: linear-gradient(145deg, rgba(124,92,252,0.08) 0%, rgba(91,138,245,0.04) 100%);
+
+      /* Spacing */
+      --r-sm: 8px;
+      --r-md: 16px;
+      --r-lg: 24px;
+      --r-xl: 32px;
+
+      /* Transitions */
+      --t-fast: 150ms cubic-bezier(0.4,0,0.2,1);
+      --t-mid:  300ms cubic-bezier(0.4,0,0.2,1);
+      --t-slow: 600ms cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* ─── Reset ─────────────────────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text-1);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Noise Texture Overlay ──────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ─── Scrollbar ──────────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border-mid); border-radius: 99px; }
+
+    /* ─── Utilities ──────────────────────────────────────────────── */
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-light);
+      border: 1px solid rgba(124,92,252,0.25);
+      padding: 5px 14px;
+      border-radius: 99px;
+      margin-bottom: 20px;
+    }
+    .section-label::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 6px var(--accent);
+    }
+
+    /* ─── Glow Blobs ─────────────────────────────────────────────── */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── Navigation ─────────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 16px 0;
+      border-bottom: 1px solid transparent;
+      transition: background var(--t-mid), border-color var(--t-mid), backdrop-filter var(--t-mid);
+    }
+    .nav.scrolled {
+      background: rgba(10,10,15,0.85);
+      border-color: var(--border);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text-1);
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+    .nav-logo-mark {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: var(--gradient-hero);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      box-shadow: 0 0 20px rgba(124,92,252,0.4);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      list-style: none;
+    }
+    .nav-links a {
+      display: block;
+      padding: 7px 14px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-2);
+      text-decoration: none;
+      border-radius: var(--r-sm);
+      transition: color var(--t-fast), background var(--t-fast);
+    }
+    .nav-links a:hover {
+      color: var(--text-1);
+      background: var(--border);
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .lang-btn {
+      background: var(--bg-3);
+      border: 1px solid var(--border-mid);
+      color: var(--text-2);
+      font-size: 12px;
+      font-weight: 600;
+      font-family: var(--font);
+      padding: 6px 12px;
+      border-radius: var(--r-sm);
+      cursor: pointer;
+      transition: all var(--t-fast);
+      letter-spacing: 0.04em;
+    }
+    .lang-btn:hover {
+      background: var(--bg-2);
+      color: var(--text-1);
+      border-color: var(--border-mid);
+    }
+    .nav-cta {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: var(--r-sm);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all var(--t-fast);
+      box-shadow: 0 0 0 0 var(--accent-glow);
+    }
+    .nav-cta:hover {
+      filter: brightness(1.15);
+      box-shadow: 0 0 20px var(--accent-glow);
+      transform: translateY(-1px);
+    }
+    .nav-cta:active { transform: translateY(0); }
+
+    /* hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px; height: 2px;
+      background: var(--text-2);
+      border-radius: 99px;
+      transition: all var(--t-fast);
+    }
+
+    /* ─── Hero ───────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 160px 24px 100px;
+      overflow: hidden;
+    }
+    .hero .blob-1 {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(124,92,252,0.3) 0%, transparent 70%);
+      top: -100px; left: -100px;
+      animation: float 8s ease-in-out infinite;
+    }
+    .hero .blob-2 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(56,200,255,0.2) 0%, transparent 70%);
+      bottom: 0; right: -80px;
+      animation: float 10s ease-in-out infinite reverse;
+    }
+    @keyframes float {
+      0%, 100% { transform: translate(0,0) scale(1); }
+      33%       { transform: translate(20px,-30px) scale(1.05); }
+      66%       { transform: translate(-15px,20px) scale(0.97); }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-2);
+      background: var(--bg-3);
+      border: 1px solid var(--border-mid);
+      padding: 6px 16px;
+      border-radius: 99px;
+      margin-bottom: 32px;
+      position: relative;
+      z-index: 1;
+      animation: fadeInUp 0.6s ease both;
+    }
+    .hero-badge .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 8px #22c55e;
+      animation: pulse 2s ease infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.6; transform: scale(1.3); }
+    }
+
+    .hero h1 {
+      position: relative;
+      z-index: 1;
+      font-size: clamp(44px, 7vw, 88px);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.04em;
+      margin-bottom: 24px;
+      animation: fadeInUp 0.6s ease 0.1s both;
+    }
+    .hero h1 .gradient-text {
+      background: var(--gradient-hero);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      position: relative;
+      z-index: 1;
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--text-2);
+      max-width: 560px;
+      margin: 0 auto 40px;
+      line-height: 1.65;
+      animation: fadeInUp 0.6s ease 0.2s both;
+    }
+    .hero-actions {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeInUp 0.6s ease 0.3s both;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font);
+      font-size: 15px;
+      font-weight: 600;
+      padding: 14px 28px;
+      border: none;
+      border-radius: var(--r-md);
+      cursor: pointer;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: all var(--t-mid);
+      box-shadow: 0 4px 20px var(--accent-glow), 0 1px 0 rgba(255,255,255,0.1) inset;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity var(--t-fast);
+    }
+    .btn-primary:hover::before { opacity: 1; }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px var(--accent-glow);
+    }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--text-2);
+      font-family: var(--font);
+      font-size: 15px;
+      font-weight: 500;
+      padding: 14px 24px;
+      border: 1px solid var(--border-mid);
+      border-radius: var(--r-md);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all var(--t-fast);
+    }
+    .btn-ghost:hover {
+      color: var(--text-1);
+      border-color: rgba(255,255,255,0.22);
+      background: var(--bg-3);
+    }
+
+    /* hero glow border box */
+    .hero-visual {
+      position: relative;
+      z-index: 1;
+      margin-top: 64px;
+      width: 100%;
+      max-width: 880px;
+      animation: fadeInUp 0.8s ease 0.5s both;
+    }
+    .hero-window {
+      background: var(--bg-2);
+      border: 1px solid var(--border-mid);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      box-shadow: 0 0 0 1px var(--border), 0 40px 80px rgba(0,0,0,0.6), 0 0 60px rgba(124,92,252,0.12);
+    }
+    .hero-window-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-3);
+    }
+    .win-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .win-dot.r { background: #ff5f57; }
+    .win-dot.y { background: #febc2e; }
+    .win-dot.g { background: #28c840; }
+    .hero-window-body {
+      padding: 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      min-height: 240px;
+    }
+    .mock-card {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: border-color var(--t-fast);
+    }
+    .mock-card:hover { border-color: var(--border-mid); }
+    .mock-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: var(--accent-light);
+      border: 1px solid rgba(124,92,252,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .mock-title { font-size: 13px; font-weight: 600; color: var(--text-1); }
+    .mock-bar { height: 6px; border-radius: 99px; background: var(--border); position: relative; overflow: hidden; }
+    .mock-bar-fill { height: 100%; border-radius: 99px; background: var(--gradient-hero); }
+    .mock-stat { font-size: 22px; font-weight: 800; color: var(--text-1); letter-spacing: -0.03em; }
+    .mock-label { font-size: 11px; color: var(--text-3); }
+
+    /* ─── Stats strip ────────────────────────────────────────────── */
+    .stats-strip {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 32px 24px;
+      background: var(--bg-2);
+    }
+    .stats-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .stat-item {
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+    .stat-item.visible { opacity: 1; transform: translateY(0); }
+    .stat-number {
+      font-size: 36px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      background: var(--gradient-hero);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-label { font-size: 13px; color: var(--text-3); margin-top: 4px; }
+
+    /* ─── Section Base ───────────────────────────────────────────── */
+    .section {
+      padding: 120px 24px;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 72px;
+    }
+    .section-header h2 {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .section-header p {
+      font-size: 17px;
+      color: var(--text-2);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* scroll-reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ─── Features ───────────────────────────────────────────────── */
+    .features-grid {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+    }
+    .feature-cell {
+      background: var(--bg);
+      padding: 48px 40px;
+      position: relative;
+      overflow: hidden;
+      transition: background var(--t-mid);
+    }
+    .feature-cell::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gradient-card);
+      opacity: 0;
+      transition: opacity var(--t-mid);
+    }
+    .feature-cell:hover { background: var(--bg-2); }
+    .feature-cell:hover::before { opacity: 1; }
+    .feature-icon {
+      width: 52px; height: 52px;
+      border-radius: var(--r-md);
+      background: var(--accent-light);
+      border: 1px solid rgba(124,92,252,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+      transition: transform var(--t-mid), box-shadow var(--t-mid);
+    }
+    .feature-cell:hover .feature-icon {
+      transform: scale(1.1) rotate(-3deg);
+      box-shadow: 0 0 24px var(--accent-glow);
+    }
+    .feature-cell h3 {
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      position: relative; z-index: 1;
+    }
+    .feature-cell p {
+      font-size: 14px;
+      color: var(--text-2);
+      line-height: 1.7;
+      position: relative; z-index: 1;
+    }
+    .feature-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-top: 20px;
+      position: relative; z-index: 1;
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: all var(--t-mid);
+    }
+    .feature-cell:hover .feature-tag { opacity: 1; transform: translateX(0); }
+
+    /* ─── How It Works ───────────────────────────────────────────── */
+    .how-section {
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .how-grid {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+      position: relative;
+    }
+    .how-grid::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: calc(16.67% + 24px);
+      right: calc(16.67% + 24px);
+      height: 1px;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 50%, #38c8ff 100%);
+      opacity: 0.4;
+    }
+    .how-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 16px;
+    }
+    .step-number {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--bg-3);
+      border: 2px solid var(--border-mid);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--accent);
+      position: relative;
+      z-index: 1;
+      transition: all var(--t-mid);
+    }
+    .how-step:hover .step-number {
+      background: var(--accent-light);
+      border-color: var(--accent);
+      box-shadow: 0 0 24px var(--accent-glow);
+    }
+    .how-step h3 { font-size: 17px; font-weight: 700; }
+    .how-step p { font-size: 14px; color: var(--text-2); line-height: 1.65; }
+
+    /* ─── Pricing ────────────────────────────────────────────────── */
+    .pricing-section { background: var(--bg); }
+    .pricing-grid {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .pricing-card {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      padding: 40px 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color var(--t-mid), transform var(--t-mid), box-shadow var(--t-mid);
+    }
+    .pricing-card:hover {
+      border-color: var(--border-mid);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    }
+    .pricing-card.featured {
+      border-color: rgba(124,92,252,0.5);
+      background: linear-gradient(145deg, rgba(124,92,252,0.08) 0%, var(--bg-2) 100%);
+    }
+    .pricing-card.featured::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gradient-hero);
+    }
+    .pricing-card.featured:hover {
+      border-color: rgba(124,92,252,0.7);
+      box-shadow: 0 20px 60px rgba(124,92,252,0.2);
+    }
+    .popular-badge {
+      position: absolute;
+      top: 20px; right: 20px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-light);
+      border: 1px solid rgba(124,92,252,0.3);
+      padding: 4px 10px;
+      border-radius: 99px;
+    }
+    .plan-name { font-size: 14px; font-weight: 600; color: var(--text-2); letter-spacing: 0.04em; text-transform: uppercase; }
+    .plan-price-block { display: flex; flex-direction: column; gap: 4px; }
+    .plan-price {
+      font-size: 52px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--text-1);
+      display: flex;
+      align-items: flex-start;
+      gap: 4px;
+    }
+    .plan-price-symbol { font-size: 22px; margin-top: 10px; font-weight: 600; }
+    .plan-price-period { font-size: 14px; color: var(--text-3); font-weight: 400; align-self: flex-end; margin-bottom: 8px; }
+    .plan-desc { font-size: 14px; color: var(--text-2); }
+    .plan-features { list-style: none; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+    .plan-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-2);
+    }
+    .plan-features li .check {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: rgba(34,197,94,0.15);
+      border: 1px solid rgba(34,197,94,0.3);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-size: 11px;
+      color: #22c55e;
+      margin-top: 2px;
+    }
+    .plan-divider {
+      height: 1px;
+      background: var(--border);
+    }
+    .btn-plan {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 14px;
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: var(--r-md);
+      cursor: pointer;
+      text-decoration: none;
+      border: 1px solid var(--border-mid);
+      background: var(--bg-3);
+      color: var(--text-1);
+      transition: all var(--t-fast);
+    }
+    .btn-plan:hover {
+      background: var(--bg-2);
+      border-color: rgba(255,255,255,0.2);
+    }
+    .btn-plan.accent {
+      background: var(--accent);
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+    .btn-plan.accent:hover {
+      filter: brightness(1.12);
+      box-shadow: 0 4px 30px var(--accent-glow);
+      transform: translateY(-1px);
+    }
+
+    /* ─── Trust / Social Proof ───────────────────────────────────── */
+    .trust-section {
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 80px 24px;
+    }
+    .trust-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .trust-card {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: border-color var(--t-mid), transform var(--t-mid);
+    }
+    .trust-card:hover {
+      border-color: var(--border-mid);
+      transform: translateY(-2px);
+    }
+    .trust-stars { color: #fbbf24; font-size: 14px; letter-spacing: 2px; }
+    .trust-quote { font-size: 15px; color: var(--text-2); line-height: 1.7; font-style: italic; }
+    .trust-author { display: flex; align-items: center; gap: 12px; }
+    .trust-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--gradient-hero);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .trust-name { font-size: 14px; font-weight: 600; }
+    .trust-role { font-size: 12px; color: var(--text-3); }
+
+    /* ─── CTA Banner ─────────────────────────────────────────────── */
+    .cta-banner {
+      padding: 120px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-banner .blob-3 {
+      width: 700px; height: 400px;
+      background: radial-gradient(ellipse, rgba(124,92,252,0.2) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .cta-content {
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .cta-content h2 {
+      font-size: clamp(36px, 5vw, 60px);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .cta-content p {
+      font-size: 17px;
+      color: var(--text-2);
+      margin-bottom: 40px;
+    }
+    .cta-disclaimer {
+      margin-top: 16px;
+      font-size: 12px;
+      color: var(--text-3);
+    }
+
+    /* ─── Footer ─────────────────────────────────────────────────── */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 48px 24px;
+      background: var(--bg-2);
+    }
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .footer-left { display: flex; flex-direction: column; gap: 6px; }
+    .footer-logo {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 16px; font-weight: 800; letter-spacing: -0.03em;
+      color: var(--text-1); text-decoration: none;
+    }
+    .footer-tagline { font-size: 13px; color: var(--text-3); }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a {
+      font-size: 13px;
+      color: var(--text-3);
+      text-decoration: none;
+      transition: color var(--t-fast);
+    }
+    .footer-links a:hover { color: var(--text-1); }
+    .footer-copy { font-size: 13px; color: var(--text-3); }
+
+    /* ─── Animations ─────────────────────────────────────────────── */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes shimmer {
+      from { transform: translateX(-100%); }
+      to   { transform: translateX(100%); }
+    }
+
+    /* ─── Responsive ─────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .features-grid { grid-template-columns: 1fr; }
+      .how-grid { grid-template-columns: 1fr; gap: 32px; }
+      .how-grid::before { display: none; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .trust-inner { grid-template-columns: 1fr; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .hero-window-body { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .section { padding: 80px 20px; }
+      .hero { padding: 120px 20px 80px; }
+      .stats-inner { grid-template-columns: 1fr 1fr; }
+      .footer-inner { flex-direction: column; text-align: center; }
+      .nav-cta span { display: none; }
+    }
+
+    /* ─── Mobile Nav ─────────────────────────────────────────────── */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(10,10,15,0.97);
+      backdrop-filter: blur(20px);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text-1);
+      text-decoration: none;
+      letter-spacing: -0.03em;
+      transition: color var(--t-fast);
+    }
+    .mobile-nav a:hover { color: var(--accent); }
+    .mobile-nav-close {
+      position: absolute;
+      top: 24px; right: 24px;
+      background: none; border: none;
+      color: var(--text-2); font-size: 28px; cursor: pointer;
+    }
+
+    /* ─── Loading bar ────────────────────────────────────────────── */
+    .topbar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      background: var(--gradient-hero);
+      width: 0%;
+      z-index: 999;
+      transition: width 0.2s ease;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Loading bar -->
+  <div class="topbar" id="topbar"></div>
+
+  <!-- Mobile Nav Overlay -->
+  <nav class="mobile-nav" id="mobileNav">
+    <button class="mobile-nav-close" id="mobileNavClose">✕</button>
+    <a href="#features" onclick="closeMobileNav()" data-i18n="nav.features">Features</a>
+    <a href="#how" onclick="closeMobileNav()" data-i18n="nav.how">How it works</a>
+    <a href="case-study.html" onclick="closeMobileNav()" data-i18n="nav.case-study">Case Study</a>
+    <a href="#pricing" onclick="closeMobileNav()" data-i18n="nav.pricing">Pricing</a>
+    <a href="#contact" onclick="closeMobileNav()" data-i18n="nav.contact">Contact</a>
+  </nav>
+
+  <!-- Navigation -->
+  <header class="nav" id="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#" class="nav-logo">
+          <div class="nav-logo-mark">⚡</div>
+          AgentX
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="#features" data-i18n="nav.features">Features</a></li>
+          <li><a href="#how" data-i18n="nav.how">How it works</a></li>
+          <li><a href="case-study.html" data-i18n="nav.case-study">Case Study</a></li>
+          <li><a href="#pricing" data-i18n="nav.pricing">Pricing</a></li>
+          <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <button class="lang-btn" id="langToggle" onclick="toggleLanguage()">ES</button>
+          <a href="#pricing" class="nav-cta">
+            <span data-i18n="nav.cta">Get Started</span>
+            <span>→</span>
+          </a>
+          <button class="hamburger" id="hamburger" aria-label="Menu" onclick="openMobileNav()">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ─── Hero ─────────────────────────────────────────────────── -->
+  <section class="hero" id="home">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <div class="hero-badge">
+      <span class="dot"></span>
+      <span data-i18n="hero.badge">Now available — AI agents for SMBs</span>
+    </div>
+
+    <h1>
+      <span data-i18n="hero.title1">Automate your</span><br />
+      <span class="gradient-text" data-i18n="hero.title2">business with AI</span>
+    </h1>
+
+    <p data-i18n="hero.subtitle">
+      WhatsApp bots, smart websites, and custom AI workflows that save time and increase revenue — without hiring a dev team.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#pricing" class="btn-primary">
+        <span data-i18n="hero.cta1">Start free trial</span>
+        <span>→</span>
+      </a>
+      <a href="#features" class="btn-ghost">
+        <span data-i18n="hero.cta2">See how it works</span>
+      </a>
+    </div>
+
+    <div class="hero-visual reveal">
+      <div class="hero-window">
+        <div class="hero-window-bar">
+          <span class="win-dot r"></span>
+          <span class="win-dot y"></span>
+          <span class="win-dot g"></span>
+          <span style="margin-left:12px; font-size:12px; color:var(--text-3);">AgentX Dashboard</span>
+        </div>
+        <div class="hero-window-body">
+          <div class="mock-card">
+            <div class="mock-icon">🤖</div>
+            <div class="mock-title" data-i18n="mock.whatsapp">WhatsApp Bot</div>
+            <div class="mock-stat">1,248</div>
+            <div class="mock-label" data-i18n="mock.messages">messages today</div>
+            <div class="mock-bar"><div class="mock-bar-fill" style="width:78%"></div></div>
+          </div>
+          <div class="mock-card">
+            <div class="mock-icon">📈</div>
+            <div class="mock-title" data-i18n="mock.conversion">Conversion</div>
+            <div class="mock-stat">34.2%</div>
+            <div class="mock-label" data-i18n="mock.rate">website visitors</div>
+            <div class="mock-bar"><div class="mock-bar-fill" style="width:34%"></div></div>
+          </div>
+          <div class="mock-card">
+            <div class="mock-icon">⚡</div>
+            <div class="mock-title" data-i18n="mock.saved">Time Saved</div>
+            <div class="mock-stat">42h</div>
+            <div class="mock-label" data-i18n="mock.week">this week</div>
+            <div class="mock-bar"><div class="mock-bar-fill" style="width:90%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Stats Strip ───────────────────────────────────────────── -->
+  <div class="stats-strip">
+    <div class="stats-inner">
+      <div class="stat-item reveal">
+        <div class="stat-number">500+</div>
+        <div class="stat-label" data-i18n="stats.businesses">businesses automated</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-1">
+        <div class="stat-number">98%</div>
+        <div class="stat-label" data-i18n="stats.satisfaction">customer satisfaction</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-2">
+        <div class="stat-number">40h</div>
+        <div class="stat-label" data-i18n="stats.saved">saved per week avg.</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-3">
+        <div class="stat-number">24/7</div>
+        <div class="stat-label" data-i18n="stats.uptime">always-on automation</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Features ─────────────────────────────────────────────── -->
+  <section class="section" id="features">
+    <div class="section-header reveal">
+      <span class="section-label" data-i18n="features.label">What we do</span>
+      <h2 data-i18n="features.title">Everything your business<br/>needs to run on autopilot</h2>
+      <p data-i18n="features.subtitle">Three powerful tools, one cohesive platform — built for businesses that want results, not headaches.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-cell reveal">
+        <div class="feature-icon">🤖</div>
+        <h3 data-i18n="features.whatsapp.title">WhatsApp Bot</h3>
+        <p data-i18n="features.whatsapp.desc">Automate customer support, orders, and bookings 24/7. Never miss a lead while you sleep.</p>
+        <div class="feature-tag" data-i18n="features.whatsapp.tag">Automates support →</div>
+      </div>
+      <div class="feature-cell reveal reveal-delay-1">
+        <div class="feature-icon">🌐</div>
+        <h3 data-i18n="features.website.title">Smart Website</h3>
+        <p data-i18n="features.website.desc">AI-powered landing pages that learn and adapt to convert visitors into paying customers with surgical precision.</p>
+        <div class="feature-tag" data-i18n="features.website.tag">Converts visitors →</div>
+      </div>
+      <div class="feature-cell reveal reveal-delay-2">
+        <div class="feature-icon">⚙️</div>
+        <h3 data-i18n="features.custom.title">Custom AI Workflows</h3>
+        <p data-i18n="features.custom.desc">Tailored automation for your unique business needs. Connect your tools, automate your processes, reclaim your time.</p>
+        <div class="feature-tag" data-i18n="features.custom.tag">Saves 40h/week →</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── How It Works ──────────────────────────────────────────── -->
+  <section class="section how-section" id="how">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label" data-i18n="how.label">Process</span>
+        <h2 data-i18n="how.title">Up and running<br/>in 72 hours</h2>
+        <p data-i18n="how.subtitle">No technical knowledge required. We set everything up for you.</p>
+      </div>
+
+      <div class="how-grid">
+        <div class="how-step reveal">
+          <div class="step-number">01</div>
+          <h3 data-i18n="how.step1.title">Discovery Call</h3>
+          <p data-i18n="how.step1.desc">We learn about your business, your customers, and the repetitive tasks eating your time.</p>
+        </div>
+        <div class="how-step reveal reveal-delay-1">
+          <div class="step-number">02</div>
+          <h3 data-i18n="how.step2.title">We Build It</h3>
+          <p data-i18n="how.step2.desc">Our team configures your AI stack, trains the models, and integrates with your existing tools.</p>
+        </div>
+        <div class="how-step reveal reveal-delay-2">
+          <div class="step-number">03</div>
+          <h3 data-i18n="how.step3.title">Go Live & Scale</h3>
+          <p data-i18n="how.step3.desc">Your automation goes live. We monitor, optimize, and scale as your business grows.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Pricing ───────────────────────────────────────────────── -->
+  <section class="section pricing-section" id="pricing">
+    <div class="section-header reveal">
+      <span class="section-label" data-i18n="pricing.label">Pricing</span>
+      <h2 data-i18n="pricing.title">Simple,<br/>transparent pricing</h2>
+      <p data-i18n="pricing.subtitle">No hidden fees. No surprises. Cancel anytime.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <!-- Plan 1: WhatsApp Order Bot ⭐ -->
+      <div class="pricing-card featured reveal">
+        <div class="popular-badge">⭐ Most Requested</div>
+        <div>
+          <div class="plan-name" data-i18n="pricing.p1.name">WhatsApp Order Bot</div>
+          <div class="plan-price-block">
+            <div style="display: flex; gap: 16px; align-items: baseline; margin-bottom: 8px;">
+              <div><span class="plan-price-symbol" id="sym1">$</span><span id="price1a">1,999</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
+            </div>
+            <div class="plan-price">
+              <span class="plan-price-symbol" id="sym1b">$</span>
+              <span id="price1b">499</span>
+              <span class="plan-price-period" data-i18n="pricing.period">/mo</span>
+            </div>
+          </div>
+          <div class="plan-desc" data-i18n="pricing.p1.desc">Automate orders, payments, and customer support 24/7 via WhatsApp.</div>
+        </div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span><span data-i18n="pricing.p1.f1">WhatsApp Bot Integration</span></li>
+          <li><span class="check">✓</span><span data-i18n="pricing.p1.f2">Order & Payment Processing</span></li>
+          <li><span class="check">✓</span><span data-i18n="pricing.p1.f3">24/7 Automated Support</span></li>
+          <li><span class="check">✓</span><span data-i18n="pricing.p1.f4">Advanced Analytics</span></li>
+          <li><span class="check">✓</span><span data-i18n="pricing.p1.f5">Priority Support</span></li>
+        </ul>
+        <div class="industry-avg" data-i18n-html="pricing.p1.industry" style="display:none; margin: 12px 0; padding: 12px; background: rgba(34,197,94,0.1); border-left: 3px solid #22c55e; border-radius: 4px; font-size: 12px; color: #22c55e;"></div>
+        <a href="https://buy.stripe.com/test_dRm9ASgZz0RGanYfBjdQQ00" class="btn-plan accent" target="_blank">Buy Now →</a>
+      </div>
+
+      <!-- Plan 2: Business Website + AI Chat -->
+      <div class="pricing-card reveal">
+        <div>
+          <div class="plan-name" data-i18n="pricing.p2.name">Business Website + AI Chat</div>
+          <div class="plan-price-block">
+            <div style="display: flex; gap: 16px; align-items: baseline; margin-bottom: 8px;">
+              <div><span class="plan-price-symbol" id="sym2">$</span><span id="price2a">1,499</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
+            </div>
+            <div class="plan-price">
+              <span class="plan-price-symbol" id="sym2b">$</span>
+              <span id="price2b">299</span>
+              <span class="plan-price-period" data-i18n="pricing.period">/mo</span>
+            </div>
+          </div>
+          <div class="plan-desc" data-i18n="pricing.p2.desc">Beautiful AI-powered website with intelligent chatbot.</div>
+        </div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span><span data-i18n="pricing.p2.f1">Custom Website</span></li>
+          <li><span class="check">✓</span><span data-i18n="pricing.p2.f2">AI Chatbot</span></li>
+          <li><span class="check">✓</span><span data-i18n="pricing.p2.f3">Lead Capture Forms</span></li>
+          <li><span class="check">✓</span><span data-i18n="pricing.p2.f4">SEO Optimization</span></li>
+          <li><span class="check">✓</span><span data-i18n="pricing.p2.f5">Analytics Dashboard</span></li>
+        </ul>
+        <div class="industry-avg" data-i18n-html="pricing.p2.industry" style="display:none; margin: 12px 0; padding: 12px; background: rgba(34,197,94,0.1); border-left: 3px solid #22c55e; border-radius: 4px; font-size: 12px; color: #22c55e;"></div>
+        <a href="https://buy.stripe.com/test_fZubJ0aBbgQEbs2bl3dQQ01" class="btn-plan" target="_blank">Buy Now →</a>
+      </div>
+
+      <!-- Plan 3: Social Media Automation -->
+      <div class="pricing-card reveal reveal-delay-1">
+        <div>
+          <div class="plan-name" data-i18n="pricing.p3.name">Social Media Automation</div>
+          <div class="plan-price-block">
+            <div class="plan-price">
+              <span class="plan-price-symbol" id="sym3">$</span>
+              <span id="price3">799</span>
+              <span class="plan-price-period" data-i18n="pricing.period">/mo</span>
+            </div>
+          </div>
+          <div class="plan-desc" data-i18n="pricing.p3.desc">AI-powered content creation and scheduling across platforms.</div>
+        </div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span><span data-i18n="pricing.p3.f1">AI Content Generation</span></li>
+          <li><span class="check">✓</span><span data-i18n="pricing.p3.f2">Multi-Platform Scheduling</span></li>
+          <li><span class="check">✓</span><span data-i18n="pricing.p3.f3">Engagement Analytics</span></li>
+          <li><span class="check">✓</span><span data-i18n="pricing.p3.f4">Hashtag Optimization</span></li>
+          <li><span class="check">✓</span><span data-i18n="pricing.p3.f5">Monthly Content Calendar</span></li>
+        </ul>
+        <div class="industry-avg" data-i18n-html="pricing.p3.industry" style="display:none; margin: 12px 0; padding: 12px; background: rgba(34,197,94,0.1); border-left: 3px solid #22c55e; border-radius: 4px; font-size: 12px; color: #22c55e;"></div>
+        <a href="https://buy.stripe.com/test_6oU8wO6kV6c00No4WFdQQ02" class="btn-plan" target="_blank">Buy Now →</a>
+      </div>
+
+      <!-- Plan 4: SEO + AI Content -->
+      <div class="pricing-card reveal reveal-delay-1">
+        <div>
+          <div class="plan-name" data-i18n="pricing.p4.name">SEO + AI Content</div>
+          <div class="plan-price-block">
+            <div class="plan-price">
+              <span class="plan-price-symbol" id="sym4">$</span>
+              <span id="price4">999</span>
+              <span class="plan-price-period" data-i18n="pricing.period">/mo</span>
+            </div>
+          </div>
+          <div class="plan-desc" data-i18n="pricing.p4.desc">Search engine optimization + AI blog content strategy.</div>
+        </div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span><span data-i18n="pricing.p4.f1">SEO Audit & Strategy</span></li>
+          <li><span class="check">✓</span><span data-i18n="pricing.p4.f2">AI Blog Posts (4/mo)</span></li>
+          <li><span class="check">✓</span><span data-i18n="pricing.p4.f3">Keyword Research</span></li>
+          <li><span class="check">✓</span><span data-i18n="pricing.p4.f4">Backlink Strategy</span></li>
+          <li><span class="check">✓</span><span data-i18n="pricing.p4.f5">Ranking Tracking</span></li>
+        </ul>
+        <div class="industry-avg" data-i18n-html="pricing.p4.industry" style="display:none; margin: 12px 0; padding: 12px; background: rgba(34,197,94,0.1); border-left: 3px solid #22c55e; border-radius: 4px; font-size: 12px; color: #22c55e;"></div>
+        <a href="https://buy.stripe.com/test_eVqbJ05gR0RG7bMagZdQQ03" class="btn-plan" target="_blank">Buy Now →</a>
+      </div>
+
+      <!-- Plan 5: Business Automation -->
+      <div class="pricing-card reveal reveal-delay-2">
+        <div>
+          <div class="plan-name" data-i18n="pricing.p5.name">Business Automation</div>
+          <div class="plan-price-block">
+            <div style="display: flex; gap: 16px; align-items: baseline; margin-bottom: 8px;">
+              <div><span class="plan-price-symbol" id="sym5">$</span><span id="price5a">2,499</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
+            </div>
+            <div class="plan-price">
+              <span class="plan-price-symbol" id="sym5b">$</span>
+              <span id="price5b">699</span>
+              <span class="plan-price-period" data-i18n="pricing.period">/mo</span>
+            </div>
+          </div>
+          <div class="plan-desc" data-i18n="pricing.p5.desc">Custom AI workflows for your unique business processes.</div>
+        </div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span><span data-i18n="pricing.p5.f1">Custom Workflow Design</span></li>
+          <li><span class="check">✓</span><span data-i18n="pricing.p5.f2">CRM Integration</span></li>
+          <li><span class="check">✓</span><span data-i18n="pricing.p5.f3">Email Automation</span></li>
+          <li><span class="check">✓</span><span data-i18n="pricing.p5.f4">Advanced Reporting</span></li>
+          <li><span class="check">✓</span><span data-i18n="pricing.p5.f5">Dedicated Support</span></li>
+        </ul>
+        <div class="industry-avg" data-i18n-html="pricing.p5.industry" style="display:none; margin: 12px 0; padding: 12px; background: rgba(34,197,94,0.1); border-left: 3px solid #22c55e; border-radius: 4px; font-size: 12px; color: #22c55e;"></div>
+        <a href="https://buy.stripe.com/test_28E6oGaBbeIw3ZAagZdQQ04" class="btn-plan" target="_blank">Buy Now →</a>
+      </div>
+
+      <!-- Plan 6: Full AI Package 🚀 -->
+      <div class="pricing-card featured reveal reveal-delay-2">
+        <div class="popular-badge">🚀 Best Value</div>
+        <div>
+          <div class="plan-name" data-i18n="pricing.p6.name">Full AI Package</div>
+          <div class="plan-price-block">
+            <div style="display: flex; gap: 16px; align-items: baseline; margin-bottom: 8px;">
+              <div><span class="plan-price-symbol" id="sym6">$</span><span id="price6a">4,999</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
+            </div>
+            <div class="plan-price">
+              <span class="plan-price-symbol" id="sym6b">$</span>
+              <span id="price6b">1,299</span>
+              <span class="plan-price-period" data-i18n="pricing.period">/mo</span>
+            </div>
+          </div>
+          <div class="plan-desc" data-i18n="pricing.p6.desc">Complete AI transformation: all tools, all features, white-glove service.</div>
+        </div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span><span data-i18n="pricing.p6.f1">Everything Included</span></li>
+          <li><span class="check">✓</span><span data-i18n="pricing.p6.f2">Custom AI Workflows</span></li>
+          <li><span class="check">✓</span><span data-i18n="pricing.p6.f3">Unlimited Customization</span></li>
+          <li><span class="check">✓</span><span data-i18n="pricing.p6.f4">24/7 Dedicated Support</span></li>
+          <li><span class="check">✓</span><span data-i18n="pricing.p6.f5">Monthly Strategy Sessions</span></li>
+        </ul>
+        <div class="industry-avg" data-i18n-html="pricing.p6.industry" style="display:none; margin: 12px 0; padding: 12px; background: rgba(34,197,94,0.1); border-left: 3px solid #22c55e; border-radius: 4px; font-size: 12px; color: #22c55e;"></div>
+        <a href="https://buy.stripe.com/test_28E4gydNnbwk2Vw74NdQQ05" class="btn-plan accent" target="_blank">Buy Now →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Trust / Testimonials ──────────────────────────────────── -->
+  <section class="trust-section" id="testimonials">
+    <div class="section-header reveal" style="margin-bottom:48px">
+      <span class="section-label" data-i18n="trust.label">Testimonials</span>
+      <h2 data-i18n="trust.title">Trusted by businesses<br/>across Mexico</h2>
+    </div>
+    <div class="trust-inner">
+      <div class="trust-card reveal">
+        <div class="trust-stars">★★★★★</div>
+        <div class="trust-quote" data-i18n="trust.q1">"AgentX automated our entire WhatsApp support. Response times went from hours to seconds. Revenue up 40% in 3 months."</div>
+        <div class="trust-author">
+          <div class="trust-avatar">MR</div>
+          <div>
+            <div class="trust-name">Mario Reyes</div>
+            <div class="trust-role" data-i18n="trust.r1">CEO, Distribuidora Reyes</div>
+          </div>
+        </div>
+      </div>
+      <div class="trust-card reveal reveal-delay-1">
+        <div class="trust-stars">★★★★★</div>
+        <div class="trust-quote" data-i18n="trust.q2">"Our new website converts 3x better than the old one. The AI adapts to what visitors want. It feels like magic."</div>
+        <div class="trust-author">
+          <div class="trust-avatar">AL</div>
+          <div>
+            <div class="trust-name">Ana López</div>
+            <div class="trust-role" data-i18n="trust.r2">Owner, Boutique Citlali</div>
+          </div>
+        </div>
+      </div>
+      <div class="trust-card reveal reveal-delay-2">
+        <div class="trust-stars">★★★★★</div>
+        <div class="trust-quote" data-i18n="trust.q3">"We save 40+ hours per week on repetitive tasks. My team now focuses on what actually grows the business."</div>
+        <div class="trust-author">
+          <div class="trust-avatar">JS</div>
+          <div>
+            <div class="trust-name">Jorge Salinas</div>
+            <div class="trust-role" data-i18n="trust.r3">Director, Grupo Salinas CDMX</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA Banner ────────────────────────────────────────────── -->
+  <section class="cta-banner" id="contact">
+    <div class="blob blob-3"></div>
+    <div class="cta-content reveal">
+      <span class="section-label" data-i18n="cta.label">Ready to start?</span>
+      <h2>
+        <span data-i18n="cta.title1">Your business,</span><br/>
+        <span class="gradient-text" data-i18n="cta.title2">on autopilot</span>
+      </h2>
+      <p data-i18n="cta.subtitle">Join 500+ businesses already running on AgentX. Setup in 72 hours, results from day one.</p>
+      <div class="hero-actions">
+        <a href="mailto:info@byagentx.com" class="btn-primary">
+          <span data-i18n="cta.email">Email us</span>
+          <span>→</span>
+        </a>
+        <a href="#pricing" class="btn-ghost" data-i18n="cta.see_pricing">See pricing</a>
+      </div>
+      <p class="cta-disclaimer">info@byagentx.com</p>
+    </div>
+  </section>
+
+  <!-- ─── Footer ───────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <a href="#" class="footer-logo">
+          <div class="nav-logo-mark" style="width:24px;height:24px;font-size:12px;">⚡</div>
+          AgentX
+        </a>
+        <span class="footer-tagline" data-i18n="footer.tagline">AI Automation for Businesses</span>
+      </div>
+      <div class="footer-links">
+        <a href="#features" data-i18n="nav.features">Features</a>
+        <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
+        <a href="mailto:info@byagentx.com" data-i18n="nav.contact">Contact</a>
+      </div>
+      <div class="footer-copy" data-i18n="footer.copyright">© 2026 AgentX. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <!-- ─── JavaScript ────────────────────────────────────────────── -->
+  <script>
+    /* ── Translations ──────────────────────────────────────────── */
+    const T = {
+      en: {
+        "nav.features":  "Features",
+        "nav.how":       "How it works",
+        "nav.pricing":   "Pricing",
+        "nav.contact":   "Contact",
+        "nav.cta":       "Get Started",
+        "hero.badge":    "Now available — AI agents for SMBs",
+        "hero.title1":   "Automate your",
+        "hero.title2":   "business with AI",
+        "hero.subtitle": "WhatsApp bots, smart websites, and custom AI workflows that save time and increase revenue — without hiring a dev team.",
+        "hero.cta1":     "Start free trial",
+        "hero.cta2":     "See how it works",
+        "mock.whatsapp": "WhatsApp Bot",
+        "mock.messages": "messages today",
+        "mock.conversion":"Conversion",
+        "mock.rate":     "website visitors",
+        "mock.saved":    "Time Saved",
+        "mock.week":     "this week",
+        "stats.businesses": "businesses automated",
+        "stats.satisfaction":"customer satisfaction",
+        "stats.saved":   "saved per week avg.",
+        "stats.uptime":  "always-on automation",
+        "features.label":"What we do",
+        "features.title":"Everything your business needs to run on autopilot",
+        "features.subtitle":"Three powerful tools, one cohesive platform — built for businesses that want results, not headaches.",
+        "features.whatsapp.title":"WhatsApp Bot",
+        "features.whatsapp.desc": "Automate customer support, orders, and bookings 24/7. Never miss a lead while you sleep.",
+        "features.whatsapp.tag":  "Automates support →",
+        "features.website.title": "Smart Website",
+        "features.website.desc":  "AI-powered landing pages that learn and adapt to convert visitors into paying customers with surgical precision.",
+        "features.website.tag":   "Converts visitors →",
+        "features.custom.title":  "Custom AI Workflows",
+        "features.custom.desc":   "Tailored automation for your unique business needs. Connect your tools, automate your processes, reclaim your time.",
+        "features.custom.tag":    "Saves 40h/week →",
+        "how.label":     "Process",
+        "how.title":     "Up and running in 72 hours",
+        "how.subtitle":  "No technical knowledge required. We set everything up for you.",
+        "how.step1.title":"Discovery Call",
+        "how.step1.desc":"We learn about your business, your customers, and the repetitive tasks eating your time.",
+        "how.step2.title":"We Build It",
+        "how.step2.desc":"Our team configures your AI stack, trains the models, and integrates with your existing tools.",
+        "how.step3.title":"Go Live & Scale",
+        "how.step3.desc":"Your automation goes live. We monitor, optimize, and scale as your business grows.",
+        "pricing.label": "Pricing",
+        "pricing.title": "Simple, transparent pricing",
+        "pricing.subtitle":"No hidden fees. No surprises. Cancel anytime.",
+        "pricing.setup":"setup",
+        "pricing.period":"/mo",
+        "pricing.p1.name":"WhatsApp Order Bot",
+        "pricing.p1.desc":"Automate orders, payments, and customer support 24/7 via WhatsApp.",
+        "pricing.p1.f1":"WhatsApp Bot Integration",
+        "pricing.p1.f2":"Order & Payment Processing",
+        "pricing.p1.f3":"24/7 Automated Support",
+        "pricing.p1.f4":"Advanced Analytics",
+        "pricing.p1.f5":"Priority Support",
+        "pricing.p1.cta":"Get Started →",
+        "pricing.p1.industry":"<strong>Industria promedio:</strong> $50,000/mes — <strong style='color: #22c55e;'>Ahorras 83%</strong>",
+        "pricing.p2.name":"Business Website + AI Chat",
+        "pricing.p2.desc":"Beautiful AI-powered website with intelligent chatbot.",
+        "pricing.p2.f1":"Custom Website",
+        "pricing.p2.f2":"AI Chatbot",
+        "pricing.p2.f3":"Lead Capture Forms",
+        "pricing.p2.f4":"SEO Optimization",
+        "pricing.p2.f5":"Analytics Dashboard",
+        "pricing.p2.cta":"Get Started →",
+        "pricing.p2.industry":"<strong>Industria promedio:</strong> $35,000/mes — <strong style='color: #22c55e;'>Ahorras 79%</strong>",
+        "pricing.p3.name":"Social Media Automation",
+        "pricing.p3.desc":"AI-powered content creation and scheduling across platforms.",
+        "pricing.p3.f1":"AI Content Generation",
+        "pricing.p3.f2":"Multi-Platform Scheduling",
+        "pricing.p3.f3":"Engagement Analytics",
+        "pricing.p3.f4":"Hashtag Optimization",
+        "pricing.p3.f5":"Monthly Content Calendar",
+        "pricing.p3.cta":"Get Started →",
+        "pricing.p3.industry":"<strong>Industria promedio:</strong> $25,000/mes — <strong style='color: #22c55e;'>Ahorras 46%</strong>",
+        "pricing.p4.name":"SEO + AI Content",
+        "pricing.p4.desc":"Search engine optimization + AI blog content strategy.",
+        "pricing.p4.f1":"SEO Audit & Strategy",
+        "pricing.p4.f2":"AI Blog Posts (4/mo)",
+        "pricing.p4.f3":"Keyword Research",
+        "pricing.p4.f4":"Backlink Strategy",
+        "pricing.p4.f5":"Ranking Tracking",
+        "pricing.p4.cta":"Get Started →",
+        "pricing.p4.industry":"<strong>Industria promedio:</strong> $30,000/mes — <strong style='color: #22c55e;'>Ahorras 43%</strong>",
+        "pricing.p5.name":"Business Automation",
+        "pricing.p5.desc":"Custom AI workflows for your unique business processes.",
+        "pricing.p5.f1":"Custom Workflow Design",
+        "pricing.p5.f2":"CRM Integration",
+        "pricing.p5.f3":"Email Automation",
+        "pricing.p5.f4":"Advanced Reporting",
+        "pricing.p5.f5":"Dedicated Support",
+        "pricing.p5.cta":"Get Started →",
+        "pricing.p5.industry":"<strong>Industria promedio:</strong> $45,000/mes — <strong style='color: #22c55e;'>Ahorras 73%</strong>",
+        "pricing.p6.name":"Full AI Package",
+        "pricing.p6.desc":"Complete AI transformation: all tools, all features, white-glove service.",
+        "pricing.p6.f1":"Everything Included",
+        "pricing.p6.f2":"Custom AI Workflows",
+        "pricing.p6.f3":"Unlimited Customization",
+        "pricing.p6.f4":"24/7 Dedicated Support",
+        "pricing.p6.f5":"Monthly Strategy Sessions",
+        "pricing.p6.cta":"Get Started →",
+        "pricing.p6.industry":"<strong>Industria promedio:</strong> $80,000/mes — <strong style='color: #22c55e;'>Ahorras 72%</strong>",
+        "trust.label":   "Testimonials",
+        "trust.title":   "Trusted by businesses across Mexico",
+        "trust.q1":      "\"AgentX automated our entire WhatsApp support. Response times went from hours to seconds. Revenue up 40% in 3 months.\"",
+        "trust.r1":      "CEO, Distribuidora Reyes",
+        "trust.q2":      "\"Our new website converts 3x better than the old one. The AI adapts to what visitors want. It feels like magic.\"",
+        "trust.r2":      "Owner, Boutique Citlali",
+        "trust.q3":      "\"We save 40+ hours per week on repetitive tasks. My team now focuses on what actually grows the business.\"",
+        "trust.r3":      "Director, Grupo Salinas CDMX",
+        "cta.label":     "Ready to start?",
+        "cta.title1":    "Your business,",
+        "cta.title2":    "on autopilot",
+        "cta.subtitle":  "Join 500+ businesses already running on AgentX. Setup in 72 hours, results from day one.",
+        "cta.email":     "Email us",
+        "cta.see_pricing":"See pricing",
+        "footer.tagline":"AI Automation for Businesses",
+        "footer.copyright":"© 2026 AgentX. All rights reserved.",
+      },
+      es: {
+        "nav.features":  "Características",
+        "nav.how":       "Cómo funciona",
+        "nav.pricing":   "Precios",
+        "nav.contact":   "Contacto",
+        "nav.cta":       "Comenzar",
+        "hero.badge":    "Ya disponible — Agentes AI para PyMEs",
+        "hero.title1":   "Automatiza tu",
+        "hero.title2":   "negocio con AI",
+        "hero.subtitle": "Bots de WhatsApp, sitios inteligentes y flujos AI personalizados que ahorran tiempo e incrementan ingresos — sin contratar un equipo de desarrollo.",
+        "hero.cta1":     "Prueba gratis",
+        "hero.cta2":     "Ver cómo funciona",
+        "mock.whatsapp": "Bot de WhatsApp",
+        "mock.messages": "mensajes hoy",
+        "mock.conversion":"Conversión",
+        "mock.rate":     "visitantes al sitio",
+        "mock.saved":    "Tiempo Ahorrado",
+        "mock.week":     "esta semana",
+        "stats.businesses": "negocios automatizados",
+        "stats.satisfaction":"satisfacción del cliente",
+        "stats.saved":   "ahorradas por semana en prom.",
+        "stats.uptime":  "automatización 24/7",
+        "features.label":"Lo que hacemos",
+        "features.title":"Todo lo que tu negocio necesita para funcionar en piloto automático",
+        "features.subtitle":"Tres herramientas poderosas, una plataforma cohesiva — construida para negocios que quieren resultados, no dolores de cabeza.",
+        "features.whatsapp.title":"Bot de WhatsApp",
+        "features.whatsapp.desc": "Automatiza soporte al cliente, pedidos y reservas 24/7. Nunca pierdas un lead mientras duermes.",
+        "features.whatsapp.tag":  "Automatiza soporte →",
+        "features.website.title": "Sitio Inteligente",
+        "features.website.desc":  "Páginas de destino con AI que aprenden y se adaptan para convertir visitantes en clientes con precisión quirúrgica.",
+        "features.website.tag":   "Convierte visitantes →",
+        "features.custom.title":  "Flujos AI Personalizados",
+        "features.custom.desc":   "Automatización adaptada a las necesidades únicas de tu negocio. Conecta tus herramientas, automatiza tus procesos, recupera tu tiempo.",
+        "features.custom.tag":    "Ahorra 40h/semana →",
+        "how.label":     "Proceso",
+        "how.title":     "Funcionando en 72 horas",
+        "how.subtitle":  "Sin conocimientos técnicos requeridos. Nosotros configuramos todo por ti.",
+        "how.step1.title":"Llamada de Descubrimiento",
+        "how.step1.desc":"Conocemos tu negocio, tus clientes y las tareas repetitivas que consumen tu tiempo.",
+        "how.step2.title":"Nosotros lo Construimos",
+        "how.step2.desc":"Nuestro equipo configura tu stack AI, entrena los modelos e integra con tus herramientas existentes.",
+        "how.step3.title":"Go Live y Escalar",
+        "how.step3.desc":"Tu automatización sale en vivo. Monitoreamos, optimizamos y escalamos conforme crece tu negocio.",
+        "pricing.label": "Precios",
+        "pricing.title": "Precios simples y transparentes",
+        "pricing.subtitle":"Sin cargos ocultos. Sin sorpresas. Cancela cuando quieras.",
+        "pricing.setup":"configuración",
+        "pricing.period":"/mes",
+        "pricing.p1.name":"Bot de Pedidos WhatsApp",
+        "pricing.p1.desc":"Automatiza pedidos, pagos y soporte al cliente 24/7 via WhatsApp.",
+        "pricing.p1.f1":"Integración Bot WhatsApp",
+        "pricing.p1.f2":"Procesamiento de Pedidos y Pagos",
+        "pricing.p1.f3":"Soporte Automatizado 24/7",
+        "pricing.p1.f4":"Análisis Avanzado",
+        "pricing.p1.f5":"Soporte Prioritario",
+        "pricing.p1.cta":"Comenzar →",
+        "pricing.p1.industry":"<strong>Industria promedio:</strong> $50,000/mes — <strong style='color: #22c55e;'>Ahorras 83%</strong>",
+        "pricing.p2.name":"Sitio Web + Chat AI",
+        "pricing.p2.desc":"Sitio web hermoso con chatbot inteligente impulsado por AI.",
+        "pricing.p2.f1":"Sitio Web Personalizado",
+        "pricing.p2.f2":"Chatbot AI",
+        "pricing.p2.f3":"Formularios de Captura de Leads",
+        "pricing.p2.f4":"Optimización SEO",
+        "pricing.p2.f5":"Panel de Análisis",
+        "pricing.p2.cta":"Comenzar →",
+        "pricing.p2.industry":"<strong>Industria promedio:</strong> $35,000/mes — <strong style='color: #22c55e;'>Ahorras 79%</strong>",
+        "pricing.p3.name":"Automatización Redes Sociales",
+        "pricing.p3.desc":"Creación de contenido impulsada por AI y programación entre plataformas.",
+        "pricing.p3.f1":"Generación de Contenido AI",
+        "pricing.p3.f2":"Programación Multi-Plataforma",
+        "pricing.p3.f3":"Análisis de Engagement",
+        "pricing.p3.f4":"Optimización de Hashtags",
+        "pricing.p3.f5":"Calendario de Contenido Mensual",
+        "pricing.p3.cta":"Comenzar →",
+        "pricing.p3.industry":"<strong>Industria promedio:</strong> $25,000/mes — <strong style='color: #22c55e;'>Ahorras 46%</strong>",
+        "pricing.p4.name":"SEO + Contenido AI",
+        "pricing.p4.desc":"Optimización de motores de búsqueda + estrategia de contenido AI.",
+        "pricing.p4.f1":"Auditoría y Estrategia SEO",
+        "pricing.p4.f2":"Posts de Blog AI (4/mes)",
+        "pricing.p4.f3":"Investigación de Palabras Clave",
+        "pricing.p4.f4":"Estrategia de Backlinks",
+        "pricing.p4.f5":"Seguimiento de Posiciones",
+        "pricing.p4.cta":"Comenzar →",
+        "pricing.p4.industry":"<strong>Industria promedio:</strong> $30,000/mes — <strong style='color: #22c55e;'>Ahorras 43%</strong>",
+        "pricing.p5.name":"Automatización Empresarial",
+        "pricing.p5.desc":"Flujos AI personalizados para los procesos únicos de tu negocio.",
+        "pricing.p5.f1":"Diseño de Flujo Personalizado",
+        "pricing.p5.f2":"Integración CRM",
+        "pricing.p5.f3":"Automatización de Email",
+        "pricing.p5.f4":"Reportes Avanzados",
+        "pricing.p5.f5":"Soporte Dedicado",
+        "pricing.p5.cta":"Comenzar →",
+        "pricing.p5.industry":"<strong>Industria promedio:</strong> $45,000/mes — <strong style='color: #22c55e;'>Ahorras 73%</strong>",
+        "pricing.p6.name":"Paquete Completo AI",
+        "pricing.p6.desc":"Transformación AI completa: todas las herramientas, todas las características, servicio personalizado.",
+        "pricing.p6.f1":"Todo Incluido",
+        "pricing.p6.f2":"Flujos AI Personalizados",
+        "pricing.p6.f3":"Personalización Ilimitada",
+        "pricing.p6.f4":"Soporte Dedicado 24/7",
+        "pricing.p6.f5":"Sesiones de Estrategia Mensuales",
+        "pricing.p6.cta":"Comenzar →",
+        "pricing.p6.industry":"<strong>Industria promedio:</strong> $80,000/mes — <strong style='color: #22c55e;'>Ahorras 72%</strong>",
+        "trust.label":   "Testimonios",
+        "trust.title":   "La confianza de negocios en todo México",
+        "trust.q1":      "\"AgentX automatizó todo nuestro soporte de WhatsApp. Los tiempos de respuesta pasaron de horas a segundos. Los ingresos subieron 40% en 3 meses.\"",
+        "trust.r1":      "CEO, Distribuidora Reyes",
+        "trust.q2":      "\"Nuestro nuevo sitio convierte 3x mejor que el anterior. El AI se adapta a lo que quieren los visitantes. Se siente como magia.\"",
+        "trust.r2":      "Dueña, Boutique Citlali",
+        "trust.q3":      "\"Ahorramos más de 40 horas por semana en tareas repetitivas. Mi equipo ahora se enfoca en lo que realmente hace crecer el negocio.\"",
+        "trust.r3":      "Director, Grupo Salinas CDMX",
+        "cta.label":     "¿Listo para empezar?",
+        "cta.title1":    "Tu negocio,",
+        "cta.title2":    "en piloto automático",
+        "cta.subtitle":  "Únete a más de 500 negocios que ya funcionan con AgentX. Configuración en 72 horas, resultados desde el primer día.",
+        "cta.email":     "Escríbenos",
+        "cta.see_pricing":"Ver precios",
+        "footer.tagline":"Automatización AI para Negocios",
+        "footer.copyright":"© 2026 AgentX. Todos los derechos reservados.",
+      }
+    };
+
+    /* Prices USD (in cents for Stripe) */
+    const USD = {
+      p1_setup: 199900, p1_monthly: 49900,
+      p2_setup: 149900, p2_monthly: 29900,
+      p3_monthly: 79900,
+      p4_monthly: 99900,
+      p5_setup: 249900, p5_monthly: 69900,
+      p6_setup: 499900, p6_monthly: 129900
+    };
+    const MXN_RATE = 18;
+
+    let currentLang = localStorage.getItem('agentx-lang') || 'en';
+
+    function applyLang(lang) {
+      const dict = T[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key] !== undefined) el.textContent = dict[key];
+      });
+
+      // Apply HTML translations (for industry average boxes)
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const key = el.getAttribute('data-i18n-html');
+        if (dict[key] !== undefined) {
+          el.innerHTML = dict[key];
+          el.style.display = lang === 'es' ? 'block' : 'none';
+        }
+      });
+
+      // prices
+      if (lang === 'es') {
+        // Plan 1
+        document.getElementById('price1a').textContent = (USD.p1_setup / 100 * MXN_RATE).toLocaleString('es-MX');
+        document.getElementById('price1b').textContent = (USD.p1_monthly / 100 * MXN_RATE).toLocaleString('es-MX');
+        // Plan 2
+        document.getElementById('price2a').textContent = (USD.p2_setup / 100 * MXN_RATE).toLocaleString('es-MX');
+        document.getElementById('price2b').textContent = (USD.p2_monthly / 100 * MXN_RATE).toLocaleString('es-MX');
+        // Plan 3
+        document.getElementById('price3').textContent = (USD.p3_monthly / 100 * MXN_RATE).toLocaleString('es-MX');
+        // Plan 4
+        document.getElementById('price4').textContent = (USD.p4_monthly / 100 * MXN_RATE).toLocaleString('es-MX');
+        // Plan 5
+        document.getElementById('price5a').textContent = (USD.p5_setup / 100 * MXN_RATE).toLocaleString('es-MX');
+        document.getElementById('price5b').textContent = (USD.p5_monthly / 100 * MXN_RATE).toLocaleString('es-MX');
+        // Plan 6
+        document.getElementById('price6a').textContent = (USD.p6_setup / 100 * MXN_RATE).toLocaleString('es-MX');
+        document.getElementById('price6b').textContent = (USD.p6_monthly / 100 * MXN_RATE).toLocaleString('es-MX');
+      } else {
+        // Plan 1 (convert cents to dollars with 2 decimals)
+        document.getElementById('price1a').textContent = '$' + (USD.p1_setup / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('price1b').textContent = (USD.p1_monthly / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        // Plan 2
+        document.getElementById('price2a').textContent = '$' + (USD.p2_setup / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('price2b').textContent = (USD.p2_monthly / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        // Plan 3
+        document.getElementById('price3').textContent = (USD.p3_monthly / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        // Plan 4
+        document.getElementById('price4').textContent = (USD.p4_monthly / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        // Plan 5
+        document.getElementById('price5a').textContent = '$' + (USD.p5_setup / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('price5b').textContent = (USD.p5_monthly / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        // Plan 6
+        document.getElementById('price6a').textContent = '$' + (USD.p6_setup / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('price6b').textContent = (USD.p6_monthly / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      }
+
+      // toggle button label
+      document.getElementById('langToggle').textContent = lang === 'en' ? 'ES' : 'EN';
+      document.documentElement.lang = lang;
+    }
+
+    function toggleLanguage() {
+      currentLang = currentLang === 'en' ? 'es' : 'en';
+      localStorage.setItem('agentx-lang', currentLang);
+      applyLang(currentLang);
+    }
+
+    /* ── Nav scroll effect ─────────────────────────────────────── */
+    const nav = document.getElementById('nav');
+    const topbar = document.getElementById('topbar');
+
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      const docH = document.documentElement.scrollHeight - window.innerHeight;
+      topbar.style.width = (scrolled / docH * 100) + '%';
+      nav.classList.toggle('scrolled', scrolled > 20);
+    }, { passive: true });
+
+    /* ── Scroll-reveal (IntersectionObserver) ──────────────────── */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal, .stat-item').forEach(el => revealObserver.observe(el));
+
+    /* ── Mobile nav ────────────────────────────────────────────── */
+    function openMobileNav() {
+      document.getElementById('mobileNav').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMobileNav() {
+      document.getElementById('mobileNav').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('mobileNavClose').addEventListener('click', closeMobileNav);
+
+    /* ── Init ──────────────────────────────────────────────────── */
+    document.addEventListener('DOMContentLoaded', () => {
+      applyLang(currentLang);
+
+      /* stagger mock-card entrance */
+      document.querySelectorAll('.mock-card').forEach((card, i) => {
+        card.style.animationDelay = (0.6 + i * 0.12) + 's';
+        card.style.animation = 'fadeInUp 0.6s ease both';
+        card.style.animationDelay = (0.7 + i * 0.15) + 's';
+      });
+    });
+
+    /* ── Cursor glow (desktop only) ────────────────────────────── */
+    if (window.matchMedia('(pointer: fine)').matches) {
+      const glow = document.createElement('div');
+      glow.style.cssText = `
+        position:fixed; pointer-events:none; z-index:9999;
+        width:300px; height:300px; border-radius:50%;
+        background:radial-gradient(circle, rgba(124,92,252,0.08) 0%, transparent 70%);
+        transform:translate(-50%,-50%);
+        transition:left 0.3s ease, top 0.3s ease;
+      `;
+      document.body.appendChild(glow);
+      document.addEventListener('mousemove', e => {
+        glow.style.left = e.clientX + 'px';
+        glow.style.top  = e.clientY + 'px';
+      });
+    }
+  </script>
+</body>
+</html>
