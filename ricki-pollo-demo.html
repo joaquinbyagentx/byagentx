@@ -8,7 +8,7 @@
   <meta property="og:title" content="Ricki Pollo — Rostizados a la Leña" />
   <meta property="og:description" content="Pollo rostizado a la leña en Cholula, Puebla. Artesanal, tradicional y delicioso." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="ricki-pollo-img/hero.jpg" />
+  <meta property="og:image" content="ricki-pollo-img/hero-new.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
@@ -197,7 +197,7 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background-image: url('ricki-pollo-img/hero.jpg');
+      background-image: url('ricki-pollo-img/hero-new.jpg');
       background-size: cover;
       background-position: center;
       transform: scale(1.08);
@@ -1164,7 +1164,7 @@
         <!-- Card 1 -->
         <div class="menu-card fade-in">
           <div class="menu-card-img">
-            <img src="ricki-pollo-img/hero.jpg" alt="Pollo Rostizado" onerror="this.style.display='none'" />
+            <img src="ricki-pollo-img/pollo-rostizado.jpg" alt="Pollo Rostizado" onerror="this.style.display='none'" />
             <span class="card-emoji">🍗</span>
             <div class="menu-card-badge">Clásico</div>
           </div>
@@ -1192,7 +1192,7 @@
         <!-- Card 2 -->
         <div class="menu-card fade-in fade-in-delay-1">
           <div class="menu-card-img">
-            <img src="ricki-pollo-img/combo.jpg" alt="Paquete Ejecutivo" onerror="this.style.display='none'" />
+            <img src="ricki-pollo-img/pollo-rostizado.jpg" alt="Paquete Ejecutivo" onerror="this.style.display='none'" />
             <span class="card-emoji">🔥</span>
             <div class="menu-card-badge popular">Más Pedido</div>
           </div>
@@ -1220,7 +1220,7 @@
         <!-- Card 3 -->
         <div class="menu-card fade-in fade-in-delay-2">
           <div class="menu-card-img">
-            <img src="ricki-pollo-img/combo.jpg" alt="Paquete Familiar" onerror="this.style.display='none'" />
+            <img src="ricki-pollo-img/paquete-familiar.jpg" alt="Paquete Familiar" onerror="this.style.display='none'" />
             <span class="card-emoji">🎉</span>
             <div class="menu-card-badge popular">Para la Familia</div>
           </div>
@@ -1248,7 +1248,7 @@
         <!-- Card 4 -->
         <div class="menu-card fade-in fade-in-delay-3">
           <div class="menu-card-img">
-            <img src="ricki-pollo-img/hero.jpg" alt="Pollo Adobado" onerror="this.style.display='none'" />
+            <img src="ricki-pollo-img/pollo-adobado.jpg" alt="Pollo Adobado" onerror="this.style.display='none'" />
             <span class="card-emoji">🌶️</span>
             <div class="menu-card-badge">Especial</div>
           </div>
@@ -1281,6 +1281,10 @@
        COMPLEMENTOS
   ============================================================ -->
   <section id="complementos">
+    <div class="complementos-banner" style="width:100%;height:280px;overflow:hidden;position:relative;margin-bottom:0;">
+      <img src="ricki-pollo-img/complementos.jpg" alt="Guarniciones Ricki Pollo" style="width:100%;height:100%;object-fit:cover;object-position:center;" onerror="this.parentElement.style.display='none'" />
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(30,30,30,0.2) 0%,rgba(30,30,30,0.65) 100%);"></div>
+    </div>
     <div class="container">
       <div class="section-head centered">
         <div class="section-label fade-in">Para acompañar</div>
@@ -1360,6 +1364,9 @@
         </div>
       </div>
 
+      <div class="salsas-banner fade-in" style="margin-bottom:32px;border-radius:12px;overflow:hidden;max-height:200px;">
+        <img src="ricki-pollo-img/salsas.jpg" alt="Salsas Ricki Pollo" style="width:100%;height:200px;object-fit:cover;object-position:center;display:block;" onerror="this.parentElement.style.display='none'" />
+      </div>
       <div class="complementos-subtitle fade-in">Salsas y Extras</div>
       <div class="comp-grid">
         <div class="comp-card fade-in">
@@ -1700,7 +1707,7 @@
 
     // Hero image fallback
     const heroImg = new Image();
-    heroImg.src = 'ricki-pollo-img/hero.jpg';
+    heroImg.src = 'ricki-pollo-img/hero-new.jpg';
     heroImg.onerror = () => {
       heroBgFallback.style.opacity = '1';
     };
