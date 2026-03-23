@@ -1155,12 +1155,12 @@
           <div class="plan-name" data-i18n="pricing.p1.name">WhatsApp Order Bot</div>
           <div class="plan-price-block">
             <div style="display: flex; gap: 16px; align-items: baseline; margin-bottom: 8px;">
-              <div><span class="plan-price-symbol" id="sym1">$</span><span id="price1a">500</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
+              <div><span class="plan-price-symbol" id="sym1">$</span><span id="price1a">1,999</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
               <div class="price-mxn" id="price1a-mxn"></div>
             </div>
             <div class="plan-price">
               <span class="plan-price-symbol" id="sym1b">$</span>
-              <span id="price1b">150</span>
+              <span id="price1b">499</span>
               <span class="plan-price-period" data-i18n="pricing.period">/mo</span>
             </div>
             <div class="price-mxn" id="price1b-mxn"></div>
@@ -1185,12 +1185,12 @@
           <div class="plan-name" data-i18n="pricing.p2.name">Business Website + AI Chat</div>
           <div class="plan-price-block">
             <div style="display: flex; gap: 16px; align-items: baseline; margin-bottom: 8px;">
-              <div><span class="plan-price-symbol" id="sym2">$</span><span id="price2a">1,500</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
+              <div><span class="plan-price-symbol" id="sym2">$</span><span id="price2a">1,499</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
               <div class="price-mxn" id="price2a-mxn"></div>
             </div>
             <div class="plan-price">
               <span class="plan-price-symbol" id="sym2b">$</span>
-              <span id="price2b">200</span>
+              <span id="price2b">299</span>
               <span class="plan-price-period" data-i18n="pricing.period">/mo</span>
             </div>
             <div class="price-mxn" id="price2b-mxn"></div>
@@ -1215,12 +1215,12 @@
           <div class="plan-name" data-i18n="pricing.p3.name">Social Media Automation</div>
           <div class="plan-price-block">
             <div style="display: flex; gap: 16px; align-items: baseline; margin-bottom: 8px;">
-              <div><span class="plan-price-symbol" id="sym3a">$</span><span id="price3a">700</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
+              <div><span class="plan-price-symbol" id="sym3a">$</span><span id="price3a">499</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
               <div class="price-mxn" id="price3a-mxn"></div>
             </div>
             <div class="plan-price">
               <span class="plan-price-symbol" id="sym3">$</span>
-              <span id="price3">150</span>
+              <span id="price3">799</span>
               <span class="plan-price-period" data-i18n="pricing.period">/mo</span>
             </div>
             <div class="price-mxn" id="price3-mxn"></div>
@@ -1245,12 +1245,12 @@
           <div class="plan-name" data-i18n="pricing.p4.name">SEO + AI Content</div>
           <div class="plan-price-block">
             <div style="display: flex; gap: 16px; align-items: baseline; margin-bottom: 8px;">
-              <div><span class="plan-price-symbol" id="sym4a">$</span><span id="price4a">1,000</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
+              <div><span class="plan-price-symbol" id="sym4a">$</span><span id="price4a">499</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
               <div class="price-mxn" id="price4a-mxn"></div>
             </div>
             <div class="plan-price">
               <span class="plan-price-symbol" id="sym4">$</span>
-              <span id="price4">150</span>
+              <span id="price4">999</span>
               <span class="plan-price-period" data-i18n="pricing.period">/mo</span>
             </div>
             <div class="price-mxn" id="price4-mxn"></div>
@@ -1275,12 +1275,12 @@
           <div class="plan-name" data-i18n="pricing.p5.name">Business Automation</div>
           <div class="plan-price-block">
             <div style="display: flex; gap: 16px; align-items: baseline; margin-bottom: 8px;">
-              <div><span class="plan-price-symbol" id="sym5">$</span><span id="price5a">2,000</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
+              <div><span class="plan-price-symbol" id="sym5">$</span><span id="price5a">2,499</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
               <div class="price-mxn" id="price5a-mxn"></div>
             </div>
             <div class="plan-price">
               <span class="plan-price-symbol" id="sym5b">$</span>
-              <span id="price5b">400</span>
+              <span id="price5b">699</span>
               <span class="plan-price-period" data-i18n="pricing.period">/mo</span>
             </div>
             <div class="price-mxn" id="price5b-mxn"></div>
@@ -1306,12 +1306,12 @@
           <div class="plan-name" data-i18n="pricing.p6.name">Full AI Package</div>
           <div class="plan-price-block">
             <div style="display: flex; gap: 16px; align-items: baseline; margin-bottom: 8px;">
-              <div><span class="plan-price-symbol" id="sym6">$</span><span id="price6a">2,500</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
+              <div><span class="plan-price-symbol" id="sym6">$</span><span id="price6a">4,999</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
               <div class="price-mxn" id="price6a-mxn"></div>
             </div>
             <div class="plan-price">
               <span class="plan-price-symbol" id="sym6b">$</span>
-              <span id="price6b">500</span>
+              <span id="price6b">1,299</span>
               <span class="plan-price-period" data-i18n="pricing.period">/mo</span>
             </div>
             <div class="price-mxn" id="price6b-mxn"></div>
@@ -1677,12 +1677,12 @@
 
     /* Prices USD (in cents for Stripe) */
     const USD = {
-      p1_setup: 10000, p1_monthly: 3000,
-      p2_setup: 30000, p2_monthly: 4000,
-      p3_setup: 14000, p3_monthly: 3000,
-      p4_setup: 20000, p4_monthly: 3000,
-      p5_setup: 40000, p5_monthly: 8000,
-      p6_setup: 50000, p6_monthly: 10000
+      p1_setup: 50000, p1_monthly: 15000,
+      p2_setup: 150000, p2_monthly: 20000,
+      p3_setup: 70000,  p3_monthly: 15000,
+      p4_setup: 100000,  p4_monthly: 15000,
+      p5_setup: 200000, p5_monthly: 40000,
+      p6_setup: 250000, p6_monthly: 50000
     };
     const MXN_RATE = 20;
 
