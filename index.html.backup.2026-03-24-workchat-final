@@ -48,11 +48,6 @@
     /* ─── Reset ─────────────────────────────────────────────────── */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    
-    /* ─── Scroll Margins for Fixed Nav ─────────────────────────── */
-    #features, #how, #pricing, #contact, #workchat {
-      scroll-margin-top: 80px;
-    }
     body {
       font-family: var(--font);
       background: var(--bg);
@@ -1111,7 +1106,6 @@
     <a href="portfolio.html" onclick="closeMobileNav()">Portfolio</a>
     <a href="#pricing" onclick="closeMobileNav()" data-i18n="nav.pricing">Pricing</a>
     <a href="#contact" onclick="closeMobileNav()" data-i18n="nav.contact">Contact</a>
-    <a href="#workchat" onclick="closeMobileNav()" data-i18n="nav.workchat">Work Chat</a>
   </nav>
 
   <!-- Navigation -->
@@ -1971,7 +1965,7 @@
         "nav.how":       "Cómo funciona",
         "nav.pricing":   "Precios",
         "nav.contact":   "Contacto",
-        "nav.workchat":  "Chat de Trabajo",
+        "nav.workchat":  "Work Chat",
         "nav.cta":       "Comenzar",
         "hero.badge":    "Ya disponible — Agentes AI para PyMEs",
         "hero.title1":   "Automatiza tu",

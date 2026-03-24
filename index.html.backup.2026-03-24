@@ -1111,7 +1111,6 @@
     <a href="portfolio.html" onclick="closeMobileNav()">Portfolio</a>
     <a href="#pricing" onclick="closeMobileNav()" data-i18n="nav.pricing">Pricing</a>
     <a href="#contact" onclick="closeMobileNav()" data-i18n="nav.contact">Contact</a>
-    <a href="#workchat" onclick="closeMobileNav()" data-i18n="nav.workchat">Work Chat</a>
   </nav>
 
   <!-- Navigation -->
