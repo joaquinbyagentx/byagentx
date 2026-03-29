@@ -353,6 +353,70 @@
       max-width: 480px; margin: 0 auto 40px;
     }
 
+    /* ─── Why AgentX Section ─────────────────────────────────── */
+    .why-agentx-section {
+      padding: 120px 0;
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+    }
+    .why-agentx-content {
+      display: flex;
+      gap: 64px;
+      align-items: center;
+    }
+    .why-agentx-left {
+      flex: 1;
+    }
+    .why-agentx-left h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .why-agentx-left h2 span {
+      background: var(--gradient-hero);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .why-agentx-left p {
+      font-size: 16px;
+      color: var(--text-2);
+      line-height: 1.7;
+    }
+    .why-agentx-right {
+      flex: 1;
+    }
+    .why-agentx-right ul {
+      list-style: none;
+      display: grid;
+      gap: 20px;
+    }
+    .why-agentx-right li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text-1);
+    }
+    .why-agentx-right li svg {
+      color: var(--green);
+      min-width: 20px;
+      min-height: 20px;
+    }
+
+    /* ─── Scroll Reveal Animation ────────────────────────────── */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .scroll-reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     /* ─── Footer ─────────────────────────────────────────────── */
     .footer {
       padding: 40px 0;
@@ -374,6 +438,14 @@
       .nav-links { display: none; }
       .hero { padding: 120px 0 60px; }
       .chart-visual { height: 180px; margin: 40px auto 0; }
+      .why-agentx-content {
+        flex-direction: column;
+        gap: 40px;
+      }
+      .why-agentx-left, .why-agentx-right {
+        flex: none;
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -518,17 +590,68 @@
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="cta-section">
+  <!-- Why AgentX -->
+  <section class="why-agentx-section">
     <div class="container">
-      <h2>Ready to automate<br/>your trading?</h2>
-      <p>Join the next generation of traders who let AI do the heavy lifting.</p>
-      <a href="https://byagentx.com#contact" class="hero-cta">
-        Deploy Your Bot
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l7-4-7-4z"/></svg>
-      </a>
+      <div class="why-agentx-content">
+        <div class="why-agentx-left">
+          <div class="section-label">Why Choose AgentX?</div>
+          <h2>Unlock unparalleled trading advantages with our<br/><span>AI-powered bots</span>.</h2>
+          <p>AgentX brings cutting-edge artificial intelligence directly to your trading desk. Our bots are engineered for precision, speed, and continuous learning, ensuring your investments are always managed with the most advanced strategies available.</p>
+        </div>
+        <div class="why-agentx-right">
+          <ul>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>24/7 Market Surveillance</span>
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Adaptive AI Strategies</span>
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Reduced Emotional Trading</span>
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></polyline></svg>
+              <span>Seamless Broker Integration</span>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
+<section class="features" style="border-top: 1px solid var(--border);">
+  <div class="container">
+    <div class="features-header">
+      <div class="section-label">Why AgentX</div>
+      <h2>Built by traders.<br/>Powered by engineers.</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;">
+      <div>
+        <p style="font-size:16px;color:var(--text-2);line-height:1.8;">We combine Wall Street trading strategies with cutting-edge AI. Every bot is custom-configured for your risk profile, monitored 24/7, and backed by a team that actually understands markets.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div style="display:flex;align-items:center;gap:12px;"><span style="color:var(--green);font-size:20px;">✓</span><span style="font-size:14px;">Custom strategy per client</span></div>
+        <div style="display:flex;align-items:center;gap:12px;"><span style="color:var(--green);font-size:20px;">✓</span><span style="font-size:14px;">Paper trading before going live</span></div>
+        <div style="display:flex;align-items:center;gap:12px;"><span style="color:var(--green);font-size:20px;">✓</span><span style="font-size:14px;">Real-time alerts and monitoring</span></div>
+        <div style="display:flex;align-items:center;gap:12px;"><span style="color:var(--green);font-size:20px;">✓</span><span style="font-size:14px;">No lock-in — cancel anytime</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <h2>Ready to automate<br/>your trading?</h2>
+    <p>Join the next generation of traders who let AI do the heavy lifting.</p>
+    <a href="https://byagentx.com#contact" class="hero-cta">
+      Deploy Your Bot
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l7-4-7-4z"/></svg>
+    </a>
+  </div>
+</section>
 
   <!-- Footer -->
   <footer class="footer">
@@ -536,6 +659,54 @@
       <p>&copy; 2026 <a href="https://byagentx.com">AgentX</a> — AI Automation for Businesses</p>
     </div>
   </footer>
+  <script>
+    const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
 
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Apply scroll-reveal class to existing sections for animation
+    document.querySelectorAll('.hero-content, .stats-bar, .features, .how-section, .why-agentx-section, .cta-section').forEach(section => {
+      section.classList.add('scroll-reveal');
+    });
+
+    scrollRevealElements.forEach(element => {
+      observer.observe(element);
+    });
+
+    // Specific delay for candles (if needed, ensure they also have scroll-reveal class if meant to be observed)
+    document.querySelectorAll('.candle').forEach((candle, index) => {
+      candle.style.animationDelay = `${index * 0.05}s`;
+      // If you want candles to also fade in with scroll-reveal, add the class here:
+      // candle.classList.add('scroll-reveal'); 
+    });
+  </script>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add("visible"); observer.unobserve(e.target); } });
+}, {threshold: 0.1});
+
+document.querySelectorAll(".feature-card, .stat, .how-step, .features-header, .how-header, .cta-section h2").forEach(el => {
+  el.style.opacity = "0";
+  el.style.transform = "translateY(30px)";
+  el.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+  observer.observe(el);
+});
+
+document.head.insertAdjacentHTML("beforeend", "<style>.visible{opacity:1!important;transform:translateY(0)!important;}</style>");
+</script>
 </body>
 </html>
