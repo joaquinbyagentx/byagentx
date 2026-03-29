@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Trading Bots — AgentX</title>
+  <meta name="description" content="Automated AI trading bots that execute trades in milliseconds, analyze trends, and manage risk 24/7." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Design Tokens (matching byagentx.com) ──────────────── */
+    :root {
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+      --bg:          #0a0a0f;
+      --bg-2:        #101018;
+      --bg-3:        #16161f;
+      --border:      rgba(255,255,255,0.07);
+      --border-mid:  rgba(255,255,255,0.12);
+      --text-1:      #f0f0ff;
+      --text-2:      #a0a0b8;
+      --text-3:      #606078;
+      --accent:      #7c5cfc;
+      --accent-2:    #5b8af5;
+      --accent-glow: rgba(124,92,252,0.35);
+      --accent-light: rgba(124,92,252,0.12);
+      --green:       #22c55e;
+      --green-glow:  rgba(34,197,94,0.2);
+      --red:         #ef4444;
+      --gradient-hero: linear-gradient(135deg, #7c5cfc 0%, #5b8af5 50%, #38c8ff 100%);
+      --gradient-card: linear-gradient(145deg, rgba(124,92,252,0.08) 0%, rgba(91,138,245,0.04) 100%);
+      --r-sm: 8px; --r-md: 16px; --r-lg: 24px; --r-xl: 32px;
+      --t-fast: 150ms cubic-bezier(0.4,0,0.2,1);
+      --t-mid:  300ms cubic-bezier(0.4,0,0.2,1);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text-1);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border-mid); border-radius: 99px; }
+
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+    /* ─── Navigation ─────────────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 16px 0;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav .container {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-size: 20px; font-weight: 800; letter-spacing: -0.5px;
+      background: var(--gradient-hero); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a {
+      font-size: 13px; font-weight: 500; color: var(--text-2);
+      text-decoration: none; transition: color var(--t-fast);
+    }
+    .nav-links a:hover { color: var(--text-1); }
+    .nav-cta {
+      font-size: 13px; font-weight: 600; color: #fff !important;
+      background: var(--accent); padding: 8px 20px; border-radius: 99px;
+      transition: all var(--t-fast);
+    }
+    .nav-cta:hover { background: #6b4be0; transform: translateY(-1px); }
+
+    /* ─── Hero ───────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      padding: 160px 0 100px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; left: 50%; transform: translateX(-50%);
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      z-index: 0;
+      opacity: 0.5;
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent);
+      background: var(--accent-light);
+      border: 1px solid rgba(124,92,252,0.25);
+      padding: 5px 14px; border-radius: 99px; margin-bottom: 24px;
+    }
+    .hero-label::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+    .hero h1 {
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 900; letter-spacing: -2px;
+      line-height: 1.05; margin-bottom: 20px;
+    }
+    .hero h1 span {
+      background: var(--gradient-hero);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      font-size: 18px; color: var(--text-2);
+      max-width: 560px; margin: 0 auto 40px;
+    }
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 15px; font-weight: 700; color: #fff;
+      background: var(--gradient-hero);
+      padding: 14px 36px; border-radius: 99px;
+      text-decoration: none;
+      box-shadow: 0 4px 30px var(--accent-glow);
+      transition: all var(--t-mid);
+    }
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px var(--accent-glow);
+    }
+
+    /* ─── Live Chart Animation ───────────────────────────────── */
+    .chart-visual {
+      position: relative;
+      max-width: 800px; margin: 60px auto 0;
+      height: 240px;
+      border-radius: var(--r-lg);
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .chart-visual::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 100%;
+      background: linear-gradient(to top, var(--bg-2) 0%, transparent 60%);
+      z-index: 1;
+    }
+    .chart-candles {
+      position: absolute; bottom: 40px; left: 40px; right: 40px;
+      display: flex; align-items: flex-end; gap: 6px;
+      height: 160px;
+    }
+    .candle {
+      flex: 1;
+      border-radius: 3px 3px 0 0;
+      animation: candleGrow 2s ease-out forwards;
+      opacity: 0;
+    }
+    .candle.green { background: linear-gradient(to top, rgba(34,197,94,0.3), var(--green)); }
+    .candle.red { background: linear-gradient(to top, rgba(239,68,68,0.3), var(--red)); }
+    @keyframes candleGrow {
+      from { height: 0; opacity: 0; }
+      to { opacity: 1; }
+    }
+    .chart-grid-line {
+      position: absolute; left: 40px; right: 40px;
+      height: 1px; background: var(--border);
+    }
+    .chart-label {
+      position: absolute; right: 12px; font-size: 10px;
+      color: var(--text-3); font-weight: 500;
+      transform: translateY(-50%);
+    }
+    .chart-overlay-badge {
+      position: absolute; top: 16px; left: 20px;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 600;
+      color: var(--green); z-index: 2;
+    }
+    .chart-overlay-badge .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--green-glow); }
+      50% { opacity: 0.7; box-shadow: 0 0 0 8px transparent; }
+    }
+
+    /* ─── Stats Bar ──────────────────────────────────────────── */
+    .stats-bar {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--border);
+      border-radius: var(--r-lg); overflow: hidden;
+      max-width: 800px; margin: 60px auto 0;
+    }
+    .stat {
+      background: var(--bg-2); padding: 32px;
+      text-align: center;
+    }
+    .stat-value {
+      font-size: 36px; font-weight: 800;
+      letter-spacing: -1.5px;
+      background: var(--gradient-hero);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .stat-label {
+      font-size: 12px; font-weight: 500;
+      color: var(--text-3); margin-top: 4px;
+      text-transform: uppercase; letter-spacing: 0.08em;
+    }
+
+    /* ─── Features Section ───────────────────────────────────── */
+    .features {
+      padding: 120px 0;
+    }
+    .features-header {
+      text-align: center; margin-bottom: 64px;
+    }
+    .section-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent);
+      background: var(--accent-light);
+      border: 1px solid rgba(124,92,252,0.25);
+      padding: 5px 14px; border-radius: 99px; margin-bottom: 20px;
+    }
+    .section-label::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+    }
+    .features-header h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800; letter-spacing: -1.5px;
+      line-height: 1.15;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .feature-card {
+      position: relative;
+      background: var(--gradient-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 40px 32px;
+      transition: all var(--t-mid);
+      overflow: hidden;
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gradient-hero);
+      opacity: 0;
+      transition: opacity var(--t-mid);
+    }
+    .feature-card:hover {
+      border-color: rgba(124,92,252,0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .feature-card:hover::before { opacity: 1; }
+    .feature-icon {
+      width: 56px; height: 56px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px;
+      background: var(--accent-light);
+      border: 1px solid rgba(124,92,252,0.2);
+      border-radius: var(--r-md);
+      margin-bottom: 24px;
+    }
+    .feature-card h3 {
+      font-size: 18px; font-weight: 700;
+      letter-spacing: -0.3px; margin-bottom: 10px;
+    }
+    .feature-card p {
+      font-size: 14px; color: var(--text-2); line-height: 1.65;
+    }
+
+    /* ─── How it Works ───────────────────────────────────────── */
+    .how-section {
+      padding: 100px 0;
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .how-header {
+      text-align: center; margin-bottom: 64px;
+    }
+    .how-header h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800; letter-spacing: -1.5px;
+    }
+    .how-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      counter-reset: step;
+    }
+    .how-step {
+      text-align: center;
+      counter-increment: step;
+    }
+    .how-step::before {
+      content: counter(step);
+      display: flex; align-items: center; justify-content: center;
+      width: 48px; height: 48px; margin: 0 auto 20px;
+      font-size: 18px; font-weight: 800; color: var(--accent);
+      border: 2px solid rgba(124,92,252,0.3);
+      border-radius: 50%;
+      background: var(--accent-light);
+    }
+    .how-step h4 {
+      font-size: 15px; font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .how-step p {
+      font-size: 13px; color: var(--text-2);
+      line-height: 1.6;
+    }
+
+    /* ─── CTA Section ────────────────────────────────────────── */
+    .cta-section {
+      padding: 120px 0;
+      text-align: center;
+    }
+    .cta-section h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800; letter-spacing: -1.5px;
+      margin-bottom: 16px;
+    }
+    .cta-section p {
+      font-size: 16px; color: var(--text-2);
+      max-width: 480px; margin: 0 auto 40px;
+    }
+
+    /* ─── Footer ─────────────────────────────────────────────── */
+    .footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .footer p {
+      font-size: 12px; color: var(--text-3);
+    }
+    .footer a {
+      color: var(--accent); text-decoration: none;
+    }
+
+    /* ─── Responsive ─────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .how-steps { grid-template-columns: repeat(2, 1fr); }
+      .stats-bar { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .hero { padding: 120px 0 60px; }
+      .chart-visual { height: 180px; margin: 40px auto 0; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container">
+      <a href="https://byagentx.com" class="nav-logo">AgentX</a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#how">How it Works</a>
+        <a href="https://byagentx.com">Home</a>
+        <a href="https://byagentx.com#contact" class="nav-cta">Contact Us</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-content">
+      <div class="hero-label">Trading</div>
+      <h1>Master the Markets<br/>with <span>AI Intelligence</span></h1>
+      <p class="hero-sub">Precision execution, unmatched speed, 24/7 opportunity capture. Your portfolio never sleeps.</p>
+      <a href="https://byagentx.com#contact" class="hero-cta">
+        Deploy Your Bot
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l7-4-7-4z"/></svg>
+      </a>
+
+      <!-- Animated Chart -->
+      <div class="chart-visual">
+        <div class="chart-overlay-badge">
+          <span class="dot"></span> LIVE — AI Bot Active
+        </div>
+        <div class="chart-grid-line" style="bottom: 25%"></div>
+        <div class="chart-grid-line" style="bottom: 50%"></div>
+        <div class="chart-grid-line" style="bottom: 75%"></div>
+        <span class="chart-label" style="bottom: 25%">$142</span>
+        <span class="chart-label" style="bottom: 50%">$148</span>
+        <span class="chart-label" style="bottom: 75%">$154</span>
+        <div class="chart-candles">
+          <div class="candle green" style="height: 45%; animation-delay: 0.05s"></div>
+          <div class="candle green" style="height: 52%; animation-delay: 0.1s"></div>
+          <div class="candle red" style="height: 38%; animation-delay: 0.15s"></div>
+          <div class="candle green" style="height: 60%; animation-delay: 0.2s"></div>
+          <div class="candle green" style="height: 55%; animation-delay: 0.25s"></div>
+          <div class="candle red" style="height: 30%; animation-delay: 0.3s"></div>
+          <div class="candle green" style="height: 65%; animation-delay: 0.35s"></div>
+          <div class="candle green" style="height: 70%; animation-delay: 0.4s"></div>
+          <div class="candle red" style="height: 42%; animation-delay: 0.45s"></div>
+          <div class="candle green" style="height: 58%; animation-delay: 0.5s"></div>
+          <div class="candle green" style="height: 75%; animation-delay: 0.55s"></div>
+          <div class="candle green" style="height: 68%; animation-delay: 0.6s"></div>
+          <div class="candle red" style="height: 35%; animation-delay: 0.65s"></div>
+          <div class="candle green" style="height: 72%; animation-delay: 0.7s"></div>
+          <div class="candle green" style="height: 80%; animation-delay: 0.75s"></div>
+          <div class="candle red" style="height: 48%; animation-delay: 0.8s"></div>
+          <div class="candle green" style="height: 85%; animation-delay: 0.85s"></div>
+          <div class="candle green" style="height: 78%; animation-delay: 0.9s"></div>
+          <div class="candle red" style="height: 40%; animation-delay: 0.95s"></div>
+          <div class="candle green" style="height: 90%; animation-delay: 1.0s"></div>
+          <div class="candle green" style="height: 82%; animation-delay: 1.05s"></div>
+          <div class="candle green" style="height: 88%; animation-delay: 1.1s"></div>
+          <div class="candle red" style="height: 55%; animation-delay: 1.15s"></div>
+          <div class="candle green" style="height: 92%; animation-delay: 1.2s"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Bar -->
+  <section class="container">
+    <div class="stats-bar">
+      <div class="stat">
+        <div class="stat-value">1.2M+</div>
+        <div class="stat-label">Trades Executed</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">99.99%</div>
+        <div class="stat-label">Uptime</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">18.5%</div>
+        <div class="stat-label">Avg. Return (Simulated YTD)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="features-header">
+        <div class="section-label">Capabilities</div>
+        <h2>Built for serious traders.<br/>Powered by real AI.</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Ultra-Fast Execution</h3>
+          <p>Execute trades in milliseconds. Our infrastructure is co-located with major exchanges — you never miss a market movement again.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📈</div>
+          <h3>Smart Trend Analysis</h3>
+          <p>Our AI identifies emerging trends and cycles before they hit the mainstream. Machine learning models trained on decades of market data.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚖️</div>
+          <h3>Automated Risk Management</h3>
+          <p>Integrated stop-loss, take-profit, and position sizing protect your capital. Trade with confidence, fully automated.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it Works -->
+  <section class="how-section" id="how">
+    <div class="container">
+      <div class="how-header">
+        <div class="section-label">Process</div>
+        <h2>From zero to live<br/>in 48 hours</h2>
+      </div>
+      <div class="how-steps">
+        <div class="how-step">
+          <h4>Strategy Call</h4>
+          <p>We learn your goals, risk tolerance, and preferred markets.</p>
+        </div>
+        <div class="how-step">
+          <h4>Bot Configuration</h4>
+          <p>Our team configures your AI bot with custom parameters and signals.</p>
+        </div>
+        <div class="how-step">
+          <h4>Paper Trading</h4>
+          <p>We run the bot in simulation mode so you can validate performance risk-free.</p>
+        </div>
+        <div class="how-step">
+          <h4>Go Live</h4>
+          <p>Deploy to your brokerage account with real-time monitoring and alerts.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Ready to automate<br/>your trading?</h2>
+      <p>Join the next generation of traders who let AI do the heavy lifting.</p>
+      <a href="https://byagentx.com#contact" class="hero-cta">
+        Deploy Your Bot
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l7-4-7-4z"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 <a href="https://byagentx.com">AgentX</a> — AI Automation for Businesses</p>
+    </div>
+  </footer>
+
+</body>
+</html>
