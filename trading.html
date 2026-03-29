@@ -659,40 +659,7 @@
       <p>&copy; 2026 <a href="https://byagentx.com">AgentX</a> — AI Automation for Businesses</p>
     </div>
   </footer>
-  <script>
-    const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
 
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-
-    // Apply scroll-reveal class to existing sections for animation
-    document.querySelectorAll('.hero-content, .stats-bar, .features, .how-section, .why-agentx-section, .cta-section').forEach(section => {
-      section.classList.add('scroll-reveal');
-    });
-
-    scrollRevealElements.forEach(element => {
-      observer.observe(element);
-    });
-
-    // Specific delay for candles (if needed, ensure they also have scroll-reveal class if meant to be observed)
-    document.querySelectorAll('.candle').forEach((candle, index) => {
-      candle.style.animationDelay = `${index * 0.05}s`;
-      // If you want candles to also fade in with scroll-reveal, add the class here:
-      // candle.classList.add('scroll-reveal'); 
-    });
-  </script>
 
 <script>
 const observer = new IntersectionObserver((entries) => {
