@@ -50,7 +50,7 @@
     html { scroll-behavior: smooth; }
     
     /* ─── Scroll Margins for Fixed Nav ─────────────────────────── */
-    #features, #how, #pricing, #contact, #workchat {
+    #features, #how, #pricing, #contact {
       scroll-margin-top: 80px;
     }
     body {
@@ -1274,7 +1274,6 @@
     <a href="#case-study" onclick="closeMobileNav()" data-i18n="nav.case-study">Case Study</a>
     <a href="#pricing" onclick="closeMobileNav()" data-i18n="nav.pricing">Pricing</a>
     <a href="#contact" onclick="closeMobileNav()" data-i18n="nav.contact">Contact</a>
-    <a href="#workchat" onclick="closeMobileNav()" data-i18n="nav.workchat">Work Chat</a>
   </nav>
 
   <!-- Navigation -->
@@ -1292,7 +1291,6 @@
           <li><a href="#case-study" data-i18n="nav.case-study">Case Study</a></li>
           <li><a href="#pricing" data-i18n="nav.pricing">Pricing</a></li>
           <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
-          <li><a href="#workchat" data-i18n="nav.workchat">Work Chat</a></li>
         </ul>
 
         <div class="nav-actions">
@@ -1502,12 +1500,12 @@
           <div class="plan-name" data-i18n="pricing.p1.name">WhatsApp Order Bot</div>
           <div class="plan-price-block">
             <div style="display: flex; gap: 16px; align-items: baseline; margin-bottom: 8px;">
-              <div><span class="plan-price-symbol" id="sym1">$</span><span id="price1a">1,500</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
+              <div><span class="plan-price-symbol" id="sym1">$</span><span id="price1a">1,999</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
               <div class="price-mxn" id="price1a-mxn"></div>
             </div>
             <div class="plan-price">
               <span class="plan-price-symbol" id="sym1b">$</span>
-              <span id="price1b">350</span>
+              <span id="price1b">499</span>
               <span class="plan-price-period" data-i18n="pricing.period">/mo</span>
             </div>
             <div class="price-mxn" id="price1b-mxn"></div>
@@ -1523,7 +1521,7 @@
           <li><span class="check">✓</span><span data-i18n="pricing.p1.f5">Priority Support</span></li>
         </ul>
         <div class="industry-avg" data-i18n-html="pricing.p1.industry" style="display:none; margin: 12px 0; padding: 12px; background: rgba(34,197,94,0.1); border-left: 3px solid #22c55e; border-radius: 4px; font-size: 12px; color: #22c55e;"></div>
-        <a href="https://buy.stripe.com/test_dRm9ASgZz0RGanYfBjdQQ00" class="btn-plan accent" target="_blank">Buy Now →</a>
+        <a href="https://buy.stripe.com/fZu9ASaB949VbLC7Oy5J600" class="btn-plan accent" target="_blank" rel="noopener noreferrer">Buy Now →</a>
       </div>
 
       <!-- Plan 2: Business Website + AI Chat -->
@@ -1532,12 +1530,12 @@
           <div class="plan-name" data-i18n="pricing.p2.name">Business Website + AI Chat</div>
           <div class="plan-price-block">
             <div style="display: flex; gap: 16px; align-items: baseline; margin-bottom: 8px;">
-              <div><span class="plan-price-symbol" id="sym2">$</span><span id="price2a">2,500</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
+              <div><span class="plan-price-symbol" id="sym2">$</span><span id="price2a">1,499</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
               <div class="price-mxn" id="price2a-mxn"></div>
             </div>
             <div class="plan-price">
               <span class="plan-price-symbol" id="sym2b">$</span>
-              <span id="price2b">350</span>
+              <span id="price2b">299</span>
               <span class="plan-price-period" data-i18n="pricing.period">/mo</span>
             </div>
             <div class="price-mxn" id="price2b-mxn"></div>
@@ -1553,7 +1551,7 @@
           <li><span class="check">✓</span><span data-i18n="pricing.p2.f5">Analytics Dashboard</span></li>
         </ul>
         <div class="industry-avg" data-i18n-html="pricing.p2.industry" style="display:none; margin: 12px 0; padding: 12px; background: rgba(34,197,94,0.1); border-left: 3px solid #22c55e; border-radius: 4px; font-size: 12px; color: #22c55e;"></div>
-        <a href="https://buy.stripe.com/test_fZubJ0aBbgQEbs2bl3dQQ01" class="btn-plan" target="_blank">Buy Now →</a>
+        <a href="https://buy.stripe.com/5kQaEW24D21NdTK4Cm5J601" class="btn-plan" target="_blank" rel="noopener noreferrer">Buy Now →</a>
       </div>
 
       <!-- Plan 3: Social Media Automation -->
@@ -1562,12 +1560,12 @@
           <div class="plan-name" data-i18n="pricing.p3.name">Social Media Automation</div>
           <div class="plan-price-block">
             <div style="display: flex; gap: 16px; align-items: baseline; margin-bottom: 8px;">
-              <div><span class="plan-price-symbol" id="sym3a">$</span><span id="price3a">1,000</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
+              <div id="price3a" style="font-size: 12px; color: var(--text-2);">No setup fee</div>
               <div class="price-mxn" id="price3a-mxn"></div>
             </div>
             <div class="plan-price">
               <span class="plan-price-symbol" id="sym3">$</span>
-              <span id="price3">450</span>
+              <span id="price3">799</span>
               <span class="plan-price-period" data-i18n="pricing.period">/mo</span>
             </div>
             <div class="price-mxn" id="price3-mxn"></div>
@@ -1583,7 +1581,7 @@
           <li><span class="check">✓</span><span data-i18n="pricing.p3.f5">Monthly Content Calendar</span></li>
         </ul>
         <div class="industry-avg" data-i18n-html="pricing.p3.industry" style="display:none; margin: 12px 0; padding: 12px; background: rgba(34,197,94,0.1); border-left: 3px solid #22c55e; border-radius: 4px; font-size: 12px; color: #22c55e;"></div>
-        <a href="https://buy.stripe.com/test_6oU8wO6kV6c00No4WFdQQ02" class="btn-plan" target="_blank">Buy Now →</a>
+        <a href="https://buy.stripe.com/14AeVcbFd35R4ja3yi5J602" class="btn-plan" target="_blank" rel="noopener noreferrer">Buy Now →</a>
       </div>
 
       <!-- Plan 4: SEO + AI Content -->
@@ -1592,12 +1590,12 @@
           <div class="plan-name" data-i18n="pricing.p4.name">SEO + AI Content</div>
           <div class="plan-price-block">
             <div style="display: flex; gap: 16px; align-items: baseline; margin-bottom: 8px;">
-              <div><span class="plan-price-symbol" id="sym4a">$</span><span id="price4a">1,500</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
+              <div id="price4a" style="font-size: 12px; color: var(--text-2);">No setup fee</div>
               <div class="price-mxn" id="price4a-mxn"></div>
             </div>
             <div class="plan-price">
               <span class="plan-price-symbol" id="sym4">$</span>
-              <span id="price4">400</span>
+              <span id="price4">999</span>
               <span class="plan-price-period" data-i18n="pricing.period">/mo</span>
             </div>
             <div class="price-mxn" id="price4-mxn"></div>
@@ -1613,7 +1611,7 @@
           <li><span class="check">✓</span><span data-i18n="pricing.p4.f5">Ranking Tracking</span></li>
         </ul>
         <div class="industry-avg" data-i18n-html="pricing.p4.industry" style="display:none; margin: 12px 0; padding: 12px; background: rgba(34,197,94,0.1); border-left: 3px solid #22c55e; border-radius: 4px; font-size: 12px; color: #22c55e;"></div>
-        <a href="https://buy.stripe.com/test_eVqbJ05gR0RG7bMagZdQQ03" class="btn-plan" target="_blank">Buy Now →</a>
+        <a href="https://buy.stripe.com/14A14m4cLcGr7vmecW5J603" class="btn-plan" target="_blank" rel="noopener noreferrer">Buy Now →</a>
       </div>
 
       <!-- Plan 5: Business Automation -->
@@ -1622,12 +1620,12 @@
           <div class="plan-name" data-i18n="pricing.p5.name">Business Automation</div>
           <div class="plan-price-block">
             <div style="display: flex; gap: 16px; align-items: baseline; margin-bottom: 8px;">
-              <div><span class="plan-price-symbol" id="sym5">$</span><span id="price5a">3,500</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
+              <div><span class="plan-price-symbol" id="sym5">$</span><span id="price5a">2,499</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
               <div class="price-mxn" id="price5a-mxn"></div>
             </div>
             <div class="plan-price">
               <span class="plan-price-symbol" id="sym5b">$</span>
-              <span id="price5b">750</span>
+              <span id="price5b">699</span>
               <span class="plan-price-period" data-i18n="pricing.period">/mo</span>
             </div>
             <div class="price-mxn" id="price5b-mxn"></div>
@@ -1643,7 +1641,7 @@
           <li><span class="check">✓</span><span data-i18n="pricing.p5.f5">Dedicated Support</span></li>
         </ul>
         <div class="industry-avg" data-i18n-html="pricing.p5.industry" style="display:none; margin: 12px 0; padding: 12px; background: rgba(34,197,94,0.1); border-left: 3px solid #22c55e; border-radius: 4px; font-size: 12px; color: #22c55e;"></div>
-        <a href="https://buy.stripe.com/test_28E6oGaBbeIw3ZAagZdQQ04" class="btn-plan" target="_blank">Buy Now →</a>
+        <a href="https://buy.stripe.com/3cIeVc8t121NaHy4Cm5J604" class="btn-plan" target="_blank" rel="noopener noreferrer">Buy Now →</a>
       </div>
 
       <!-- Plan 6: Full AI Package 🚀 -->
@@ -1653,12 +1651,12 @@
           <div class="plan-name" data-i18n="pricing.p6.name">Full AI Package</div>
           <div class="plan-price-block">
             <div style="display: flex; gap: 16px; align-items: baseline; margin-bottom: 8px;">
-              <div><span class="plan-price-symbol" id="sym6">$</span><span id="price6a">5,500</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
+              <div><span class="plan-price-symbol" id="sym6">$</span><span id="price6a">4,999</span> <span style="font-size: 12px; color: var(--text-2);" data-i18n="pricing.setup">setup</span></div>
               <div class="price-mxn" id="price6a-mxn"></div>
             </div>
             <div class="plan-price">
               <span class="plan-price-symbol" id="sym6b">$</span>
-              <span id="price6b">1,500</span>
+              <span id="price6b">1,299</span>
               <span class="plan-price-period" data-i18n="pricing.period">/mo</span>
             </div>
             <div class="price-mxn" id="price6b-mxn"></div>
@@ -1674,7 +1672,7 @@
           <li><span class="check">✓</span><span data-i18n="pricing.p6.f5">Monthly Strategy Sessions</span></li>
         </ul>
         <div class="industry-avg" data-i18n-html="pricing.p6.industry" style="display:none; margin: 12px 0; padding: 12px; background: rgba(34,197,94,0.1); border-left: 3px solid #22c55e; border-radius: 4px; font-size: 12px; color: #22c55e;"></div>
-        <a href="https://buy.stripe.com/test_28E4gydNnbwk2Vw74NdQQ05" class="btn-plan accent" target="_blank">Buy Now →</a>
+        <a href="https://buy.stripe.com/00wbJ024DbCndTKb0K5J605" class="btn-plan accent" target="_blank" rel="noopener noreferrer">Buy Now →</a>
       </div>
     </div>
     <p class="pricing-disclaimer" data-i18n="pricing.disclaimer">*Approximate prices in Mexican pesos. Payments are processed in USD via Stripe. The final MXN charge depends on your bank's exchange rate at the time of payment.</p>
@@ -1729,271 +1727,6 @@
       <img src="assets/round4/byagentx-cta-v1.png" alt="AgentX business on autopilot visual" />
     </div>
   </section>
-
-
-  <!-- ─── Work Chat Section ─────────────────────────────────────── -->
-  <section class="section workchat-section" id="workchat">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <span class="section-label">
-      <span class="lang-en">Team</span>
-      <span class="lang-es">Equipo</span>
-    </span>
-    <h2><span class="gradient-text">Work Chat</span></h2>
-    <p style="text-align:center;max-width:600px;margin:0 auto 48px;color:var(--text-2);">
-      <span class="lang-en">Meet the intelligent agents powering your business operations</span>
-      <span class="lang-es">Conoce los agentes inteligentes que potencian tus operaciones de negocio</span>
-    </p>
-    
-    <!-- Category Labels -->
-    <div class="workchat-categories">
-      <div class="category-label"><span class="lang-en">Leadership</span><span class="lang-es">Liderazgo</span></div>
-      <div class="category-label"><span class="lang-en">AI & Automation</span><span class="lang-es">AI & Automatización</span></div>
-      <div class="category-label"><span class="lang-en">Marketing & Content</span><span class="lang-es">Marketing & Contenido</span></div>
-      <div class="category-label"><span class="lang-en">Sales & Support</span><span class="lang-es">Ventas & Soporte</span></div>
-      <div class="category-label"><span class="lang-en">Operations</span><span class="lang-es">Operaciones</span></div>
-    </div>
-    
-    <div class="workchat-grid">
-      <!-- ═══════════════════════════════════════════════════════ -->
-      <!-- CEO / Director - Leadership / Liderazgo -->
-      <!-- ═══════════════════════════════════════════════════════ -->
-      <div class="workchat-card ceo-card">
-        <div class="agent-avatar" style="background: var(--gradient-hero);" >
-          <img src="assets/team/joaquin.png" alt="joaquin" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
-        </div>
-        <div class="agent-info">
-          <span class="agent-role">
-            <span class="lang-en">CEO / Director</span>
-            <span class="lang-es">CEO / Director</span>
-          </span>
-          <h3 class="agent-name">Joaquín</h3>
-          <p class="agent-desc">
-            <span class="lang-en">Founder & Director of AgentX. Strategy, partnerships, and business vision.</span>
-            <span class="lang-es">Fundador y director de AgentX. Estrategia, partnerships y visión empresarial.</span>
-          </p>
-        </div>
-        <div class="agent-status online"></div>
-      </div>
-      
-      <!-- ═══════════════════════════════════════════════════════ -->
-      <!-- AI & Automation Agents -->
-      <!-- ═══════════════════════════════════════════════════════ -->
-      <div class="workchat-card">
-        <div class="agent-avatar" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
-          <img src="assets/team/coder.png" alt="coder" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
-        </div>
-        <div class="agent-info">
-          <span class="agent-role">
-            <span class="lang-en">AI Developer</span>
-            <span class="lang-es">Desarrollador AI</span>
-          </span>
-          <h3 class="agent-name">Coder</h3>
-          <p class="agent-desc">
-            <span class="lang-en">Technical development, integration diagnostics, and deployment.</span>
-            <span class="lang-es">Desarrollo técnico, diagnóstico de integraciones y deployment.</span>
-          </p>
-        </div>
-      </div>
-      
-      <div class="workchat-card">
-        <div class="agent-avatar" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);">
-          <img src="assets/team/bot.png" alt="bot" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
-        </div>
-        <div class="agent-info">
-          <span class="agent-role">
-            <span class="lang-en">AI Bot Specialist</span>
-            <span class="lang-es">Especialista Bot AI</span>
-          </span>
-          <h3 class="agent-name">Bot</h3>
-          <p class="agent-desc">
-            <span class="lang-en">WhatsApp bots, automation workflows, and AI integrations.</span>
-            <span class="lang-es">Bots de WhatsApp, flujos de automatización e integraciones AI.</span>
-          </p>
-        </div>
-      </div>
-      
-      <div class="workchat-card">
-        <div class="agent-avatar" style="background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);">
-          <img src="assets/team/web.png" alt="web" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
-        </div>
-        <div class="agent-info">
-          <span class="agent-role">
-            <span class="lang-en">Web Developer</span>
-            <span class="lang-es">Desarrollador Web</span>
-          </span>
-          <h3 class="agent-name">Web</h3>
-          <p class="agent-desc">
-            <span class="lang-en">Smart websites, landing pages, and web applications.</span>
-            <span class="lang-es">Sitios web inteligentes, landing pages y aplicaciones web.</span>
-          </p>
-        </div>
-      </div>
-      
-      <!-- ═══════════════════════════════════════════════════════ -->
-      <!-- Marketing & Content Agents -->
-      <!-- ═══════════════════════════════════════════════════════ -->
-      <div class="workchat-card">
-        <div class="agent-avatar" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
-          <img src="assets/team/content.png" alt="content" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
-        </div>
-        <div class="agent-info">
-          <span class="agent-role">
-            <span class="lang-en">Content Creator</span>
-            <span class="lang-es">Creador de Contenido</span>
-          </span>
-          <h3 class="agent-name">Content</h3>
-          <p class="agent-desc">
-            <span class="lang-en">Content creation, copywriting, and message strategy.</span>
-            <span class="lang-es">Creación de contenido, copywriting y estrategia de mensajes.</span>
-          </p>
-        </div>
-      </div>
-      
-      <div class="workchat-card">
-        <div class="agent-avatar" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);">
-          <img src="assets/team/social.png" alt="social" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
-        </div>
-        <div class="agent-info">
-          <span class="agent-role">
-            <span class="lang-en">Social Media</span>
-            <span class="lang-es">Redes Sociales</span>
-          </span>
-          <h3 class="agent-name">Social</h3>
-          <p class="agent-desc">
-            <span class="lang-en">Social media management, automated responses, and engagement.</span>
-            <span class="lang-es">Gestión de redes sociales, respuestas automáticas y engagement.</span>
-          </p>
-        </div>
-      </div>
-      
-      <div class="workchat-card">
-        <div class="agent-avatar" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);">
-          <img src="assets/team/research.png" alt="seo" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
-        </div>
-        <div class="agent-info">
-          <span class="agent-role">
-            <span class="lang-en">SEO & Research</span>
-            <span class="lang-es">SEO & Investigación</span>
-          </span>
-          <h3 class="agent-name">SEO</h3>
-          <p class="agent-desc">
-            <span class="lang-en">SEO optimization, keyword research, and market analysis.</span>
-            <span class="lang-es">Optimización SEO, investigación de palabras clave y análisis de mercado.</span>
-          </p>
-        </div>
-      </div>
-      
-      <div class="workchat-card">
-        <div class="agent-avatar" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);">
-          <img src="assets/team/research.png" alt="research" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
-        </div>
-        <div class="agent-info">
-          <span class="agent-role">
-            <span class="lang-en">Market Research</span>
-            <span class="lang-es">Investigación de Mercado</span>
-          </span>
-          <h3 class="agent-name">Research</h3>
-          <p class="agent-desc">
-            <span class="lang-en">Market research, competitor analysis, and trend monitoring.</span>
-            <span class="lang-es">Investigación de mercado, análisis de competencia y tendencias.</span>
-          </p>
-        </div>
-      </div>
-      
-      <!-- ═══════════════════════════════════════════════════════ -->
-      <!-- Sales & Support Agents -->
-      <!-- ═══════════════════════════════════════════════════════ -->
-      <div class="workchat-card">
-        <div class="agent-avatar" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">
-          <img src="assets/team/inbox.png" alt="inbox" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
-        </div>
-        <div class="agent-info">
-          <span class="agent-role">
-            <span class="lang-en">Inbox & Sales</span>
-            <span class="lang-es">Bandeja de Entrada & Ventas</span>
-          </span>
-          <h3 class="agent-name">Inbox</h3>
-          <p class="agent-desc">
-            <span class="lang-en">Inbox management, lead qualification, and follow-ups.</span>
-            <span class="lang-es">Gestión de bandeja de entrada, calificación de leads y seguimiento.</span>
-          </p>
-        </div>
-      </div>
-      
-      <div class="workchat-card">
-        <div class="agent-avatar" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">
-          <img src="assets/team/support.png" alt="support" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
-        </div>
-        <div class="agent-info">
-          <span class="agent-role">
-            <span class="lang-en">Customer Support</span>
-            <span class="lang-es">Soporte al Cliente</span>
-          </span>
-          <h3 class="agent-name">Support</h3>
-          <p class="agent-desc">
-            <span class="lang-en">Customer service, FAQs, and issue resolution.</span>
-            <span class="lang-es">Atención al cliente, FAQs y resolución de problemas.</span>
-          </p>
-        </div>
-      </div>
-      
-      <!-- ═══════════════════════════════════════════════════════ -->
-      <!-- Operations Agents -->
-      <!-- ═══════════════════════════════════════════════════════ -->
-      <div class="workchat-card">
-        <div class="agent-avatar" style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);">
-          <img src="assets/team/auditor.png" alt="auditor" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
-        </div>
-        <div class="agent-info">
-          <span class="agent-role">
-            <span class="lang-en">Auditor</span>
-            <span class="lang-es">Auditor</span>
-          </span>
-          <h3 class="agent-name">Auditor</h3>
-          <p class="agent-desc">
-            <span class="lang-en">Security audits, compliance, and process optimization.</span>
-            <span class="lang-es">Auditorías de seguridad, compliance y optimización de procesos.</span>
-          </p>
-        </div>
-      </div>
-      
-      <div class="workchat-card">
-        <div class="agent-avatar" style="background: linear-gradient(135deg, #78716c 0%, #57534e 100%);">
-          <img src="assets/team/admin.png" alt="admin" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
-        </div>
-        <div class="agent-info">
-          <span class="agent-role">
-            <span class="lang-en">Administrator</span>
-            <span class="lang-es">Administrador</span>
-          </span>
-          <h3 class="agent-name">Admin</h3>
-          <p class="agent-desc">
-            <span class="lang-en">System administration, user management, and permissions.</span>
-            <span class="lang-es">Administración de sistemas, gestión de usuarios y permisos.</span>
-          </p>
-        </div>
-      </div>
-      
-      <div class="workchat-card">
-        <div class="agent-avatar" style="background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);">
-          <img src="assets/team/ops.png" alt="ops" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
-        </div>
-        <div class="agent-info">
-          <span class="agent-role">
-            <span class="lang-en">Operations</span>
-            <span class="lang-es">Operaciones</span>
-          </span>
-          <h3 class="agent-name">Ops</h3>
-          <p class="agent-desc">
-            <span class="lang-en">Workflow automation, operations coordination, and process management.</span>
-            <span class="lang-es">Automatización de flujos de trabajo, coordinación de operaciones y gestión de procesos.</span>
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ─── Footer ───────────────────────────────────────────────── -->
   <footer class="footer">
     <div class="footer-inner">
@@ -2026,7 +1759,6 @@
         "nav.how":       "How it works",
         "nav.pricing":   "Pricing",
         "nav.contact":   "Contact",
-        "nav.workchat":  "Work Chat",
         "nav.case-study": "Case Study",
         "nav.cta":       "Book your AI systems session",
         "hero.badge":    "AI systems for modern operators",
@@ -2171,7 +1903,6 @@
         "nav.how":       "Cómo funciona",
         "nav.pricing":   "Precios",
         "nav.contact":   "Contacto",
-        "nav.workchat":  "Chat de Trabajo",
         "nav.case-study": "Caso de estudio",
         "nav.cta":       "Agenda tu sesión de sistemas AI",
         "hero.badge":    "Sistemas AI para operadores modernos",
@@ -2316,12 +2047,12 @@
 
     /* Prices USD (in cents for Stripe) */
     const USD = {
-      p1_setup: 150000, p1_monthly: 35000,
-      p2_setup: 250000, p2_monthly: 35000,
-      p3_setup: 100000, p3_monthly: 45000,
-      p4_setup: 150000, p4_monthly: 40000,
-      p5_setup: 350000, p5_monthly: 75000,
-      p6_setup: 550000, p6_monthly: 150000
+      p1_setup: 199900, p1_monthly: 49900,
+      p2_setup: 149900, p2_monthly: 29900,
+      p3_setup: 0, p3_monthly: 79900,
+      p4_setup: 0, p4_monthly: 99900,
+      p5_setup: 249900, p5_monthly: 69900,
+      p6_setup: 499900, p6_monthly: 129900
     };
     const MXN_RATE = 20;
 
@@ -2366,13 +2097,13 @@
         document.getElementById('price2a-mxn').textContent = '~$' + (USD.p2_setup / 100).toLocaleString('en-US') + ' USD';
         document.getElementById('price2b-mxn').textContent = '~$' + (USD.p2_monthly / 100).toLocaleString('en-US') + ' USD';
         // Plan 3
-        document.getElementById('price3a').textContent = (USD.p3_setup / 100 * MXN_RATE).toLocaleString('es-MX');
-        document.getElementById('price3a-mxn').textContent = '~$' + (USD.p3_setup / 100).toLocaleString('en-US') + ' USD';
+        document.getElementById('price3a').textContent = 'Sin costo de setup';
+        document.getElementById('price3a-mxn').textContent = '';
         document.getElementById('price3').textContent = (USD.p3_monthly / 100 * MXN_RATE).toLocaleString('es-MX');
         document.getElementById('price3-mxn').textContent = '~$' + (USD.p3_monthly / 100).toLocaleString('en-US') + ' USD';
         // Plan 4
-        document.getElementById('price4a').textContent = (USD.p4_setup / 100 * MXN_RATE).toLocaleString('es-MX');
-        document.getElementById('price4a-mxn').textContent = '~$' + (USD.p4_setup / 100).toLocaleString('en-US') + ' USD';
+        document.getElementById('price4a').textContent = 'Sin costo de setup';
+        document.getElementById('price4a-mxn').textContent = '';
         document.getElementById('price4').textContent = (USD.p4_monthly / 100 * MXN_RATE).toLocaleString('es-MX');
         document.getElementById('price4-mxn').textContent = '~$' + (USD.p4_monthly / 100).toLocaleString('en-US') + ' USD';
         // Plan 5
@@ -2393,10 +2124,10 @@
         document.getElementById('price2a').textContent = (USD.p2_setup / 100).toLocaleString('en-US') + ' USD';
         document.getElementById('price2b').textContent = (USD.p2_monthly / 100).toLocaleString('en-US') + ' USD';
         // Plan 3
-        document.getElementById('price3a').textContent = (USD.p3_setup / 100).toLocaleString('en-US') + ' USD';
+        document.getElementById('price3a').textContent = 'No setup fee';
         document.getElementById('price3').textContent = (USD.p3_monthly / 100).toLocaleString('en-US') + ' USD';
         // Plan 4
-        document.getElementById('price4a').textContent = (USD.p4_setup / 100).toLocaleString('en-US') + ' USD';
+        document.getElementById('price4a').textContent = 'No setup fee';
         document.getElementById('price4').textContent = (USD.p4_monthly / 100).toLocaleString('en-US') + ' USD';
         // Plan 5
         document.getElementById('price5a').textContent = (USD.p5_setup / 100).toLocaleString('en-US') + ' USD';
