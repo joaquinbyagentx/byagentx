@@ -1026,26 +1026,51 @@
     @media (max-width: 900px) {
       .nav-links { display: none; }
       .hamburger { display: flex; }
+      .section { padding: 100px 24px; }
+      .section-header { margin-bottom: 56px; }
+      .hero { padding: 132px 24px 88px; }
+      .hero-actions { gap: 12px; }
+      .hero-visual { margin-top: 44px; }
       .features-grid { grid-template-columns: 1fr; }
+      .feature-cell { padding: 40px 32px; }
       .how-grid { grid-template-columns: 1fr; gap: 32px; }
       .how-grid::before { display: none; }
-      .pricing-grid { grid-template-columns: 1fr; }
-      .trust-inner { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 18px; }
+      .pricing-card { padding: 32px 28px; }
+      .trust-inner { grid-template-columns: 1fr; gap: 18px; }
+      .trust-card { min-height: 0; padding: 24px; }
       .stats-inner { grid-template-columns: repeat(2, 1fr); }
       .trust-strip { grid-template-columns: repeat(2, 1fr); }
-      .case-study-wrap { grid-template-columns: 1fr; }
-      .offer-grid { grid-template-columns: 1fr 1fr; }
+      .case-study-wrap { grid-template-columns: 1fr; gap: 24px; }
+      .case-study-card { padding: 32px; }
+      .offer-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .offer-card { padding: 24px; }
+      .workchat-section { padding: 100px 0; }
+      .workchat-grid { grid-template-columns: 1fr; gap: 16px; }
+      .workchat-card, .workchat-card.ceo-card { padding: 22px; }
       .hero-image-frame::after { background: linear-gradient(180deg, rgba(10,10,15,0.38) 0%, rgba(10,10,15,0.24) 35%, rgba(10,10,15,0.6) 100%); }
     }
     @media (max-width: 600px) {
-      .section { padding: 80px 20px; }
-      .hero { padding: 120px 20px 80px; }
-      .stats-inner { grid-template-columns: 1fr 1fr; }
+      .section { padding: 72px 20px; }
+      .section-header { margin-bottom: 40px; }
+      .hero { padding: 116px 20px 72px; }
+      .hero-badge { margin-bottom: 24px; }
+      .hero p { margin-bottom: 28px; }
+      .hero-actions { flex-direction: column; align-items: stretch; width: 100%; }
+      .hero-actions .btn-primary,
+      .hero-actions .btn-ghost { justify-content: center; width: 100%; }
+      .hero-visual { margin-top: 32px; }
+      .hero-image { min-height: 280px; object-position: 62% center; }
       .trust-strip { grid-template-columns: 1fr; }
       .offer-grid { grid-template-columns: 1fr; }
+      .pricing-card { padding: 28px 22px; }
+      .case-study-card { padding: 28px 22px; }
+      .case-study-visual img,
+      .cta-visual img { min-height: 260px; }
+      .workchat-grid { padding: 0 20px; }
+      .workchat-card, .workchat-card.ceo-card { padding: 20px; }
       .footer-inner { flex-direction: column; text-align: center; }
       .nav-cta span { display: none; }
-      .hero-image { min-height: 320px; object-position: 64% center; }
     }
 
     /* ─── Mobile Nav ─────────────────────────────────────────────── */
@@ -1315,7 +1340,7 @@
 
     <div class="hero-visual reveal">
       <div class="hero-image-frame">
-        <img class="hero-image" src="https://v3b.fal.media/files/b/0a9607b5/oiswbeXGf_vnpZ-cNKotZ_BX3UkIqE.png" alt="Premium AgentX hero visual" />
+        <img class="hero-image" src="assets/round4/byagentx-hero-v1.png" alt="Premium AgentX hero visual" />
         <div class="hero-image-glow"></div>
       </div>
     </div>
@@ -1373,7 +1398,7 @@
     </div>
 
     <div class="feature-showcase reveal reveal-delay-3">
-      <img src="https://v3b.fal.media/files/b/0a96079b/NEeocHRXLLoJy-rs0orEa_GHlTmX0w.png" alt="AgentX restaurant automation visual" />
+      <img src="assets/round4/byagentx-proof-sushi-seven.png" alt="AgentX restaurant automation visual" />
     </div>
   </section>
 
@@ -1429,7 +1454,7 @@
         </div>
       </div>
       <div class="case-study-visual reveal reveal-delay-1">
-        <img src="https://v3b.fal.media/files/b/0a96079b/NEeocHRXLLoJy-rs0orEa_GHlTmX0w.png" alt="Sushi Seven case study support visual" />
+        <img src="assets/round4/byagentx-proof-sushi-seven.png" alt="Sushi Seven case study support visual" />
       </div>
     </div>
   </section>
@@ -1701,7 +1726,7 @@
       <p class="cta-disclaimer">joaquin@byagentx.com</p>
     </div>
     <div class="cta-visual reveal reveal-delay-2">
-      <img src="https://v3b.fal.media/files/b/0a96079e/sxPbVTm2KAasTGBrv4_DP_W7tipKC5.png" alt="AgentX business on autopilot visual" />
+      <img src="assets/round4/byagentx-cta-v1.png" alt="AgentX business on autopilot visual" />
     </div>
   </section>
 
