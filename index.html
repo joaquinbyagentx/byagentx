@@ -389,65 +389,82 @@
       background: var(--bg-3);
     }
 
-    /* hero glow border box */
+    /* hero visual */
     .hero-visual {
       position: relative;
       z-index: 1;
       margin-top: 64px;
       width: 100%;
-      max-width: 880px;
+      max-width: 980px;
       animation: fadeInUp 0.8s ease 0.5s both;
     }
-    .hero-window {
-      background: var(--bg-2);
-      border: 1px solid var(--border-mid);
+    .hero-image-frame {
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: linear-gradient(180deg, rgba(16,16,24,0.95) 0%, rgba(10,10,15,0.95) 100%);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.04), 0 40px 90px rgba(0,0,0,0.58), 0 0 80px rgba(124,92,252,0.16);
+    }
+    .hero-image-frame::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(10,10,15,0.84) 0%, rgba(10,10,15,0.54) 28%, rgba(10,10,15,0.12) 58%, rgba(10,10,15,0.38) 100%);
+      pointer-events: none;
+    }
+    .hero-image {
+      display: block;
+      width: 100%;
+      min-height: 420px;
+      object-fit: cover;
+      object-position: center;
+      filter: saturate(1.02) contrast(1.02);
+    }
+    .hero-image-glow {
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 38%;
+      background: linear-gradient(180deg, transparent 0%, rgba(124,92,252,0.08) 45%, rgba(10,10,15,0.85) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* feature showcase */
+    .feature-showcase {
+      max-width: 1120px;
+      margin: 32px auto 0;
       border-radius: var(--r-xl);
       overflow: hidden;
-      box-shadow: 0 0 0 1px var(--border), 0 40px 80px rgba(0,0,0,0.6), 0 0 60px rgba(124,92,252,0.12);
-    }
-    .hero-window-bar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 20px;
-      border-bottom: 1px solid var(--border);
-      background: var(--bg-3);
-    }
-    .win-dot { width: 12px; height: 12px; border-radius: 50%; }
-    .win-dot.r { background: #ff5f57; }
-    .win-dot.y { background: #febc2e; }
-    .win-dot.g { background: #28c840; }
-    .hero-window-body {
-      padding: 32px;
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 16px;
-      min-height: 240px;
-    }
-    .mock-card {
-      background: var(--bg-3);
       border: 1px solid var(--border);
-      border-radius: var(--r-md);
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      transition: border-color var(--t-fast);
+      background: var(--bg-2);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.28);
     }
-    .mock-card:hover { border-color: var(--border-mid); }
-    .mock-icon {
-      width: 36px; height: 36px;
-      border-radius: 8px;
-      background: var(--accent-light);
-      border: 1px solid rgba(124,92,252,0.2);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
+    .feature-showcase img {
+      display: block;
+      width: 100%;
+      height: clamp(280px, 42vw, 420px);
+      object-fit: cover;
+      object-position: center;
     }
-    .mock-title { font-size: 13px; font-weight: 600; color: var(--text-1); }
-    .mock-bar { height: 6px; border-radius: 99px; background: var(--border); position: relative; overflow: hidden; }
-    .mock-bar-fill { height: 100%; border-radius: 99px; background: var(--gradient-hero); }
-    .mock-stat { font-size: 22px; font-weight: 800; color: var(--text-1); letter-spacing: -0.03em; }
-    .mock-label { font-size: 11px; color: var(--text-3); }
+
+    /* CTA visual */
+    .cta-visual {
+      max-width: 980px;
+      margin: 48px auto 0;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: var(--bg-2);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.35), 0 0 60px rgba(124,92,252,0.12);
+    }
+    .cta-visual img {
+      display: block;
+      width: 100%;
+      height: clamp(280px, 40vw, 420px);
+      object-fit: cover;
+      object-position: center;
+    }
 
     /* ─── Stats strip ────────────────────────────────────────────── */
     .stats-strip {
@@ -899,7 +916,7 @@
       .pricing-grid { grid-template-columns: 1fr; }
       .trust-inner { grid-template-columns: 1fr; }
       .stats-inner { grid-template-columns: repeat(2, 1fr); }
-      .hero-window-body { grid-template-columns: 1fr; }
+      .hero-image-frame::after { background: linear-gradient(180deg, rgba(10,10,15,0.38) 0%, rgba(10,10,15,0.24) 35%, rgba(10,10,15,0.6) 100%); }
     }
     @media (max-width: 600px) {
       .section { padding: 80px 20px; }
@@ -907,6 +924,7 @@
       .stats-inner { grid-template-columns: 1fr 1fr; }
       .footer-inner { flex-direction: column; text-align: center; }
       .nav-cta span { display: none; }
+      .hero-image { min-height: 320px; object-position: 64% center; }
     }
 
     /* ─── Mobile Nav ─────────────────────────────────────────────── */
@@ -1177,17 +1195,9 @@
     </div>
 
     <div class="hero-visual reveal">
-      <div class="hero-window" style="padding:0; overflow:hidden; background:#000;">
-        <div class="hero-window-bar" style="position:absolute; top:0; left:0; right:0; z-index:10; background:rgba(10,10,15,0.7); backdrop-filter:blur(10px);">
-          <span class="win-dot r"></span>
-          <span class="win-dot y"></span>
-          <span class="win-dot g"></span>
-          <span style="margin-left:12px; font-size:12px; color:var(--text-1); font-weight:600;" data-i18n="hero.revolution">Join the AI Revolution</span>
-        </div>
-        <video autoplay loop muted playsinline style="width:100%; height:auto; display:block; object-fit:cover; aspect-ratio:16/9; opacity:0.9;">
-          <source src="assets/agentx_concept1_office.mp4" type="video/mp4">
-        </video>
-        <div style="position:absolute; inset:0; box-shadow:inset 0 0 100px rgba(0,0,0,0.8); pointer-events:none;"></div>
+      <div class="hero-image-frame">
+        <img class="hero-image" src="https://v3b.fal.media/files/b/0a9607b5/oiswbeXGf_vnpZ-cNKotZ_BX3UkIqE.png" alt="Premium AgentX hero visual" />
+        <div class="hero-image-glow"></div>
       </div>
     </div>
   </section>
@@ -1241,6 +1251,10 @@
         <p data-i18n="features.custom.desc">Tailored automation for your unique business needs. Connect your tools, automate your processes, reclaim your time.</p>
         <div class="feature-tag" data-i18n="features.custom.tag">Saves 40h/week →</div>
       </div>
+    </div>
+
+    <div class="feature-showcase reveal reveal-delay-3">
+      <img src="https://v3b.fal.media/files/b/0a96079b/NEeocHRXLLoJy-rs0orEa_GHlTmX0w.png" alt="AgentX restaurant automation visual" />
     </div>
   </section>
 
@@ -1528,6 +1542,9 @@
         <a href="#pricing" class="btn-ghost" data-i18n="cta.see_pricing">See pricing</a>
       </div>
       <p class="cta-disclaimer">joaquin@byagentx.com</p>
+    </div>
+    <div class="cta-visual reveal reveal-delay-2">
+      <img src="https://v3b.fal.media/files/b/0a96079e/sxPbVTm2KAasTGBrv4_DP_W7tipKC5.png" alt="AgentX business on autopilot visual" />
     </div>
   </section>
 
