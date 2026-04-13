@@ -918,35 +918,30 @@
       margin: 0 auto;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
+      gap: 24px;
     }
     .trust-card {
       background: var(--bg-3);
       border: 1px solid var(--border);
       border-radius: var(--r-xl);
-      padding: 32px;
+      padding: 28px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      transition: border-color var(--t-mid), transform var(--t-mid);
+      justify-content: center;
+      min-height: 160px;
+      transition: border-color var(--t-mid), transform var(--t-mid), background var(--t-mid);
     }
     .trust-card:hover {
       border-color: var(--border-mid);
       transform: translateY(-2px);
+      background: rgba(255,255,255,0.02);
     }
-    .trust-stars { color: #fbbf24; font-size: 14px; letter-spacing: 2px; }
-    .trust-quote { font-size: 15px; color: var(--text-2); line-height: 1.7; font-style: italic; }
-    .trust-author { display: flex; align-items: center; gap: 12px; }
-    .trust-avatar {
-      width: 40px; height: 40px;
-      border-radius: 50%;
-      background: var(--gradient-hero);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 16px;
-      font-weight: 700;
+    .trust-quote {
+      font-size: 15px;
+      color: var(--text-2);
+      line-height: 1.7;
+      font-style: normal;
     }
-    .trust-name { font-size: 14px; font-weight: 600; }
-    .trust-role { font-size: 12px; color: var(--text-3); }
 
     /* ─── CTA Banner ─────────────────────────────────────────────── */
     .cta-banner {
@@ -1277,8 +1272,8 @@
 
         <div class="nav-actions">
           <button class="lang-btn" id="langToggle" onclick="toggleLanguage()">ES</button>
-          <a href="#contact" class="nav-cta">
-            <span data-i18n="nav.cta">Book a strategy call</span>
+          <a href="https://tidycal.com/jmco177/ai-systems-implementation-session" class="nav-cta" target="_blank" rel="noopener noreferrer">
+            <span data-i18n="nav.cta">Book your AI systems session</span>
             <span>→</span>
           </a>
           <button class="hamburger" id="hamburger" aria-label="Menu" onclick="openMobileNav()">
@@ -1309,8 +1304,8 @@
     </p>
 
     <div class="hero-actions">
-      <a href="#contact" class="btn-primary">
-        <span data-i18n="hero.cta1">Book a strategy call</span>
+      <a href="https://tidycal.com/jmco177/ai-systems-implementation-session" class="btn-primary" target="_blank" rel="noopener noreferrer">
+        <span data-i18n="hero.cta1">Book your AI systems session</span>
         <span>→</span>
       </a>
       <a href="#case-study" class="btn-ghost">
@@ -1428,8 +1423,8 @@
             <span data-i18n="case.cta1">View case study</span>
             <span>→</span>
           </a>
-          <a href="#contact" class="btn-ghost">
-            <span data-i18n="case.cta2">Book a strategy call</span>
+          <a href="https://tidycal.com/jmco177/ai-systems-implementation-session" class="btn-ghost" target="_blank" rel="noopener noreferrer">
+            <span data-i18n="case.cta2">Book your AI systems session</span>
           </a>
         </div>
       </div>
@@ -1660,45 +1655,28 @@
     <p class="pricing-disclaimer" data-i18n="pricing.disclaimer">*Approximate prices in Mexican pesos. Payments are processed in USD via Stripe. The final MXN charge depends on your bank's exchange rate at the time of payment.</p>
   </section>
 
-  <!-- ─── Trust / Testimonials ──────────────────────────────────── -->
-  <section class="trust-section" id="testimonials">
+  <!-- ─── Proof Section ─────────────────────────────────────────── -->
+  <section class="trust-section" id="proof">
     <div class="section-header reveal" style="margin-bottom:48px">
       <span class="section-label" data-i18n="trust.label">Proof</span>
-      <h2 data-i18n="trust.title">Built for real operators, not AI theater</h2>
+      <h2 data-i18n="trust.title">Built for real business execution</h2>
+      <p data-i18n="trust.subtitle">AgentX helps businesses deploy messaging automation, smart websites, and custom workflows without adding more manual overhead.</p>
     </div>
     <div class="trust-inner">
       <div class="trust-card reveal">
-        <div class="trust-stars">★★★★★</div>
-        <div class="trust-quote" data-i18n="trust.q1">"AgentX automated our entire WhatsApp support. Response times went from hours to seconds. Revenue up 40% in 3 months."</div>
-        <div class="trust-author">
-          <div class="trust-avatar">MR</div>
-          <div>
-            <div class="trust-name">Mario Reyes</div>
-            <div class="trust-role" data-i18n="trust.r1">CEO, Distribuidora Reyes</div>
-          </div>
-        </div>
+        <div class="trust-quote" data-i18n="trust.q1">WhatsApp automation for lead capture, follow-up, and customer response</div>
       </div>
       <div class="trust-card reveal reveal-delay-1">
-        <div class="trust-stars">★★★★★</div>
-        <div class="trust-quote" data-i18n="trust.q2">"Our new website converts 3x better than the old one. The AI adapts to what visitors want. It feels like magic."</div>
-        <div class="trust-author">
-          <div class="trust-avatar">AL</div>
-          <div>
-            <div class="trust-name">Ana López</div>
-            <div class="trust-role" data-i18n="trust.r2">Owner, Boutique Citlali</div>
-          </div>
-        </div>
+        <div class="trust-quote" data-i18n="trust.q2">Smart websites designed to explain the offer clearly and convert interest into conversations</div>
       </div>
       <div class="trust-card reveal reveal-delay-2">
-        <div class="trust-stars">★★★★★</div>
-        <div class="trust-quote" data-i18n="trust.q3">"We save 40+ hours per week on repetitive tasks. My team now focuses on what actually grows the business."</div>
-        <div class="trust-author">
-          <div class="trust-avatar">JS</div>
-          <div>
-            <div class="trust-name">Jorge Salinas</div>
-            <div class="trust-role" data-i18n="trust.r3">Director, Grupo Salinas CDMX</div>
-          </div>
-        </div>
+        <div class="trust-quote" data-i18n="trust.q3">Custom workflows for repetitive ops, reporting, and internal execution</div>
+      </div>
+      <div class="trust-card reveal">
+        <div class="trust-quote" data-i18n="trust.q4">72-hour launch model for the first system</div>
+      </div>
+      <div class="trust-card reveal reveal-delay-1">
+        <div class="trust-quote" data-i18n="trust.q5">Done-for-you implementation for operators who need speed and clarity</div>
       </div>
     </div>
   </section>
@@ -1712,10 +1690,10 @@
         <span data-i18n="cta.title1">Let’s map the first system</span><br/>
         <span class="gradient-text" data-i18n="cta.title2">your business should automate</span>
       </h2>
-      <p data-i18n="cta.subtitle">If you already know there is too much manual work, too much response delay, or too much operational drag, we can help you define the first system worth building.</p>
+      <p data-i18n="cta.subtitle">Book a focused session to identify the first workflow, messaging system, or website upgrade that will create the most leverage for your business.</p>
       <div class="hero-actions">
-        <a href="mailto:joaquin@byagentx.com?subject=Book%20a%20strategy%20call" class="btn-primary">
-          <span data-i18n="cta.email">Book a strategy call</span>
+        <a href="https://tidycal.com/jmco177/ai-systems-implementation-session" class="btn-primary" target="_blank" rel="noopener noreferrer">
+          <span data-i18n="cta.email">Book your AI systems session</span>
           <span>→</span>
         </a>
         <a href="case-study.html" class="btn-ghost" data-i18n="cta.see_pricing">See case study</a>
@@ -2006,7 +1984,7 @@
         <a href="#how" data-i18n="nav.how">How it works</a>
         <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
         <a href="case-study.html" data-i18n="footer.casestudy">Case Study</a>
-        <a href="mailto:joaquin@byagentx.com" data-i18n="nav.contact">Contact</a>
+        <a href="https://tidycal.com/jmco177/ai-systems-implementation-session" target="_blank" rel="noopener noreferrer" data-i18n="nav.contact">Contact</a>
         <a href="privacy.html" data-i18n="footer.privacy">Privacy Policy</a>
         <a href="terms.html" data-i18n="footer.terms">Terms of Service</a>
       </div>
@@ -2025,12 +2003,12 @@
         "nav.contact":   "Contact",
         "nav.workchat":  "Work Chat",
         "nav.case-study": "Case Study",
-        "nav.cta":       "Book a strategy call",
+        "nav.cta":       "Book your AI systems session",
         "hero.badge":    "AI systems for modern operators",
         "hero.title1":   "AI systems for businesses",
         "hero.title2":   "that need real execution",
         "hero.subtitle": "We design and deploy WhatsApp automation, smart websites, and custom AI workflows that help businesses respond faster, convert more leads, and reduce manual work.",
-        "hero.cta1":     "Book a strategy call",
+        "hero.cta1":     "Book your AI systems session",
         "hero.cta2":     "View case study",
         "mock.whatsapp": "WhatsApp Bot",
         "mock.messages": "messages today",
@@ -2131,7 +2109,7 @@
         "case.p2":       "Reduced manual response pressure by moving repeated interactions into better automation paths.",
         "case.p3":       "Created a stronger base for hospitality-focused automation that can expand beyond one touchpoint.",
         "case.cta1":     "View case study",
-        "case.cta2":     "Book a strategy call",
+        "case.cta2":     "Book your AI systems session",
         "offer.label":   "How to buy",
         "offer.title":   "Start with one system, then expand",
         "offer.subtitle":"You do not need a giant AI rollout on day one. Start with the highest-leverage system and scale from there.",
@@ -2144,18 +2122,18 @@
         "offer.p4.title":"Full AI Stack",
         "offer.p4.desc": "For teams ready to connect messaging, websites, and workflows into one system.",
         "trust.label":   "Proof",
-        "trust.title":   "Built for real operators, not AI theater",
-        "trust.q1":      "\"AgentX automated our entire WhatsApp support. Response times went from hours to seconds. Revenue up 40% in 3 months.\"",
-        "trust.r1":      "CEO, Distribuidora Reyes",
-        "trust.q2":      "\"Our new website converts 3x better than the old one. The AI adapts to what visitors want. It feels like magic.\"",
-        "trust.r2":      "Owner, Boutique Citlali",
-        "trust.q3":      "\"We save 40+ hours per week on repetitive tasks. My team now focuses on what actually grows the business.\"",
-        "trust.r3":      "Director, Grupo Salinas CDMX",
+        "trust.title":   "Built for real business execution",
+        "trust.subtitle":"AgentX helps businesses deploy messaging automation, smart websites, and custom workflows without adding more manual overhead.",
+        "trust.q1":      "WhatsApp automation for lead capture, follow-up, and customer response",
+        "trust.q2":      "Smart websites designed to explain the offer clearly and convert interest into conversations",
+        "trust.q3":      "Custom workflows for repetitive ops, reporting, and internal execution",
+        "trust.q4":      "72-hour launch model for the first system",
+        "trust.q5":      "Done-for-you implementation for operators who need speed and clarity",
         "cta.label":     "Next step",
         "cta.title1":    "Let’s map the first system",
         "cta.title2":    "your business should automate",
-        "cta.subtitle":  "If you already know there is too much manual work, too much response delay, or too much operational drag, we can help you define the first system worth building.",
-        "cta.email":     "Book a strategy call",
+        "cta.subtitle":  "Book a focused session to identify the first workflow, messaging system, or website upgrade that will create the most leverage for your business.",
+        "cta.email":     "Book your AI systems session",
         "cta.see_pricing":"See case study",
         "footer.tagline":"AI systems for modern operators",
         "footer.rights":"All rights reserved.",
@@ -2170,12 +2148,12 @@
         "nav.contact":   "Contacto",
         "nav.workchat":  "Chat de Trabajo",
         "nav.case-study": "Caso de estudio",
-        "nav.cta":       "Agenda una llamada",
+        "nav.cta":       "Agenda tu sesión de sistemas AI",
         "hero.badge":    "Sistemas AI para operadores modernos",
         "hero.title1":   "Sistemas AI para negocios",
         "hero.title2":   "que necesitan ejecución real",
         "hero.subtitle": "Diseñamos e implementamos automatización en WhatsApp, sitios inteligentes y flujos AI personalizados para ayudar a los negocios a responder más rápido, convertir más leads y reducir trabajo manual.",
-        "hero.cta1":     "Agenda una llamada",
+        "hero.cta1":     "Agenda tu sesión de sistemas AI",
         "hero.cta2":     "Ver caso de estudio",
         "mock.whatsapp": "Bot de WhatsApp",
         "mock.messages": "mensajes hoy",
@@ -2276,7 +2254,7 @@
         "case.p2":       "Se redujo la presión manual de respuesta moviendo interacciones repetidas a rutas de automatización mejores.",
         "case.p3":       "Se creó una base más fuerte para automatización enfocada en hospitality que puede crecer más allá de un solo touchpoint.",
         "case.cta1":     "Ver caso de estudio",
-        "case.cta2":     "Agenda una llamada",
+        "case.cta2":     "Agenda tu sesión de sistemas AI",
         "offer.label":   "Cómo comprar",
         "offer.title":   "Empieza con un sistema y luego expande",
         "offer.subtitle":"No necesitas un rollout gigante de AI desde el día uno. Empieza por el sistema de mayor impacto y escala desde ahí.",
@@ -2289,18 +2267,18 @@
         "offer.p4.title":"Stack Completo de AI",
         "offer.p4.desc": "Para equipos listos para conectar mensajería, sitio y workflows en un solo sistema.",
         "trust.label":   "Prueba",
-        "trust.title":   "Diseñado para operadores reales, no para teatro de AI",
-        "trust.q1":      "\"AgentX automatizó todo nuestro soporte de WhatsApp. Los tiempos de respuesta pasaron de horas a segundos. Los ingresos subieron 40% en 3 meses.\"",
-        "trust.r1":      "CEO, Distribuidora Reyes",
-        "trust.q2":      "\"Nuestro nuevo sitio convierte 3x mejor que el anterior. El AI se adapta a lo que quieren los visitantes. Se siente como magia.\"",
-        "trust.r2":      "Dueña, Boutique Citlali",
-        "trust.q3":      "\"Ahorramos más de 40 horas por semana en tareas repetitivas. Mi equipo ahora se enfoca en lo que realmente hace crecer el negocio.\"",
-        "trust.r3":      "Director, Grupo Salinas CDMX",
+        "trust.title":   "Diseñado para ejecución real de negocio",
+        "trust.subtitle":"AgentX ayuda a los negocios a desplegar automatización de mensajería, sitios inteligentes y flujos personalizados sin agregar más overhead manual.",
+        "trust.q1":      "Automatización en WhatsApp para captación de leads, seguimiento y respuesta al cliente",
+        "trust.q2":      "Sitios inteligentes diseñados para explicar mejor la oferta y convertir interés en conversaciones",
+        "trust.q3":      "Flujos personalizados para operaciones repetitivas, reporting y ejecución interna",
+        "trust.q4":      "Modelo de lanzamiento en 72 horas para el primer sistema",
+        "trust.q5":      "Implementación done-for-you para operadores que necesitan velocidad y claridad",
         "cta.label":     "Siguiente paso",
         "cta.title1":    "Vamos a mapear el primer sistema",
         "cta.title2":    "que tu negocio debería automatizar",
-        "cta.subtitle":  "Si ya sabes que hay demasiado trabajo manual, demasiada demora en respuesta o demasiada fricción operativa, podemos ayudarte a definir el primer sistema que vale la pena construir.",
-        "cta.email":     "Agenda una llamada",
+        "cta.subtitle":  "Agenda una sesión enfocada para identificar el primer workflow, sistema de mensajería o mejora de sitio que generará más apalancamiento para tu negocio.",
+        "cta.email":     "Agenda tu sesión de sistemas AI",
         "cta.see_pricing":"Ver caso de estudio",
         "footer.tagline":"Sistemas AI para operadores modernos",
         "footer.rights":"Todos los derechos reservados.",
