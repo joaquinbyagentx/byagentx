@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Restaurant Automation with WhatsApp Orders — AgentX</title>
+  <meta name="description" content="Restaurant automation for operators who are losing orders to slow follow-up, manual WhatsApp replies, and messy order handling. See how AgentX helps restaurants respond faster and unify operations." />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PD11FZ1DHM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PD11FZ1DHM');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+      --bg:#0a0a0f; --bg-2:#101018; --bg-3:#16161f;
+      --text-1:#f0f0ff; --text-2:#a0a0b8; --text-3:#606078;
+      --border:rgba(255,255,255,0.08); --border-mid:rgba(255,255,255,0.14);
+      --accent:#7c5cfc; --accent-2:#5b8af5; --green:#25d366;
+      --gradient:linear-gradient(135deg,#7c5cfc 0%,#5b8af5 55%,#38c8ff 100%);
+      --gradient-green:linear-gradient(135deg,#25d366 0%,#128c7e 100%);
+      --accent-glow:rgba(124,92,252,0.3);
+      --r-sm:10px; --r-md:16px; --r-lg:24px; --r-xl:32px;
+    }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family:var(--font); background:var(--bg); color:var(--text-1);
+      line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+    }
+    body::before {
+      content:''; position:fixed; inset:0; pointer-events:none; opacity:0.4;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      z-index:0;
+    }
+    .container { max-width:1140px; margin:0 auto; padding:0 24px; position:relative; z-index:1; }
+    .section { padding:96px 0; }
+    .label {
+      display:inline-flex; align-items:center; gap:8px; margin-bottom:18px; padding:6px 14px;
+      border-radius:999px; border:1px solid rgba(124,92,252,0.26); background:rgba(124,92,252,0.12);
+      color:var(--accent); font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+    }
+    .label::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--accent); }
+    .gradient-text { background:var(--gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .nav {
+      position:sticky; top:0; z-index:50; backdrop-filter:blur(18px); background:rgba(10,10,15,.84);
+      border-bottom:1px solid var(--border);
+    }
+    .nav-inner { display:flex; align-items:center; justify-content:space-between; gap:24px; padding:16px 0; }
+    .brand { display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text-1); font-weight:800; font-size:20px; }
+    .mark { width:32px; height:32px; border-radius:10px; background:var(--gradient); display:flex; align-items:center; justify-content:center; box-shadow:0 0 22px var(--accent-glow); }
+    .nav-links { display:flex; gap:18px; align-items:center; }
+    .nav-links a { color:var(--text-2); text-decoration:none; font-size:14px; }
+    .nav-links a:hover { color:var(--text-1); }
+    .btn {
+      display:inline-flex; align-items:center; justify-content:center; gap:8px; text-decoration:none; cursor:pointer;
+      padding:14px 20px; border-radius:var(--r-sm); font-weight:700; transition:.18s ease; border:1px solid transparent;
+    }
+    .btn-primary { background:var(--accent); color:#fff; box-shadow:0 10px 30px rgba(124,92,252,0.22); }
+    .btn-primary:hover { transform:translateY(-1px); filter:brightness(1.08); }
+    .btn-secondary { background:transparent; border-color:var(--border-mid); color:var(--text-1); }
+    .btn-secondary:hover { border-color:rgba(124,92,252,.4); color:var(--accent); }
+    .hero { padding:84px 0 72px; }
+    .hero-grid { display:grid; grid-template-columns:1.1fr .9fr; gap:42px; align-items:center; }
+    .hero h1 { font-size:clamp(42px,6vw,76px); line-height:1.02; letter-spacing:-.05em; margin-bottom:18px; }
+    .hero p.lead { font-size:19px; color:var(--text-2); max-width:760px; margin-bottom:24px; }
+    .microcopy { display:flex; flex-wrap:wrap; gap:12px 18px; margin:18px 0 28px; color:var(--text-2); font-size:14px; }
+    .microcopy span { display:inline-flex; align-items:center; gap:8px; }
+    .hero-card, .card {
+      background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+      border:1px solid var(--border); border-radius:var(--r-xl); overflow:hidden;
+    }
+    .hero-card img { width:100%; display:block; border-radius:var(--r-xl); }
+    .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:36px; }
+    .stat { background:var(--bg-2); border:1px solid var(--border); border-radius:var(--r-md); padding:20px; }
+    .stat strong { display:block; font-size:30px; line-height:1; margin-bottom:8px; }
+    .stat span { color:var(--text-2); font-size:14px; }
+    .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .grid-2 { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; }
+    .feature, .faq, .step, .proof {
+      background:var(--bg-2); border:1px solid var(--border); border-radius:var(--r-lg); padding:24px;
+    }
+    .feature h3, .faq h3, .step h3, .proof h3 { font-size:19px; margin-bottom:10px; }
+    .feature p, .faq p, .step p, .proof p { color:var(--text-2); font-size:15px; }
+    .section-head { max-width:780px; margin-bottom:34px; }
+    .section-head h2 { font-size:clamp(30px,4vw,52px); line-height:1.08; letter-spacing:-.04em; margin-bottom:14px; }
+    .section-head p { color:var(--text-2); font-size:18px; }
+    .proof-band {
+      display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:var(--border); border-radius:var(--r-xl); overflow:hidden; border:1px solid var(--border);
+    }
+    .proof-band .cell { background:var(--bg-2); padding:28px; }
+    .proof-band .num { font-size:40px; font-weight:800; line-height:1; margin-bottom:8px; }
+    .proof-band .meta { color:var(--text-2); }
+    .case-box { display:grid; grid-template-columns:1.05fr .95fr; gap:28px; align-items:center; }
+    .case-points { list-style:none; display:flex; flex-direction:column; gap:12px; margin:18px 0 24px; }
+    .case-points li { color:var(--text-2); display:flex; gap:10px; }
+    .case-points li::before { content:'✓'; color:var(--green); font-weight:800; }
+    .dark-panel { background:var(--bg-2); border:1px solid var(--border); border-radius:var(--r-xl); padding:28px; }
+    .cta-panel {
+      background:linear-gradient(145deg, rgba(124,92,252,0.14), rgba(91,138,245,0.08));
+      border:1px solid rgba(124,92,252,0.22); border-radius:var(--r-xl); padding:34px;
+    }
+    .faq-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:22px; }
+    .muted { color:var(--text-3); font-size:13px; }
+    footer { padding:38px 0 52px; color:var(--text-3); }
+    .footer-row { display:flex; justify-content:space-between; gap:20px; align-items:center; }
+    @media (max-width: 980px) {
+      .hero-grid, .case-box, .grid-3, .grid-2, .stats, .proof-band, .faq-grid { grid-template-columns:1fr; }
+      .nav-links { display:none; }
+      .hero { padding-top:56px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="/">
+        <span class="mark">⚡</span>
+        <span>AgentX</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#problem">Problem</a>
+        <a href="#solution">Solution</a>
+        <a href="#proof">Proof</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <a href="https://tidycal.com/jmco177/ai-systems-implementation-session?utm_source=byagentx&utm_medium=website&utm_campaign=restaurants_nav" class="btn btn-primary" data-track="tidycal_click" data-location="restaurants_nav">Book restaurant strategy call →</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="label">Restaurant automation</span>
+        <h1>Stop losing orders to <span class="gradient-text">slow WhatsApp replies</span> and manual chaos</h1>
+        <p class="lead">AgentX helps restaurants automate WhatsApp orders, customer follow-up, and repetitive front-of-house workflows so your team responds faster, handles more volume, and makes fewer mistakes.</p>
+        <div class="microcopy">
+          <span>✓ 15-minute strategy call</span>
+          <span>✓ No commitment</span>
+          <span>✓ We map the first bottleneck to fix</span>
+        </div>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="https://tidycal.com/jmco177/ai-systems-implementation-session?utm_source=byagentx&utm_medium=website&utm_campaign=restaurants_hero" class="btn btn-primary" data-track="tidycal_click" data-location="restaurants_hero">Book restaurant strategy call →</a>
+          <a href="case-study.html" class="btn btn-secondary" data-track="case_study_click" data-location="restaurants_hero">See Sushi Seven proof</a>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong>+127%</strong><span>WhatsApp orders in the first month</span></div>
+          <div class="stat"><strong>12s</strong><span>Average response time after automation</span></div>
+          <div class="stat"><strong>5</strong><span>Branches unified into one system</span></div>
+          <div class="stat"><strong>7 days</strong><span>From scope to live restaurant deployment</span></div>
+        </div>
+      </div>
+      <div class="hero-card">
+        <img src="assets/round4/byagentx-proof-sushi-seven.png" alt="Restaurant automation proof visual for AgentX" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="problem">
+    <div class="container">
+      <div class="section-head">
+        <span class="label">The restaurant problem</span>
+        <h2>Most restaurants are leaking revenue in the inbox before the kitchen ever sees the order</h2>
+        <p>If your team is still answering the same questions by hand, confirming orders manually, or juggling multiple WhatsApps across locations, you're probably losing speed, consistency, and repeat business.</p>
+      </div>
+      <div class="grid-3">
+        <div class="feature">
+          <h3>Slow response kills intent</h3>
+          <p>Customers who wait minutes for a menu, a price, or a confirmation often leave before ordering.</p>
+        </div>
+        <div class="feature">
+          <h3>Manual order handling creates mistakes</h3>
+          <p>When staff transcribe orders from chat, details get lost and kitchen errors go up.</p>
+        </div>
+        <div class="feature">
+          <h3>Multiple branches create inconsistency</h3>
+          <p>Different prices, different response times, and different tone across branches make the brand feel messy.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="solution">
+    <div class="container">
+      <div class="section-head">
+        <span class="label">What AgentX deploys</span>
+        <h2>One restaurant system that responds faster, structures orders, and removes repetitive work</h2>
+        <p>We usually start with the highest-leverage automation path first, then expand only if it proves ROI.</p>
+      </div>
+      <div class="grid-3">
+        <div class="step">
+          <h3>WhatsApp order automation</h3>
+          <p>Automate menu sharing, FAQs, order intake, confirmation, and common follow-up messages.</p>
+        </div>
+        <div class="step">
+          <h3>Structured order flow</h3>
+          <p>Turn messy chat orders into cleaner, repeatable order handling your team can actually execute.</p>
+        </div>
+        <div class="step">
+          <h3>Branch consistency</h3>
+          <p>Keep pricing, messaging, and response quality aligned across locations instead of depending on whoever replies first.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="proof">
+    <div class="container">
+      <div class="section-head">
+        <span class="label">Proof</span>
+        <h2>Sushi Seven is the proof point</h2>
+        <p>A real restaurant case: one chain, five branches, one clearer customer flow.</p>
+      </div>
+      <div class="proof-band">
+        <div class="cell">
+          <div class="num" style="background:var(--gradient-green);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">+127%</div>
+          <div class="meta">WhatsApp orders in the first month after launch</div>
+        </div>
+        <div class="cell">
+          <div class="num" style="background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">12s</div>
+          <div class="meta">Average response time after automation, down from about 8 minutes</div>
+        </div>
+        <div class="cell">
+          <div class="num" style="background:linear-gradient(135deg,#ff8c00,#ff6b35);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">5</div>
+          <div class="meta">Restaurant branches centralized under one cleaner system</div>
+        </div>
+      </div>
+      <div class="case-box" style="margin-top:28px;">
+        <div class="dark-panel">
+          <span class="label">Case study</span>
+          <h2 style="font-size:34px; margin-bottom:12px;">Sushi Seven unified 5 branches with a WhatsApp bot</h2>
+          <p style="color:var(--text-2);">The win was not just a bot. It was faster replies, cleaner order handling, and one more consistent customer experience across locations.</p>
+          <ul class="case-points">
+            <li>Reduced manual response pressure across multiple branches</li>
+            <li>Created a clearer flow for customer questions, orders, and follow-up</li>
+            <li>Built a stronger base for restaurant-specific automation</li>
+          </ul>
+          <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            <a href="case-study.html" class="btn btn-secondary" data-track="case_study_click" data-location="restaurants_case">Read the full case study</a>
+            <a href="https://tidycal.com/jmco177/ai-systems-implementation-session?utm_source=byagentx&utm_medium=website&utm_campaign=restaurants_case" class="btn btn-primary" data-track="tidycal_click" data-location="restaurants_case">Book restaurant strategy call →</a>
+          </div>
+        </div>
+        <div class="hero-card">
+          <img src="assets/round4/byagentx-cta-v1.png" alt="AgentX restaurant growth visual" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cta-panel">
+        <span class="label">Next step</span>
+        <h2 style="font-size:clamp(32px,4vw,56px); line-height:1.05; letter-spacing:-.04em; margin-bottom:14px;">Let’s identify the first restaurant bottleneck worth automating</h2>
+        <p style="font-size:18px; color:var(--text-2); max-width:760px;">On the strategy call, we’ll look at where your restaurant is losing speed, consistency, or order volume — and tell you what system to fix first.</p>
+        <div class="microcopy" style="margin-top:18px; margin-bottom:22px;">
+          <span>✓ No commitment</span>
+          <span>✓ Restaurant-specific recommendations</span>
+          <span>✓ Start with one system, not a giant rollout</span>
+        </div>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="https://tidycal.com/jmco177/ai-systems-implementation-session?utm_source=byagentx&utm_medium=website&utm_campaign=restaurants_final" class="btn btn-primary" data-track="tidycal_click" data-location="restaurants_final">Book restaurant strategy call →</a>
+          <a href="#faq" class="btn btn-secondary">See common questions</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq" style="padding-top:0;">
+    <div class="container">
+      <div class="section-head">
+        <span class="label">FAQ</span>
+        <h2>Questions restaurant owners usually ask first</h2>
+      </div>
+      <div class="faq-grid">
+        <div class="faq">
+          <h3>How fast can this go live?</h3>
+          <p>Most first systems can be scoped, built, and launched in about 72 hours once the workflow is clear.</p>
+        </div>
+        <div class="faq">
+          <h3>Do I need to automate everything at once?</h3>
+          <p>No. The smartest move is usually to start with the biggest operational leak first, then expand after it proves ROI.</p>
+        </div>
+        <div class="faq">
+          <h3>Is this only for chains?</h3>
+          <p>No. It works for single-location operators too, especially when WhatsApp and manual follow-up are already eating time.</p>
+        </div>
+        <div class="faq">
+          <h3>What happens on the call?</h3>
+          <p>We identify the first bottleneck worth fixing, show you where automation can actually help, and recommend the clearest next step.</p>
+        </div>
+      </div>
+      <p class="muted" style="margin-top:18px;">Payments are processed securely in USD via Stripe if you decide to buy directly after the strategy call.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-row">
+      <div>AgentX · Restaurant automation for operators who need real execution</div>
+      <div style="display:flex; gap:16px; flex-wrap:wrap;">
+        <a href="/" style="color:inherit; text-decoration:none;">Home</a>
+        <a href="case-study.html" style="color:inherit; text-decoration:none;">Case study</a>
+        <a href="https://tidycal.com/jmco177/ai-systems-implementation-session?utm_source=byagentx&utm_medium=website&utm_campaign=restaurants_footer" style="color:inherit; text-decoration:none;" data-track="tidycal_click" data-location="restaurants_footer">Book call</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function trackEvent(name, data) {
+      const payload = Object.assign({ event: name, page: window.location.pathname, timestamp: new Date().toISOString() }, data || {});
+      try {
+        const events = JSON.parse(localStorage.getItem('agentx_events') || '[]');
+        events.push(payload);
+        localStorage.setItem('agentx_events', JSON.stringify(events.slice(-50)));
+      } catch (e) {}
+      if (window.dataLayer && Array.isArray(window.dataLayer)) window.dataLayer.push(payload);
+      if (typeof window.gtag === 'function') window.gtag('event', name, data || {});
+      if (typeof window.plausible === 'function') window.plausible(name, { props: data || {} });
+    }
+    document.querySelectorAll('[data-track]').forEach(el => {
+      el.addEventListener('click', () => {
+        trackEvent(el.dataset.track, {
+          location: el.dataset.location || '',
+          href: el.getAttribute('href') || ''
+        });
+      });
+    });
+  </script>
+</body>
+</html>
